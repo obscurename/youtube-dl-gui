@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.InteropServices
+Imports System.Reflection
 
 Public Class Main
 
@@ -13,6 +14,8 @@ Public Class Main
     End Function
 
     Private Sub TestButton_Click(sender As Object, e As EventArgs) Handles TestButton.Click
+        MsgBox(Application.ExecutablePath)
+        MessageBox.Show(AssemblyName.GetAssemblyName(Application.ExecutablePath).Version.ToString)
         MsgBox("-i " & "File" & " -ab " & cbConvQuality.Text & " " & ConvertFileName & "." & cbConvFormat.Text)
         MsgBox("-i """ & "File" & """ -ab " & cbConvQuality.Text & " " & txtConvSave.Text & "\" & ConvertFileName & "." & cbConvFormat.Text)
     End Sub
@@ -182,8 +185,6 @@ Public Class Main
         End If
 
         SendMessage(Me.txtURL.Handle, &H1501, 0, "URL goes here")
-
-        vers.Text = "v" & My.Application.Info.Version.ToString
     End Sub
     Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Enter Then
@@ -192,6 +193,9 @@ Public Class Main
         End If
     End Sub
     Private Sub Main_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        Dim GetAppVers As String = My.Application.Info.Version.ToString.Replace(".0", "")
+        vers.Text = "v" & GetAppVers
+
         btnDownload.Focus()
     End Sub
     Private Sub ArgChecker()
@@ -228,6 +232,13 @@ Public Class Main
                     End If
                 End If
             End If
+        End If
+    End Sub
+    Private Sub txtURL_TextChanged(sender As Object, e As EventArgs) Handles txtURL.TextChanged
+        If Not txtURL.Text.Contains("youtube.com/watch?v=") Then
+            gbDownloadAs.Enabled = False
+        Else
+            gbDownloadAs.Enabled = True
         End If
     End Sub
     Public Sub DownloadFromYoutube(ByVal URL As String, ByVal Args As String)
@@ -294,7 +305,7 @@ Public Class Main
     Private Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
         DownloadFromYoutube(txtURL.Text, txtArgs.Text)
     End Sub
-    Private Sub btnOptions_Click(sender As Object, e As EventArgs) Handles btnOptions.Click
+    Private Sub btnOptions_Click(sender As Object, e As EventArgs)
         Settings.Show()
     End Sub
     Private Sub LinkHelp_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkHelp.LinkClicked

@@ -35,7 +35,6 @@ Partial Class Main
         Me.txtArgs = New System.Windows.Forms.TextBox()
         Me.btnDownload = New System.Windows.Forms.Button()
         Me.txtURL = New System.Windows.Forms.TextBox()
-        Me.btnOptions = New System.Windows.Forms.Button()
         Me.cbQuality = New System.Windows.Forms.ComboBox()
         Me.lblAudioFormat = New System.Windows.Forms.Label()
         Me.cbFormat = New System.Windows.Forms.ComboBox()
@@ -57,10 +56,11 @@ Partial Class Main
         Me.lblSaveAs = New System.Windows.Forms.Label()
         Me.chkSaveToMaster = New System.Windows.Forms.CheckBox()
         Me.tabAbout = New System.Windows.Forms.TabPage()
-        Me.GithubLink = New System.Windows.Forms.LinkLabel()
         Me.Truth = New System.Windows.Forms.Label()
         Me.lblAbout = New System.Windows.Forms.Label()
+        Me.GithubLink = New System.Windows.Forms.LinkLabel()
         Me.vers = New System.Windows.Forms.Label()
+        Me.btnOptions = New System.Windows.Forms.Button()
         Me.gbDownloadAs.SuspendLayout()
         Me.MainTabs.SuspendLayout()
         Me.tabDownload.SuspendLayout()
@@ -83,7 +83,7 @@ Partial Class Main
         Me.gbDownloadAs.Controls.Add(Me.rbCustom)
         Me.gbDownloadAs.Controls.Add(Me.rbAudio)
         Me.gbDownloadAs.Controls.Add(Me.rbVideo)
-        Me.gbDownloadAs.Location = New System.Drawing.Point(8, 47)
+        Me.gbDownloadAs.Location = New System.Drawing.Point(7, 47)
         Me.gbDownloadAs.Name = "gbDownloadAs"
         Me.gbDownloadAs.Size = New System.Drawing.Size(226, 47)
         Me.gbDownloadAs.TabIndex = 2
@@ -93,7 +93,7 @@ Partial Class Main
         'LinkHelp
         '
         Me.LinkHelp.AutoSize = True
-        Me.LinkHelp.Location = New System.Drawing.Point(191, 21)
+        Me.LinkHelp.Location = New System.Drawing.Point(190, 21)
         Me.LinkHelp.Name = "LinkHelp"
         Me.LinkHelp.Size = New System.Drawing.Size(13, 13)
         Me.LinkHelp.TabIndex = 3
@@ -105,7 +105,7 @@ Partial Class Main
         'rbCustom
         '
         Me.rbCustom.AutoSize = True
-        Me.rbCustom.Location = New System.Drawing.Point(139, 19)
+        Me.rbCustom.Location = New System.Drawing.Point(138, 19)
         Me.rbCustom.Name = "rbCustom"
         Me.rbCustom.Size = New System.Drawing.Size(59, 17)
         Me.rbCustom.TabIndex = 2
@@ -116,7 +116,7 @@ Partial Class Main
         'rbAudio
         '
         Me.rbAudio.AutoSize = True
-        Me.rbAudio.Location = New System.Drawing.Point(82, 19)
+        Me.rbAudio.Location = New System.Drawing.Point(81, 19)
         Me.rbAudio.Name = "rbAudio"
         Me.rbAudio.Size = New System.Drawing.Size(51, 17)
         Me.rbAudio.TabIndex = 1
@@ -127,7 +127,7 @@ Partial Class Main
         '
         Me.rbVideo.AutoSize = True
         Me.rbVideo.Checked = True
-        Me.rbVideo.Location = New System.Drawing.Point(25, 19)
+        Me.rbVideo.Location = New System.Drawing.Point(24, 19)
         Me.rbVideo.Name = "rbVideo"
         Me.rbVideo.Size = New System.Drawing.Size(51, 17)
         Me.rbVideo.TabIndex = 0
@@ -138,7 +138,7 @@ Partial Class Main
         'lblAudioQuality
         '
         Me.lblAudioQuality.AutoSize = True
-        Me.lblAudioQuality.Location = New System.Drawing.Point(51, 105)
+        Me.lblAudioQuality.Location = New System.Drawing.Point(53, 105)
         Me.lblAudioQuality.Name = "lblAudioQuality"
         Me.lblAudioQuality.Size = New System.Drawing.Size(69, 13)
         Me.lblAudioQuality.TabIndex = 4
@@ -164,9 +164,9 @@ Partial Class Main
         '
         'btnDownload
         '
-        Me.btnDownload.Location = New System.Drawing.Point(166, 201)
+        Me.btnDownload.Location = New System.Drawing.Point(6, 199)
         Me.btnDownload.Name = "btnDownload"
-        Me.btnDownload.Size = New System.Drawing.Size(68, 23)
+        Me.btnDownload.Size = New System.Drawing.Size(228, 23)
         Me.btnDownload.TabIndex = 7
         Me.btnDownload.Text = "Download"
         Me.btnDownload.UseVisualStyleBackColor = True
@@ -179,21 +179,12 @@ Partial Class Main
         Me.txtURL.TabIndex = 8
         Me.txtURL.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'btnOptions
-        '
-        Me.btnOptions.Location = New System.Drawing.Point(8, 201)
-        Me.btnOptions.Name = "btnOptions"
-        Me.btnOptions.Size = New System.Drawing.Size(69, 23)
-        Me.btnOptions.TabIndex = 9
-        Me.btnOptions.Text = "Options"
-        Me.btnOptions.UseVisualStyleBackColor = True
-        '
         'cbQuality
         '
         Me.cbQuality.Enabled = False
         Me.cbQuality.FormattingEnabled = True
         Me.cbQuality.Items.AddRange(New Object() {"8K", "16K", "24K", "32K", "40K", "48K", "56K", "64K", "80K", "96K", "112K", "128K", "144K", "160K", "192K", "224K", "256K", "320K"})
-        Me.cbQuality.Location = New System.Drawing.Point(126, 102)
+        Me.cbQuality.Location = New System.Drawing.Point(128, 102)
         Me.cbQuality.Name = "cbQuality"
         Me.cbQuality.Size = New System.Drawing.Size(59, 21)
         Me.cbQuality.TabIndex = 3
@@ -201,7 +192,7 @@ Partial Class Main
         'lblAudioFormat
         '
         Me.lblAudioFormat.AutoSize = True
-        Me.lblAudioFormat.Location = New System.Drawing.Point(51, 132)
+        Me.lblAudioFormat.Location = New System.Drawing.Point(53, 132)
         Me.lblAudioFormat.Name = "lblAudioFormat"
         Me.lblAudioFormat.Size = New System.Drawing.Size(69, 13)
         Me.lblAudioFormat.TabIndex = 13
@@ -212,7 +203,7 @@ Partial Class Main
         Me.cbFormat.Enabled = False
         Me.cbFormat.FormattingEnabled = True
         Me.cbFormat.Items.AddRange(New Object() {"best", "aac", "vorbis", "mp3", "m4a", "opus", "wav"})
-        Me.cbFormat.Location = New System.Drawing.Point(126, 129)
+        Me.cbFormat.Location = New System.Drawing.Point(128, 129)
         Me.cbFormat.Name = "cbFormat"
         Me.cbFormat.Size = New System.Drawing.Size(59, 21)
         Me.cbFormat.TabIndex = 12
@@ -244,7 +235,6 @@ Partial Class Main
         Me.tabDownload.Controls.Add(Me.cbQuality)
         Me.tabDownload.Controls.Add(Me.lblAudioQuality)
         Me.tabDownload.Controls.Add(Me.lblCustomArgs)
-        Me.tabDownload.Controls.Add(Me.btnOptions)
         Me.tabDownload.Controls.Add(Me.txtArgs)
         Me.tabDownload.Controls.Add(Me.txtURL)
         Me.tabDownload.Controls.Add(Me.btnDownload)
@@ -258,7 +248,7 @@ Partial Class Main
         '
         'TestButton
         '
-        Me.TestButton.Location = New System.Drawing.Point(83, 201)
+        Me.TestButton.Location = New System.Drawing.Point(160, 199)
         Me.TestButton.Name = "TestButton"
         Me.TestButton.Size = New System.Drawing.Size(75, 23)
         Me.TestButton.TabIndex = 14
@@ -285,13 +275,13 @@ Partial Class Main
         Me.tabConvert.Padding = New System.Windows.Forms.Padding(3)
         Me.tabConvert.Size = New System.Drawing.Size(241, 227)
         Me.tabConvert.TabIndex = 1
-        Me.tabConvert.Text = "Convert to MP3"
+        Me.tabConvert.Text = "Convert Audio"
         Me.tabConvert.UseVisualStyleBackColor = True
         '
         'btnConvert
         '
         Me.btnConvert.Enabled = False
-        Me.btnConvert.Location = New System.Drawing.Point(158, 181)
+        Me.btnConvert.Location = New System.Drawing.Point(83, 186)
         Me.btnConvert.Name = "btnConvert"
         Me.btnConvert.Size = New System.Drawing.Size(75, 23)
         Me.btnConvert.TabIndex = 18
@@ -301,7 +291,7 @@ Partial Class Main
         'lblConvertAudioFormat
         '
         Me.lblConvertAudioFormat.AutoSize = True
-        Me.lblConvertAudioFormat.Location = New System.Drawing.Point(50, 157)
+        Me.lblConvertAudioFormat.Location = New System.Drawing.Point(53, 157)
         Me.lblConvertAudioFormat.Name = "lblConvertAudioFormat"
         Me.lblConvertAudioFormat.Size = New System.Drawing.Size(69, 13)
         Me.lblConvertAudioFormat.TabIndex = 17
@@ -311,7 +301,7 @@ Partial Class Main
         '
         Me.cbConvFormat.FormattingEnabled = True
         Me.cbConvFormat.Items.AddRange(New Object() {"best", "aac", "vorbis", "mp3", "m4a", "opus", "wav"})
-        Me.cbConvFormat.Location = New System.Drawing.Point(125, 154)
+        Me.cbConvFormat.Location = New System.Drawing.Point(128, 154)
         Me.cbConvFormat.Name = "cbConvFormat"
         Me.cbConvFormat.Size = New System.Drawing.Size(59, 21)
         Me.cbConvFormat.TabIndex = 16
@@ -321,7 +311,7 @@ Partial Class Main
         '
         Me.cbConvQuality.FormattingEnabled = True
         Me.cbConvQuality.Items.AddRange(New Object() {"8K", "16K", "24K", "32K", "40K", "48K", "56K", "64K", "80K", "96K", "112K", "128K", "144K", "160K", "192K", "224K", "256K", "320K"})
-        Me.cbConvQuality.Location = New System.Drawing.Point(125, 127)
+        Me.cbConvQuality.Location = New System.Drawing.Point(128, 127)
         Me.cbConvQuality.Name = "cbConvQuality"
         Me.cbConvQuality.Size = New System.Drawing.Size(59, 21)
         Me.cbConvQuality.TabIndex = 14
@@ -330,7 +320,7 @@ Partial Class Main
         'lblConvertAudioQuality
         '
         Me.lblConvertAudioQuality.AutoSize = True
-        Me.lblConvertAudioQuality.Location = New System.Drawing.Point(50, 130)
+        Me.lblConvertAudioQuality.Location = New System.Drawing.Point(53, 130)
         Me.lblConvertAudioQuality.Name = "lblConvertAudioQuality"
         Me.lblConvertAudioQuality.Size = New System.Drawing.Size(69, 13)
         Me.lblConvertAudioQuality.TabIndex = 15
@@ -405,6 +395,7 @@ Partial Class Main
         '
         'tabAbout
         '
+        Me.tabAbout.Controls.Add(Me.btnOptions)
         Me.tabAbout.Controls.Add(Me.Truth)
         Me.tabAbout.Controls.Add(Me.lblAbout)
         Me.tabAbout.Location = New System.Drawing.Point(4, 22)
@@ -414,16 +405,6 @@ Partial Class Main
         Me.tabAbout.TabIndex = 2
         Me.tabAbout.Text = "About"
         Me.tabAbout.UseVisualStyleBackColor = True
-        '
-        'GithubLink
-        '
-        Me.GithubLink.AutoSize = True
-        Me.GithubLink.Location = New System.Drawing.Point(207, 255)
-        Me.GithubLink.Name = "GithubLink"
-        Me.GithubLink.Size = New System.Drawing.Size(38, 13)
-        Me.GithubLink.TabIndex = 2
-        Me.GithubLink.TabStop = True
-        Me.GithubLink.Text = "Github"
         '
         'Truth
         '
@@ -447,6 +428,16 @@ Partial Class Main
     " from the Internet"
         Me.lblAbout.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
+        'GithubLink
+        '
+        Me.GithubLink.AutoSize = True
+        Me.GithubLink.Location = New System.Drawing.Point(207, 255)
+        Me.GithubLink.Name = "GithubLink"
+        Me.GithubLink.Size = New System.Drawing.Size(38, 13)
+        Me.GithubLink.TabIndex = 2
+        Me.GithubLink.TabStop = True
+        Me.GithubLink.Text = "Github"
+        '
         'vers
         '
         Me.vers.AutoSize = True
@@ -455,6 +446,15 @@ Partial Class Main
         Me.vers.Size = New System.Drawing.Size(27, 13)
         Me.vers.TabIndex = 2
         Me.vers.Text = "vers"
+        '
+        'btnOptions
+        '
+        Me.btnOptions.Location = New System.Drawing.Point(86, 128)
+        Me.btnOptions.Name = "btnOptions"
+        Me.btnOptions.Size = New System.Drawing.Size(69, 23)
+        Me.btnOptions.TabIndex = 10
+        Me.btnOptions.Text = "Options"
+        Me.btnOptions.UseVisualStyleBackColor = True
         '
         'Main
         '
@@ -494,7 +494,6 @@ Partial Class Main
     Friend WithEvents txtArgs As System.Windows.Forms.TextBox
     Friend WithEvents btnDownload As System.Windows.Forms.Button
     Friend WithEvents txtURL As System.Windows.Forms.TextBox
-    Friend WithEvents btnOptions As System.Windows.Forms.Button
     Friend WithEvents cbQuality As System.Windows.Forms.ComboBox
     Friend WithEvents lblAudioFormat As System.Windows.Forms.Label
     Friend WithEvents cbFormat As System.Windows.Forms.ComboBox
@@ -520,5 +519,6 @@ Partial Class Main
     Friend WithEvents Truth As System.Windows.Forms.Label
     Friend WithEvents GithubLink As System.Windows.Forms.LinkLabel
     Friend WithEvents vers As System.Windows.Forms.Label
+    Friend WithEvents btnOptions As System.Windows.Forms.Button
 
 End Class
