@@ -1,4 +1,1 @@
-Moved "Settings" button to "About" tab
-Resized "Download" button
-Updated version string to not include any ".0" integers within the app version when getting the app version.
-Renamed "Convert to MP3" tab to "Convert Audio"
+Fixed the "?" hyperlink in the "Download as" section as it appeared to overlap the "custom" option on certain Windows themes.
