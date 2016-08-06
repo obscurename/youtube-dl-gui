@@ -15,7 +15,7 @@ This is simply a GUI for said application for windows users, without the inconsi
 
 or:
 
-- Download youtube-dl-gui-updater.exe and run it, it will download in the same directory. It's recommended to still have these two files in a location you won't mess with, since there is no installer.
+- Download youtube-dl-gui-updater and run it, it will download youtube-dl-gui into the same directory. It's recommended to still have these two files in a location you won't mess with, since there is no installer.
 
 # Confirmed working sites
 
