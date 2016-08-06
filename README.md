@@ -1,4 +1,5 @@
 # youtube-dl-gui
+Screenshot [here](https://i.imgur.com/pRPAFFH.png)  
 GUI for youtube-dl (youtube-dl not included, but is downloaded.)  
 This program simplifies the youtube-dl application by rg3, and gives it a user friendly interface for downloading from websites. Please use these tools responsibly, and not for piracy, they were not meant for that. Or at least mine wasn't.  
 youtube-dl is made by rg3, not I. Download it manually (if you chose, this program automates it) from here: https://rg3.github.io/youtube-dl
