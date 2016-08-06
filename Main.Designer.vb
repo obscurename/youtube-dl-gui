@@ -56,11 +56,11 @@ Partial Class Main
         Me.lblSaveAs = New System.Windows.Forms.Label()
         Me.chkSaveToMaster = New System.Windows.Forms.CheckBox()
         Me.tabAbout = New System.Windows.Forms.TabPage()
+        Me.btnOptions = New System.Windows.Forms.Button()
         Me.Truth = New System.Windows.Forms.Label()
         Me.lblAbout = New System.Windows.Forms.Label()
         Me.GithubLink = New System.Windows.Forms.LinkLabel()
         Me.vers = New System.Windows.Forms.Label()
-        Me.btnOptions = New System.Windows.Forms.Button()
         Me.gbDownloadAs.SuspendLayout()
         Me.MainTabs.SuspendLayout()
         Me.tabDownload.SuspendLayout()
@@ -93,7 +93,7 @@ Partial Class Main
         'LinkHelp
         '
         Me.LinkHelp.AutoSize = True
-        Me.LinkHelp.Location = New System.Drawing.Point(190, 21)
+        Me.LinkHelp.Location = New System.Drawing.Point(191, 21)
         Me.LinkHelp.Name = "LinkHelp"
         Me.LinkHelp.Size = New System.Drawing.Size(13, 13)
         Me.LinkHelp.TabIndex = 3
@@ -105,7 +105,7 @@ Partial Class Main
         'rbCustom
         '
         Me.rbCustom.AutoSize = True
-        Me.rbCustom.Location = New System.Drawing.Point(138, 19)
+        Me.rbCustom.Location = New System.Drawing.Point(137, 19)
         Me.rbCustom.Name = "rbCustom"
         Me.rbCustom.Size = New System.Drawing.Size(59, 17)
         Me.rbCustom.TabIndex = 2
@@ -116,7 +116,7 @@ Partial Class Main
         'rbAudio
         '
         Me.rbAudio.AutoSize = True
-        Me.rbAudio.Location = New System.Drawing.Point(81, 19)
+        Me.rbAudio.Location = New System.Drawing.Point(80, 19)
         Me.rbAudio.Name = "rbAudio"
         Me.rbAudio.Size = New System.Drawing.Size(51, 17)
         Me.rbAudio.TabIndex = 1
@@ -127,7 +127,7 @@ Partial Class Main
         '
         Me.rbVideo.AutoSize = True
         Me.rbVideo.Checked = True
-        Me.rbVideo.Location = New System.Drawing.Point(24, 19)
+        Me.rbVideo.Location = New System.Drawing.Point(23, 19)
         Me.rbVideo.Name = "rbVideo"
         Me.rbVideo.Size = New System.Drawing.Size(51, 17)
         Me.rbVideo.TabIndex = 0
@@ -406,6 +406,15 @@ Partial Class Main
         Me.tabAbout.Text = "About"
         Me.tabAbout.UseVisualStyleBackColor = True
         '
+        'btnOptions
+        '
+        Me.btnOptions.Location = New System.Drawing.Point(86, 128)
+        Me.btnOptions.Name = "btnOptions"
+        Me.btnOptions.Size = New System.Drawing.Size(69, 23)
+        Me.btnOptions.TabIndex = 10
+        Me.btnOptions.Text = "Options"
+        Me.btnOptions.UseVisualStyleBackColor = True
+        '
         'Truth
         '
         Me.Truth.AutoSize = True
@@ -446,15 +455,6 @@ Partial Class Main
         Me.vers.Size = New System.Drawing.Size(27, 13)
         Me.vers.TabIndex = 2
         Me.vers.Text = "vers"
-        '
-        'btnOptions
-        '
-        Me.btnOptions.Location = New System.Drawing.Point(86, 128)
-        Me.btnOptions.Name = "btnOptions"
-        Me.btnOptions.Size = New System.Drawing.Size(69, 23)
-        Me.btnOptions.TabIndex = 10
-        Me.btnOptions.Text = "Options"
-        Me.btnOptions.UseVisualStyleBackColor = True
         '
         'Main
         '
