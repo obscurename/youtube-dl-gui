@@ -343,7 +343,7 @@ Public Class Main
         End If
     End Sub
     Private Sub btnBrowseConvFile_Click(sender As Object, e As EventArgs) Handles btnBrowseConvFile.Click
-        Dim OFD As New OpenFileDialog With {.Title = "Select file to convert", .Filter = "Video Files (*.mp4, *.avi, *.flv, *.mkv)|*.mp4;*.avi;*.flv;*.mkv|Audio Files (*.mp3, *.m4a, *.wav, *.oog)|*.mp3;*.m4a;*.wav;*.oog"}
+        Dim OFD As New OpenFileDialog With {.Title = "Select file to convert", .Filter = "Video Files (*.mp4, *.avi, *.flv, *.mkv, *.webm)|*.mp4;*.avi;*.flv;*.mkv;*.webm|Audio Files (*.mp3, *.m4a, *.wav, *.oog)|*.mp3;*.m4a;*.wav;*.oog"}
         Select Case OFD.ShowDialog
             Case Windows.Forms.DialogResult.OK
                 txtConvFile.Text = OFD.FileName

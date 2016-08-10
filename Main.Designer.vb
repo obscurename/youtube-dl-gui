@@ -433,7 +433,7 @@ Partial Class Main
         Me.lblAbout.Name = "lblAbout"
         Me.lblAbout.Size = New System.Drawing.Size(211, 39)
         Me.lblAbout.TabIndex = 0
-        Me.lblAbout.Text = "youtue-dl GUI made by ecaep42" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "youtube-dl made by rg3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Inifile support by Someone" & _
+        Me.lblAbout.Text = "youtue-dl GUI made by Obscure" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "youtube-dl made by rg3" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Inifile support by Someone" & _
     " from the Internet"
         Me.lblAbout.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
