@@ -9,14 +9,15 @@ This is simply a GUI for said application for windows users, without the inconsi
 (rg3: if you want me to remove this, lemme know. if i don't remove it after you try to contact me, I'm sorry i have no idea how contacting people works on github)
 
 # Installing
+You will need [ffmpeg](https://ffmpeg.org/) to allow audio downloading/converting, I suspect putting "ffmpeg.exe" at the same directory as youtube-dl will work, but I'm not completely sure, and do not have a secondary machine to test it available to me currently.
+
 - Download the executable, or ZIP file
 - Place the .exe in a folder that you won't mess with, (ie: C:\youtube-dl-gui)
 - In places that required administrative permission to place files, run the program as admin for the first time to download the required binary file to make it work. Afterwards, you will not need to run it as administrator again, unless you prefer to update the executable, then delete the youtube-dl.exe the program downloaded and re-run it as admin to redownload.
-- You will need ffmpeg to allow audio downloading/converting, I suspect putting "ffmpeg.exe" at the same directory as youtube-dl will work, but I'm not completely sure, and do not have a secondary machine to test it available to me currently.  
 
 or:
 
-- Download youtube-dl-gui-updater and run it, it will download youtube-dl-gui into the same directory. It's recommended to still have these two files in a location you won't mess with, since there is no installer.
+- Download youtube-dl-gui-updater and run it, it will download youtube-dl-gui into the same directory. It's recommended to still have these two files in a location you won't mess with, since there is no installer.  
 
 # Confirmed working sites
 
