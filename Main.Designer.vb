@@ -83,6 +83,7 @@ Partial Class Main
         Me.gbDownloadAs.Controls.Add(Me.rbCustom)
         Me.gbDownloadAs.Controls.Add(Me.rbAudio)
         Me.gbDownloadAs.Controls.Add(Me.rbVideo)
+        Me.gbDownloadAs.Enabled = False
         Me.gbDownloadAs.Location = New System.Drawing.Point(7, 47)
         Me.gbDownloadAs.Name = "gbDownloadAs"
         Me.gbDownloadAs.Size = New System.Drawing.Size(226, 47)

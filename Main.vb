@@ -6,6 +6,7 @@ Public Class Main
     Dim LogError As New ErrorLogger
     Dim Registry As New RegistryEditor
     Dim INI As New IniFile(Application.StartupPath & "\Settings.ini")
+    Dim IniReadOnly As Boolean
     Dim ConvertFileName As String
     Dim ConvertFilePath As String
 
@@ -97,13 +98,22 @@ Public Class Main
     End Sub
     Private Sub CreateIniSettings()
         INI.WriteString("Settings", "HoverURL", "True")
+        INI.WriteString("Settings", "AutoClearURL", "True")
         INI.WriteString("Settings", "DeleteExecutable", "False")
         INI.WriteString("Settings", "EnableAppUpdate", "False")
         INI.WriteInteger("Settings", "AppUpdateInterval", 1)
         INI.WriteString("Settings", "DownloadPath", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads")
     End Sub
     Private Sub LoadIni()
+        If IniCheckForReadOnly() = True Then
+            MessageBox.Show("The settings file is ReadOnly! I'm not able to change any settings within the program. The settings will not be changable until the file is not Read Only.", "youtube-dl GUI", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            IniReadOnly = True
+        Else
+            IniReadOnly = False
+        End If
+
         Dim HoverURL As String = INI.GetString("Settings", "HoverURL", "True")
+        Dim AutoClearURL As String = INI.GetString("Settings", "AutoClearURL", "True")
         Dim DeleteExecutable As String = INI.GetString("Settings", "DeleteExecutable", "False")
         Dim EnableAppUpdate As String = INI.GetString("Settings", "EnableAppUpdate", "False")
         Dim AppUpdateInterval As Integer = INI.GetInteger("Settings", "AppUpdateInterval", 1)
@@ -114,9 +124,49 @@ Public Class Main
         ElseIf HoverURL = "False" Then
             Settings.chkHoverURL.Checked = False
         Else
-            MessageBox.Show("Unable to get HoverURL setting. Reverting to default.", "youtube-dl GUI", MessageBoxButtons.OK)
-            INI.WriteString("Settings", "HoverURL", "True")
-            Settings.chkHoverURL.Checked = True
+            'MessageBox.Show("Unable to get HoverURL setting. Reverting to default.", "youtube-dl GUI", MessageBoxButtons.OK)
+            'INI.WriteString("Settings", "HoverURL", "True")
+            'Settings.chkHoverURL.Checked = True
+            If Not IniReadOnly = True Then
+                Select Case MessageBox.Show("Unable to get setting for ""HoverURL"". Would you like to enable HoverURL? Cancel = Default (Your choice here will overwrite the setting within the settings file!)", "youtube-dl GUI", MessageBoxButtons.YesNoCancel)
+                    Case Windows.Forms.DialogResult.Yes
+                        INI.WriteString("Settings", "HoverURL", "True")
+                        Settings.chkHoverURL.Checked = True
+                    Case Windows.Forms.DialogResult.No
+                        INI.WriteString("Settings", "HoverURL", "False")
+                        Settings.chkHoverURL.Checked = False
+                    Case Windows.Forms.DialogResult.Cancel
+                        INI.WriteString("Settings", "HoverURL", "True")
+                        Settings.chkHoverURL.Checked = True
+                End Select
+            Else
+                Settings.chkHoverURL.Checked = True
+            End If
+        End If
+
+        If AutoClearURL = "True" Then
+            Settings.chkAutoClearURL.Checked = True
+        ElseIf AutoClearURL = "False" Then
+            Settings.chkAutoClearURL.Checked = False
+        Else
+            'MessageBox.Show("Unable to get AutoClearURL setting. Reverting to default.", "youtube-dl GUI", MessageBoxButtons.OK)
+            'INI.WriteString("Settings", "AutoClearURL", "True")
+            'Settings.chkHoverURL.Checked = True
+            If Not IniReadOnly = True Then
+                Select Case MessageBox.Show("Unable to get setting for ""AutoClearURL"". Would you like to enable AutoClearURL? Cancel = Default (Your choice here will overwrite the setting within the settings file!)", "youtube-dl GUI", MessageBoxButtons.YesNoCancel)
+                    Case Windows.Forms.DialogResult.Yes
+                        INI.WriteString("Settings", "AutoClearURL", "True")
+                        Settings.chkAutoClearURL.Checked = True
+                    Case Windows.Forms.DialogResult.No
+                        INI.WriteString("Settings", "AutoClearURL", "False")
+                        Settings.chkAutoClearURL.Checked = False
+                    Case Windows.Forms.DialogResult.Cancel
+                        INI.WriteString("Settings", "AutoClearURL", "True")
+                        Settings.chkAutoClearURL.Checked = True
+                End Select
+            Else
+                Settings.chkAutoClearURL.Checked = True
+            End If
         End If
 
         If DeleteExecutable = "True" Then
@@ -124,17 +174,48 @@ Public Class Main
         ElseIf DeleteExecutable = "False" Then
             Settings.chkDeleteExecutable.Checked = False
         Else
-            MessageBox.Show("Unable to get DeleteExecutable setting. Reverting to default.", "youtube-dl GUI", MessageBoxButtons.OK)
-            INI.WriteString("Settings", "DeleteExecutable", "True")
-            Settings.chkDeleteExecutable.Checked = False
+            'MessageBox.Show("Unable to get DeleteExecutable setting. Reverting to default.", "youtube-dl GUI", MessageBoxButtons.OK)
+            'INI.WriteString("Settings", "DeleteExecutable", "False")
+            'Settings.chkDeleteExecutable.Checked = False
+            If Not IniReadOnly = True Then
+                Select Case MessageBox.Show("Unable to get setting for ""DeleteExecutable"". Would you like to enable DeleteExecutable? Cancel = Default (Your choice here will overwrite the setting within the settings file!)", "youtube-dl GUI", MessageBoxButtons.YesNoCancel)
+                    Case Windows.Forms.DialogResult.Yes
+                        INI.WriteString("Settings", "DeleteExecutable", "True")
+                        Settings.chkDeleteExecutable.Checked = True
+                    Case Windows.Forms.DialogResult.No
+                        INI.WriteString("Settings", "DeleteExecutable", "False")
+                        Settings.chkDeleteExecutable.Checked = False
+                    Case Windows.Forms.DialogResult.Cancel
+                        INI.WriteString("Settings", "DeleteExecutable", "False")
+                        Settings.chkDeleteExecutable.Checked = False
+                End Select
+            Else
+                Settings.chkDeleteExecutable.Checked = False
+            End If
         End If
 
         If Not DownloadPath = Nothing Then
             Settings.txtDownloadLocation.Text = DownloadPath
         Else
-            MessageBox.Show("Unable to get DownloadPath setting. Reverting to default.", "youtube-dl GUI", MessageBoxButtons.OK)
-            INI.WriteString("Settings", "DownloadPath", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads")
-            Settings.chkDeleteExecutable.Text = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads"
+            'MessageBox.Show("Unable to get DownloadPath setting. Reverting to default.", "youtube-dl GUI", MessageBoxButtons.OK)
+            'INI.WriteString("Settings", "DownloadPath", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads")
+            'Settings.chkDeleteExecutable.Text = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads"
+            If Not IniReadOnly = True Then
+                Select Case MessageBox.Show("Unable to get setting for ""DownloadPath"". Would you like to configure a custom download path? If not, the default will be used. (Your choice here will overwrite the setting within the settings file!)", "youtube-dl GUI", MessageBoxButtons.YesNo)
+                    Case Windows.Forms.DialogResult.Yes
+                        Dim FBD As New FolderBrowserDialog With {.Description = "Saving downloaded files to...", .RootFolder = Environment.SpecialFolder.UserProfile}
+                        Select Case FBD.ShowDialog
+                            Case Windows.Forms.DialogResult.OK
+                                INI.WriteString("Settings", "DownloadPath", FBD.SelectedPath)
+                                Settings.txtDownloadLocation.Text = FBD.SelectedPath
+                        End Select
+                    Case Windows.Forms.DialogResult.No
+                        INI.WriteString("Settings", "DownloadPath", Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads")
+                        Settings.chkDeleteExecutable.Text = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads"
+                End Select
+            Else
+                Settings.chkDeleteExecutable.Text = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) & "\Downloads"
+            End If
         End If
     End Sub
     Private Sub SaveIni()
@@ -154,6 +235,13 @@ Public Class Main
             INI.WriteString("Settings", "DownloadPath", Settings.txtDownloadLocation.Text)
         End If
     End Sub
+    Private Function IniCheckForReadOnly()
+        If GetAttr(INI.FileName) And vbReadOnly Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 #End Region
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -237,6 +325,7 @@ Public Class Main
     Private Sub txtURL_TextChanged(sender As Object, e As EventArgs) Handles txtURL.TextChanged
         If Not txtURL.Text.Contains("youtube.com/watch?v=") Then
             gbDownloadAs.Enabled = False
+            rbVideo.Checked = True
         Else
             gbDownloadAs.Enabled = True
         End If
@@ -304,9 +393,8 @@ Public Class Main
 
     Private Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
         DownloadFromYoutube(txtURL.Text, txtArgs.Text)
-    End Sub
-    Private Sub btnOptions_Click(sender As Object, e As EventArgs)
-        Settings.Show()
+        txtURL.Text = Nothing
+        gbDownloadAs.Enabled = False
     End Sub
     Private Sub LinkHelp_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkHelp.LinkClicked
         Process.Start("https://github.com/rg3/youtube-dl/blob/master/README.md")
@@ -380,7 +468,18 @@ Public Class Main
         Truth.Hide()
     End Sub
     Private Sub GithubLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles GithubLink.LinkClicked
-        Process.Start("https://github.com/ecaep42/youtube-dl-gui")
+        Process.Start("https://github.com/obscurename/youtube-dl-gui")
+    End Sub
+    Private Sub btnOptions_Click(sender As Object, e As EventArgs) Handles btnOptions.Click
+Retry:
+        If IniReadOnly = True Then
+            Select Case MessageBox.Show("You cannot edit the settings while the file is ReadOnly.", "youtube-dl GUI", MessageBoxButtons.RetryCancel)
+                Case Windows.Forms.DialogResult.Retry
+                    GoTo Retry
+            End Select
+        Else
+
+        End If
     End Sub
 #End Region
 End Class
