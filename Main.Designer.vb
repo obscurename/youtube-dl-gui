@@ -203,7 +203,7 @@ Partial Class Main
         '
         Me.cbFormat.Enabled = False
         Me.cbFormat.FormattingEnabled = True
-        Me.cbFormat.Items.AddRange(New Object() {"best", "aac", "vorbis", "mp3", "m4a", "opus", "wav"})
+        Me.cbFormat.Items.AddRange(New Object() {"best", "aac", "m4a", "mp3", "opus", "vorbis", "wav"})
         Me.cbFormat.Location = New System.Drawing.Point(128, 129)
         Me.cbFormat.Name = "cbFormat"
         Me.cbFormat.Size = New System.Drawing.Size(59, 21)
@@ -301,7 +301,7 @@ Partial Class Main
         'cbConvFormat
         '
         Me.cbConvFormat.FormattingEnabled = True
-        Me.cbConvFormat.Items.AddRange(New Object() {"best", "aac", "vorbis", "mp3", "m4a", "opus", "wav"})
+        Me.cbConvFormat.Items.AddRange(New Object() {"best", "aac", "flac", "m4a", "mp3", "opus", "vorbis", "wav"})
         Me.cbConvFormat.Location = New System.Drawing.Point(128, 154)
         Me.cbConvFormat.Name = "cbConvFormat"
         Me.cbConvFormat.Size = New System.Drawing.Size(59, 21)
