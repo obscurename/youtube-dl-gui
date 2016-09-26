@@ -4,6 +4,8 @@ GUI for youtube-dl (youtube-dl not included, but is downloaded.)
 This program simplifies the youtube-dl application by rg3, and gives it a user friendly interface for downloading from websites. Please use these tools responsibly, and not for piracy, they were not meant for that. Or at least mine wasn't.  
 youtube-dl is made by rg3, not I. Download it manually (if you chose, this program automates it) from here: https://rg3.github.io/youtube-dl
 
+For the record: This program is just a visual interface to make general public use easier. It runs youtube-mp3 & ffmpeg with arguments just as you would in Command Prompt. If you don't like it, what are you doing here silly?
+
 This is simply a GUI for said application for windows users, without the inconsistent GUI bloat, and weight, and possible viruses. youtube-dl is not included because it's not my program, instead this application automatically downloads it. I don't fully understand how youtube-dl works, so this is only including 3 donload options, Video, Audio (MP3), and Custom, as well as changable audio quality ranging from 8-320k. Custom lets you input your own youtube-dl arguments. Settings is not quite done yet, but will be included once I get around to finding a way to _save_ them. I, then, need to find a way to move the newely created file to a customizable path set by the user, but for now it saves the files in the youtube-dl folder.
 
 (rg3: if you want me to remove this, lemme know. if i don't remove it after you try to contact me, I'm sorry i have no idea how contacting people works on github)
