@@ -1,2 +1,9 @@
-Fixed the "?" hyperlink in the "Download as" section as it appeared to overlap the "custom" option on certain Windows themes.
-Changed "made by ecaep42" within the "About" tab to "made by Obscure".
+Added .webm support.
+Added FLAC to convertable audio options.
+Defaulted audio quality to 256k.
+Fixed the downloading so it works on the new layout.
+
+Minor updates:
+~ More hovering capability to view information on the objects within the program.
+~ Changed the way settings get loaded. If it's read-only, it will nnot be changable within the program, but will still be readable.
+~ Changed the link label URL.
