@@ -61,6 +61,8 @@ Partial Class Main
         Me.lblAbout = New System.Windows.Forms.Label()
         Me.GithubLink = New System.Windows.Forms.LinkLabel()
         Me.vers = New System.Windows.Forms.Label()
+        Me.chkDebug = New System.Windows.Forms.CheckBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.gbDownloadAs.SuspendLayout()
         Me.MainTabs.SuspendLayout()
         Me.tabDownload.SuspendLayout()
@@ -228,6 +230,7 @@ Partial Class Main
         '
         'tabDownload
         '
+        Me.tabDownload.Controls.Add(Me.chkDebug)
         Me.tabDownload.Controls.Add(Me.TestButton)
         Me.tabDownload.Controls.Add(Me.lblVideoURL)
         Me.tabDownload.Controls.Add(Me.lblAudioFormat)
@@ -396,6 +399,7 @@ Partial Class Main
         '
         'tabAbout
         '
+        Me.tabAbout.Controls.Add(Me.Button1)
         Me.tabAbout.Controls.Add(Me.btnOptions)
         Me.tabAbout.Controls.Add(Me.Truth)
         Me.tabAbout.Controls.Add(Me.lblAbout)
@@ -409,7 +413,7 @@ Partial Class Main
         '
         'btnOptions
         '
-        Me.btnOptions.Location = New System.Drawing.Point(86, 128)
+        Me.btnOptions.Location = New System.Drawing.Point(86, 135)
         Me.btnOptions.Name = "btnOptions"
         Me.btnOptions.Size = New System.Drawing.Size(69, 23)
         Me.btnOptions.TabIndex = 10
@@ -456,6 +460,28 @@ Partial Class Main
         Me.vers.Size = New System.Drawing.Size(27, 13)
         Me.vers.TabIndex = 2
         Me.vers.Text = "vers"
+        '
+        'chkDebug
+        '
+        Me.chkDebug.AutoSize = True
+        Me.chkDebug.Location = New System.Drawing.Point(123, 155)
+        Me.chkDebug.Name = "chkDebug"
+        Me.chkDebug.Size = New System.Drawing.Size(108, 17)
+        Me.chkDebug.TabIndex = 15
+        Me.chkDebug.Text = "Debug Download"
+        Me.ProgramInfo.SetToolTip(Me.chkDebug, "Check this box if the download isn't working on a video you know works. It will h" & _
+        "elp debug any problems in the Command Prompt window.")
+        Me.chkDebug.UseVisualStyleBackColor = True
+        Me.chkDebug.Visible = False
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(54, 52)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(133, 23)
+        Me.Button1.TabIndex = 11
+        Me.Button1.Text = "Re-download youtube-dl"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'Main
         '
@@ -521,5 +547,7 @@ Partial Class Main
     Friend WithEvents GithubLink As System.Windows.Forms.LinkLabel
     Friend WithEvents vers As System.Windows.Forms.Label
     Friend WithEvents btnOptions As System.Windows.Forms.Button
+    Friend WithEvents chkDebug As System.Windows.Forms.CheckBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

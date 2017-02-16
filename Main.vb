@@ -277,7 +277,7 @@ Public Class Main
     Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Enter Then
             btnDownload.Focus()
-            DownloadFromYoutube(txtURL.Text, txtArgs.Text)
+            StartDownload(txtURL.Text, txtArgs.Text)
         End If
     End Sub
     Private Sub Main_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -291,7 +291,7 @@ Public Class Main
             Select Case LTrim(LCase(arg))
                 Case Not ""
                     Try
-                        DownloadFromYoutube(LTrim(LCase(arg)), Nothing)
+                        StartDownload(LTrim(LCase(arg)), Nothing)
                     Catch ex As Exception
                         MsgBox(ex.ToString)
                     End Try
@@ -301,8 +301,10 @@ Public Class Main
     Private Function GetVersionFromHTML() As String
         Dim URL As String = "https://rg3.github.io/youtube-dl/download.html"
         Dim DownloadedHTML As New RichTextBox With {.Text = New Net.WebClient().DownloadString(URL)}
-        Dim SourceTrim As String = ReadLine(21, DownloadedHTML.Lines.ToList())
+        Dim SourceTrim As String = ReadLine(19, DownloadedHTML.Lines.ToList())
+        'MsgBox(SourceTrim)
         Dim ExtractVersion As String = SourceTrim.Substring(41, SourceTrim.Length - 147)
+        'MsgBox(ExtractVersion)
         Return ExtractVersion
     End Function
     Private Function ReadLine(WantedLine As Integer, LineList As List(Of String))
@@ -330,7 +332,7 @@ Public Class Main
             gbDownloadAs.Enabled = True
         End If
     End Sub
-    Public Sub DownloadFromYoutube(ByVal URL As String, ByVal Args As String)
+    Public Sub StartDownload(ByVal URL As String, ByVal Args As String)
 
         Dim OutputFolder As String = "-o " & Settings.txtDownloadLocation.Text & "/%(title)s-%(id)s.%(ext)s "
 
@@ -392,7 +394,7 @@ Public Class Main
     End Sub
 
     Private Sub btnDownload_Click(sender As Object, e As EventArgs) Handles btnDownload.Click
-        DownloadFromYoutube(txtURL.Text, txtArgs.Text)
+        StartDownload(txtURL.Text, txtArgs.Text)
         txtURL.Text = Nothing
         gbDownloadAs.Enabled = False
     End Sub
@@ -482,4 +484,24 @@ Retry:
         End If
     End Sub
 #End Region
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        System.IO.File.Delete(Application.StartupPath & "/youtube-dl.exe")
+
+        Try
+            Dim YDVersion As String = GetVersionFromHTML()
+            Dim YDUrl As String = "https://yt-dl.org/downloads/" & YDVersion & "/youtube-dl.exe"
+            'My.Computer.Network.DownloadFile(YDUrl, Application.StartupPath & "/youtube-dl.exe")
+            Dim WC As System.Net.WebClient = New Net.WebClient
+            WC.DownloadFile(YDUrl, Application.StartupPath & "/youtube-dl.exe")
+
+        Catch ex As Exception
+            LogError.LogError(ex.ToString, ex.StackTrace, "Downloading youtube-dl binary file")
+            Select Case MessageBox.Show("An error has occured. Log ""Error.log"" has been created/edited. Do you want to view the error?", "An error occured", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification)
+                Case Windows.Forms.DialogResult.Yes
+                    MessageBox.Show(ex.ToString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification)
+            End Select
+            Application.Exit()
+        End Try
+    End Sub
 End Class
