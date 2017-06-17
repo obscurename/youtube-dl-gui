@@ -21,7 +21,6 @@ or:
 
 - Download youtube-dl-gui-updater and run it, it will download youtube-dl-gui into the same directory. It's recommended to still have these two files in a location you won't mess with, since there is no installer. You will still need to download ffmpeg.
 
-# Confirmed working sites
+# Working sites
 
-- YouTube
-- Soundcloud
+https://rg3.github.io/youtube-dl/supportedsites.html
