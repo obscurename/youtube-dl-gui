@@ -34,6 +34,10 @@ namespace youtube_dl_gui.Classes
             try
             {
                 WebClient DownloadFile = new WebClient();
+                if (File.Exists(Application.StartupPath + "\\youtube-dl.part"))
+                {
+                    File.Delete(Application.StartupPath + "\\youtube-dl.part");
+                }
                 DownloadFile.DownloadFile(YtDl, Application.StartupPath + "\\youtube-dl.part");
                 if (File.Exists(Application.StartupPath + "\\youtube-dl.exe"))
                 {
