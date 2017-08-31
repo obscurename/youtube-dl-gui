@@ -148,6 +148,7 @@ namespace youtube_dl_gui
         {
             string OutputFolder = "-o " + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s ";
             Process Downloader = new Process();
+            Downloader.StartInfo.FileName = Application.StartupPath + "/youtube-dl.exe";
             if (fromTray)
             {
                 if (string.IsNullOrWhiteSpace(Clipboard.GetText()))
@@ -157,7 +158,7 @@ namespace youtube_dl_gui
                 }
                 if (dlTrayAudio)
                 {
-                    Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
+                    Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + "mp3" + " --audio-quality " + "256K" + " " + "\"" + URL + "\"";
                 }else{
                     Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
                 }
@@ -169,9 +170,6 @@ namespace youtube_dl_gui
                     MessageBox.Show("Please enter a URL before attempting to download.", "Youtube-DL GUI", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
-                Downloader.StartInfo.FileName = Application.StartupPath + "/youtube-dl.exe";
-
                 if (rbVideo.Checked)
                 {
                     Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
