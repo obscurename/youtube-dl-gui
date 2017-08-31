@@ -120,9 +120,6 @@
   <metadata name="ttOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="ttOptions.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="chkHoverURL.ToolTip" xml:space="preserve">
     <value>When the mouse hovers over the URL Text Box, the Clipboard's contents will be pasted into the Text Box.
 

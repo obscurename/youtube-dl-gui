@@ -51,7 +51,7 @@
             this.btnBrws.TabIndex = 14;
             this.btnBrws.Text = "...";
             this.ttOptions.SetToolTip(this.btnBrws, "Customize the location of which videos will be downloaded.\r\n\r\nThe default locatio" +
-                    "n is the User\'s Downloads folder.");
+        "n is the User\'s Downloads folder.");
             this.btnBrws.UseVisualStyleBackColor = true;
             this.btnBrws.Click += new System.EventHandler(this.btnBrws_Click);
             // 
@@ -63,7 +63,7 @@
             this.txtDownloadLocation.Size = new System.Drawing.Size(233, 20);
             this.txtDownloadLocation.TabIndex = 13;
             this.ttOptions.SetToolTip(this.txtDownloadLocation, "Customize the location of which videos will be downloaded.\r\n\r\nThe default locatio" +
-                    "n is the User\'s Downloads folder.");
+        "n is the User\'s Downloads folder.");
             // 
             // Label1
             // 
@@ -74,7 +74,7 @@
             this.Label1.TabIndex = 12;
             this.Label1.Text = "Videos are downloaded to:";
             this.ttOptions.SetToolTip(this.Label1, "Customize the location of which videos will be downloaded.\r\n\r\nThe default locatio" +
-                    "n is the User\'s Downloads folder.");
+        "n is the User\'s Downloads folder.");
             // 
             // numUpdateDays
             // 
@@ -82,11 +82,6 @@
             this.numUpdateDays.Location = new System.Drawing.Point(172, 77);
             this.numUpdateDays.Maximum = new decimal(new int[] {
             999999,
-            0,
-            0,
-            0});
-            this.numUpdateDays.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -112,7 +107,7 @@
             this.chkUpdate.TabIndex = 10;
             this.chkUpdate.Text = "Update youtube-dl.exe every   xxxxxxx      day(s)";
             this.ttOptions.SetToolTip(this.chkUpdate, "Updates the youtube-dl.exe file every X days.\r\n\r\nThis may wear out SSDs, so it\'s " +
-                    "recommended to keep this disabled.");
+        "recommended to keep this disabled.");
             this.chkUpdate.UseVisualStyleBackColor = true;
             this.chkUpdate.CheckedChanged += new System.EventHandler(this.chkUpdate_CheckedChanged);
             // 
@@ -125,7 +120,7 @@
             this.chkDeleteExecutable.TabIndex = 9;
             this.chkDeleteExecutable.Text = "Automatically delete youtube-dl.exe during closing";
             this.ttOptions.SetToolTip(this.chkDeleteExecutable, "When the program closes, the youtube-dl.exe that was created will be deleted.\r\n\r\n" +
-                    "This may wear out SSDs, so it\'s recommended to keep this disabled.");
+        "This may wear out SSDs, so it\'s recommended to keep this disabled.");
             this.chkDeleteExecutable.UseVisualStyleBackColor = true;
             this.chkDeleteExecutable.CheckedChanged += new System.EventHandler(this.chkDeleteExecutable_CheckedChanged);
             // 
