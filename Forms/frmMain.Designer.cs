@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.MainTabs = new System.Windows.Forms.TabControl();
             this.tabDownload = new System.Windows.Forms.TabPage();
@@ -61,6 +62,14 @@
             this.tabAbout = new System.Windows.Forms.TabPage();
             this.btnOptions = new System.Windows.Forms.Button();
             this.lblAbout = new System.Windows.Forms.Label();
+            this.niTray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.cmTray = new System.Windows.Forms.ContextMenu();
+            this.mDlAud = new System.Windows.Forms.MenuItem();
+            this.mDlVid = new System.Windows.Forms.MenuItem();
+            this.mShow = new System.Windows.Forms.MenuItem();
+            this.mSep = new System.Windows.Forms.MenuItem();
+            this.mExit = new System.Windows.Forms.MenuItem();
+            this.mClipboard = new System.Windows.Forms.MenuItem();
             this.MainTabs.SuspendLayout();
             this.tabDownload.SuspendLayout();
             this.gbDownloadAs.SuspendLayout();
@@ -468,6 +477,57 @@
             this.lblAbout.Text = "This program made by Matty (ecaep42)\r\nYoutube-DL made by rg3\r\n";
             this.lblAbout.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // niTray
+            // 
+            this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
+            this.niTray.Text = "youtube-dl-GUI";
+            this.niTray.Visible = true;
+            // 
+            // cmTray
+            // 
+            this.cmTray.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mShow,
+            this.mClipboard,
+            this.mSep,
+            this.mExit});
+            // 
+            // mDlAud
+            // 
+            this.mDlAud.Index = 0;
+            this.mDlAud.Text = "Download Audio";
+            this.mDlAud.Click += new System.EventHandler(this.mDlAud_Click);
+            // 
+            // mDlVid
+            // 
+            this.mDlVid.Index = 1;
+            this.mDlVid.Text = "Download Video";
+            this.mDlVid.Click += new System.EventHandler(this.mDlVid_Click);
+            // 
+            // mShow
+            // 
+            this.mShow.Index = 0;
+            this.mShow.Text = "Show";
+            this.mShow.Click += new System.EventHandler(this.mShow_Click);
+            // 
+            // mSep
+            // 
+            this.mSep.Index = 2;
+            this.mSep.Text = "-";
+            // 
+            // mExit
+            // 
+            this.mExit.Index = 3;
+            this.mExit.Text = "Exit";
+            this.mExit.Click += new System.EventHandler(this.mExit_Click);
+            // 
+            // mClipboard
+            // 
+            this.mClipboard.Index = 1;
+            this.mClipboard.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.mDlAud,
+            this.mDlVid});
+            this.mClipboard.Text = "Clipboard";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,6 +543,7 @@
             this.Text = "youtube-dl GUI";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.SizeChanged += new System.EventHandler(this.frmMain_SizeChanged);
             this.MainTabs.ResumeLayout(false);
             this.tabDownload.ResumeLayout(false);
             this.tabDownload.PerformLayout();
@@ -529,6 +590,14 @@
         internal System.Windows.Forms.TabPage tabAbout;
         internal System.Windows.Forms.Button btnOptions;
         internal System.Windows.Forms.Label lblAbout;
+        private System.Windows.Forms.NotifyIcon niTray;
+        private System.Windows.Forms.ContextMenu cmTray;
+        private System.Windows.Forms.MenuItem mShow;
+        private System.Windows.Forms.MenuItem mClipboard;
+        private System.Windows.Forms.MenuItem mDlAud;
+        private System.Windows.Forms.MenuItem mDlVid;
+        private System.Windows.Forms.MenuItem mSep;
+        private System.Windows.Forms.MenuItem mExit;
     }
 }
 

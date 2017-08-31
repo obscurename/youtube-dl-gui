@@ -39,6 +39,7 @@ namespace youtube_dl_gui
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            niTray.ContextMenu = cmTray;
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.DownloadDir))
             {
                 MessageBox.Show("Please select a directory to save downloaded files", "Youtube-DL GUI", MessageBoxButtons.OK);
@@ -61,6 +62,13 @@ namespace youtube_dl_gui
             }
 
             CheckForUpdate();
+        }
+        private void frmMain_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+            }
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -133,10 +141,10 @@ namespace youtube_dl_gui
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            StartDownload(txtURL.Text, txtArgs.Text);
+            StartDownload(txtURL.Text, txtArgs.Text, false);
         }
 
-        private void StartDownload(string URL, string Args)
+        private void StartDownload(string URL, string Args, bool dlTrayAudio)
         {
             string OutputFolder = "-o " + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s ";
 
@@ -149,7 +157,11 @@ namespace youtube_dl_gui
             Process Downloader = new Process();
             Downloader.StartInfo.FileName = Application.StartupPath + "/youtube-dl.exe";
 
-            if (rbVideo.Checked)
+            if (dlTrayAudio)
+            {
+                Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
+            }
+            else if (rbVideo.Checked)
             {
                 Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
             }
@@ -165,8 +177,16 @@ namespace youtube_dl_gui
             Downloader.StartInfo.UseShellExecute = false;
             Downloader.StartInfo.CreateNoWindow = false;
             Downloader.Start();
+
+            if (Properties.Settings.Default.ClearURL == true)
+            {
+                txtURL.Clear();
+            }
+
+            Clipboard.Clear();
         }
         #endregion
+
         #region Converter
         private void btnBrowseConvFile_Click(object sender, EventArgs e)
         {
@@ -230,11 +250,39 @@ namespace youtube_dl_gui
             Converter.Start();
         }
         #endregion
+
+        #region Tray
+        private void mShow_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void mDlAud_Click(object sender, EventArgs e)
+        {
+            StartDownload(txtURL.Text, txtArgs.Text, true);
+        }
+        private void mDlVid_Click(object sender, EventArgs e)
+        {
+            StartDownload(txtURL.Text, txtArgs.Text, false);
+        }
+
+        private void mExit_Click(object sender, EventArgs e)
+        {
+            niTray.Visible = false;
+            Environment.Exit(0);
+        }
+
+        #endregion
+
         #region About
         private void btnOptions_Click(object sender, EventArgs e)
         {
             settingsForm.Show();
         }
         #endregion
+
+
+        
     }
 }
