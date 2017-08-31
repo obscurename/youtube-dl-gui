@@ -141,37 +141,49 @@ namespace youtube_dl_gui
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            StartDownload(txtURL.Text, txtArgs.Text, false);
+            StartDownload(txtURL.Text, txtArgs.Text, false, false);
         }
 
-        private void StartDownload(string URL, string Args, bool dlTrayAudio)
+        private void StartDownload(string URL, string Args, bool fromTray, bool dlTrayAudio)
         {
             string OutputFolder = "-o " + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s ";
-
-            if (string.IsNullOrWhiteSpace(txtURL.Text))
-            {
-                MessageBox.Show("Please enter a URL before attempting to download a video.", "Youtube-DL GUI", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
             Process Downloader = new Process();
-            Downloader.StartInfo.FileName = Application.StartupPath + "/youtube-dl.exe";
+            if (fromTray)
+            {
+                if (string.IsNullOrWhiteSpace(Clipboard.GetText()))
+                {
+                    MessageBox.Show("Please copy a URL before attemping to download.");
+                    return;
+                }
+                if (dlTrayAudio)
+                {
+                    Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
+                }else{
+                    Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(txtURL.Text))
+                {
+                    MessageBox.Show("Please enter a URL before attempting to download.", "Youtube-DL GUI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            if (dlTrayAudio)
-            {
-                Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
-            }
-            else if (rbVideo.Checked)
-            {
-                Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
-            }
-            else if (rbAudio.Checked)
-            {
-                Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
-            }
-            else if (rbCustom.Checked)
-            {
-                Downloader.StartInfo.Arguments = Args + " \"" + URL + "\"";
+                Downloader.StartInfo.FileName = Application.StartupPath + "/youtube-dl.exe";
+
+                if (rbVideo.Checked)
+                {
+                    Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
+                }
+                else if (rbAudio.Checked)
+                {
+                    Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
+                }
+                else if (rbCustom.Checked)
+                {
+                    Downloader.StartInfo.Arguments = Args + " \"" + URL + "\"";
+                }
             }
 
             Downloader.StartInfo.UseShellExecute = false;
@@ -181,9 +193,8 @@ namespace youtube_dl_gui
             if (Properties.Settings.Default.ClearURL == true)
             {
                 txtURL.Clear();
+                Clipboard.Clear();
             }
-
-            Clipboard.Clear();
         }
         #endregion
 
@@ -260,11 +271,11 @@ namespace youtube_dl_gui
 
         private void mDlAud_Click(object sender, EventArgs e)
         {
-            StartDownload(txtURL.Text, txtArgs.Text, true);
+            StartDownload(Clipboard.GetText(), txtArgs.Text, true, true);
         }
         private void mDlVid_Click(object sender, EventArgs e)
         {
-            StartDownload(txtURL.Text, txtArgs.Text, false);
+            StartDownload(Clipboard.GetText(), txtArgs.Text, true, false);
         }
 
         private void mExit_Click(object sender, EventArgs e)
