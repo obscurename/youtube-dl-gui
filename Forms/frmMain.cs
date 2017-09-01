@@ -7,39 +7,35 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-using youtube_dl_gui.Classes;
-using youtube_dl_gui.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Net;
+using Octokit;
+
+// Please read the github readme. \\
 
 namespace youtube_dl_gui
 {
     public partial class frmMain : Form
     {
+
+        #region Form
         public frmMain()
         {
             InitializeComponent();
         }
-
-        Form settingsForm = new frmSettings();
-
-        private void CheckForUpdate()
-        {
-            if (Properties.Settings.Default.UpdateDL == true)
-            {
-                DateTime PreviousUpdated = Properties.Settings.Default.DateLastUpdated;
-                DateTime TodayDate = DateTime.Now;
-                if ((PreviousUpdated - TodayDate).TotalDays > Properties.Settings.Default.DaysBetweenUpdate)
-                {
-                    GlobalFunctions.DownloadYoutubeDL();
-                }
-            }
-
-        }
-
         private void frmMain_Load(object sender, EventArgs e)
         {
             niTray.ContextMenu = cmTray;
+            // Check for updater batch file & delete it.
+            if (File.Exists(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat"))
+            {
+                MessageBox.Show("Application successfully updated to " + Properties.Settings.Default.appVersion);
+                File.Delete(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat");
+            }
+
+            // Checks the download directory setting, if it's null just ask the user to specify a location to download.
+            // Way easier than using a first-time setup.
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.DownloadDir))
             {
                 MessageBox.Show("Please select a directory to save downloaded files", "Youtube-DL GUI", MessageBoxButtons.OK);
@@ -51,17 +47,32 @@ namespace youtube_dl_gui
                         Properties.Settings.Default.Save();
                         break;
                     case System.Windows.Forms.DialogResult.Cancel:
+                        // User pressed cancel, so just exit.
                         Environment.Exit(0);
                         break;
                 }
             }
 
-            if (!File.Exists(Application.StartupPath + "\\youtube-dl.exe"))
+            // Downloads the youtube-dl application if it does not exist, otherwise it checks for updates.
+            if (!File.Exists(System.Windows.Forms.Application.StartupPath + "\\youtube-dl.exe"))
             {
-                GlobalFunctions.DownloadYoutubeDL();
+                DownloadYoutubeDL();
+            }
+            else
+            {
+                CheckForUpdate();
             }
 
-            CheckForUpdate();
+            
+        }
+        private void frmMain_Shown(object sender, EventArgs e)
+        {
+            chkHoverURL.Checked = Properties.Settings.Default.HoverURL;
+            chkAutoClearURL.Checked = Properties.Settings.Default.ClearURL;
+            chkDeleteExecutable.Checked = Properties.Settings.Default.DeleteAfterClose;
+            chkUpdate.Checked = Properties.Settings.Default.UpdateDL;
+            numUpdateDays.Value = Convert.ToDecimal(Properties.Settings.Default.DaysBetweenUpdate);
+            txtDownloadLocation.Text = Properties.Settings.Default.DownloadDir;
         }
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
@@ -74,9 +85,131 @@ namespace youtube_dl_gui
         {
             if (Properties.Settings.Default.DeleteAfterClose == true)
             {
-                File.Delete(Application.StartupPath + "\\youtube-dl.exe");
+                File.Delete(System.Windows.Forms.Application.StartupPath + "\\youtube-dl.exe");
+            }
+            niTray.Visible = false;
+            Environment.Exit(0);
+        }
+        #endregion
+
+        #region Custom
+        private async void CheckForUpdate()
+        {
+            // Check for youtube-dl update, if enabled.
+            if (Properties.Settings.Default.UpdateDL == true)
+            {
+                DateTime PreviousUpdated = Properties.Settings.Default.DateLastUpdated;
+                DateTime TodayDate = DateTime.Now;
+                if ((PreviousUpdated - TodayDate).TotalDays > Properties.Settings.Default.DaysBetweenUpdate)
+                {
+                    DownloadYoutubeDL();
+                }
+            }
+
+            // Check for application update then copy the resourced batch file, run it, and exit immediately.
+            var client = new GitHubClient(new ProductHeaderValue("youtube-dl-gui"));
+            var releases = await client.Repository.Release.GetAll("obscurename", "youtube-dl-gui");
+            var latest = releases[0];
+            if (latest.TagName != Properties.Settings.Default.appVersion)
+            {
+                switch (MessageBox.Show("An update for youtube-dl-gui is available. Update now?", "youtube-dl-gui", MessageBoxButtons.YesNo))
+                {
+                    case System.Windows.Forms.DialogResult.Yes:
+                        CreateUpdater();
+
+                        Process Updater = new Process();
+                        Updater.StartInfo.FileName = System.Windows.Forms.Application.StartupPath + "\\ydgu.bat";
+                        Updater.StartInfo.Arguments = latest.TagName + " " + System.AppDomain.CurrentDomain.FriendlyName;
+                        Updater.StartInfo.UseShellExecute = false;
+                        Updater.StartInfo.CreateNoWindow = false;
+                        Updater.Start();
+
+                        niTray.Visible = false;
+                        Environment.Exit(0);
+                        break;
+                    case System.Windows.Forms.DialogResult.No:
+                        return;
+                }
+            }
+
+        }
+        private void CreateUpdater()
+        {
+            string updaterCode = "@echo off\necho ===========================================\necho // YOUTUBE-DL-GUI UPDATER  (BAT VERSION) \\\\\necho //      CURRENT BATCH VERSION: 1.0       \\\\\necho //  IF THIS WINDOW DOES NOT CLOSE AFTER  \\\\\necho //    YOUTUBE-DL-GUI IS FULLY UPDATED    \\\\\necho //       THEN IT IS SAFE TO CLOSE.       \\\\\necho ===========================================\nset arg1=%1\nset arg2=%2\ntimeout /t 5\ndel youtube-dl-gui.exe\npowershell -Command \"(New-Object Net.WebClient).DownloadFile('https://github.com/obscurename/youtube-dl-gui/releases/download/%arg1%/youtube-dl-gui.exe', '%arg2%')\"\nyoutube-dl-gui.exe";
+
+            /*
+             * This is the entire code for the updater, it is designed to be light-weight and so is batch-based.
+             
+             @echo off
+             echo ===========================================
+             echo // YOUTUBE-DL-GUI UPDATER  (BAT VERSION) \\
+             echo //      CURRENT BATCH VERSION: 1.0       \\
+             echo //  IF THIS WINDOW DOES NOT CLOSE AFTER  \\
+             echo //    YOUTUBE-DL-GUI IS FULLY UPDATED    \\
+             echo //       THEN IT IS SAFE TO CLOSE.       \\
+             echo ===========================================
+             set arg1=%1
+             set arg2=%2
+             timeout /t 5
+             del youtube-dl-gui.exe
+             powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/obscurename/youtube-dl-gui/releases/download/%arg1%/youtube-dl-gui.exe', '%arg2%')"
+             youtube-dl-gui.exe
+
+             */
+
+            if (File.Exists(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat"))
+                File.Delete(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat");
+
+            File.Create(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat").Dispose();
+            System.IO.StreamWriter writeApp = new System.IO.StreamWriter(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat");
+            writeApp.WriteLine(updaterCode);
+            writeApp.Close();
+        }
+        public static async void DownloadYoutubeDL()
+        {
+            try
+            {
+                var client = new GitHubClient(new ProductHeaderValue("youtube-dl"));
+                var releases = await client.Repository.Release.GetAll("rg3", "youtube-dl");
+                var latest = releases[0];
+
+                if (latest.TagName == Properties.Settings.Default.ytDLVersion)
+                {
+                    MessageBox.Show("youtube-dl is already at the latest version.");
+                    return;
+                }
+
+                string YtDl = "https://github.com/rg3/youtube-dl/releases/download/" + latest.TagName + "/youtube-dl.exe";
+            RetryDownload:
+                try
+                {
+
+                    WebClient DownloadFile = new WebClient();
+
+                    if (File.Exists(System.Windows.Forms.Application.StartupPath + "\\youtube-dl.exe"))
+                    {
+                        File.Delete(System.Windows.Forms.Application.StartupPath + "\\youtube-dl.exe");
+                    }
+
+                    DownloadFile.DownloadFile(YtDl, System.Windows.Forms.Application.StartupPath + "\\youtube-dl.exe");
+
+                    Properties.Settings.Default.DateLastUpdated = DateTime.Now;
+                }
+                catch (Exception ex)
+                {
+                    switch (MessageBox.Show("An exception has occured. Please open an issue with the following:\n\n" + ex.ToString(), "Youtube-DL GUI", MessageBoxButtons.RetryCancel))
+                    {
+                        case DialogResult.Retry:
+                            goto RetryDownload;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
+        #endregion
 
         #region Downloader
         private void txtURL_MouseEnter(object sender, EventArgs e)
@@ -148,7 +281,7 @@ namespace youtube_dl_gui
         {
             string OutputFolder = "-o " + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s ";
             Process Downloader = new Process();
-            Downloader.StartInfo.FileName = Application.StartupPath + "/youtube-dl.exe";
+            Downloader.StartInfo.FileName = System.Windows.Forms.Application.StartupPath + "/youtube-dl.exe";
             if (fromTray)
             {
                 if (string.IsNullOrWhiteSpace(Clipboard.GetText()))
@@ -159,7 +292,9 @@ namespace youtube_dl_gui
                 if (dlTrayAudio)
                 {
                     Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + "mp3" + " --audio-quality " + "256K" + " " + "\"" + URL + "\"";
-                }else{
+                }
+                else
+                {
                     Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
                 }
             }
@@ -195,7 +330,6 @@ namespace youtube_dl_gui
             }
         }
         #endregion
-
         #region Converter
         private void btnBrowseConvFile_Click(object sender, EventArgs e)
         {
@@ -259,39 +393,91 @@ namespace youtube_dl_gui
             Converter.Start();
         }
         #endregion
+        #region About / Settings
+        private void chkHoverURL_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkHoverURL.Checked != Properties.Settings.Default.HoverURL)
+            {
+                Properties.Settings.Default.HoverURL = chkHoverURL.Checked;
+                Properties.Settings.Default.Save();
+            }
+        }
+        private void chkAutoClearURL_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAutoClearURL.Checked != Properties.Settings.Default.ClearURL)
+            {
+                Properties.Settings.Default.ClearURL = chkAutoClearURL.Checked;
+                Properties.Settings.Default.Save();
+            }
+        }
+        private void chkDeleteExecutable_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkDeleteExecutable.Checked != Properties.Settings.Default.DeleteAfterClose)
+            {
+                Properties.Settings.Default.DeleteAfterClose = chkDeleteExecutable.Checked;
+                Properties.Settings.Default.Save();
+            }
+        }
+        private void chkUpdate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkUpdate.Checked != Properties.Settings.Default.UpdateDL)
+            {
+                Properties.Settings.Default.UpdateDL = chkUpdate.Checked;
+                Properties.Settings.Default.Save();
+            }
+        }
+        private void numUpdateDays_ValueChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(numUpdateDays.Value) != Properties.Settings.Default.DaysBetweenUpdate)
+            {
+                Properties.Settings.Default.DaysBetweenUpdate = Convert.ToInt32(numUpdateDays.Value);
+                Properties.Settings.Default.Save();
+            }
+        }
 
-        #region Tray
-        private void mShow_Click(object sender, EventArgs e)
+        private void btnBrws_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog { Description = "Select a folder to save downloads to", RootFolder = Environment.SpecialFolder.UserProfile };
+            switch (fbd.ShowDialog())
+            {
+                case System.Windows.Forms.DialogResult.OK:
+                    Properties.Settings.Default.DownloadDir = fbd.SelectedPath;
+                    Properties.Settings.Default.Save();
+                    return;
+            }
+        }
+        private void btnRedownload_Click(object sender, EventArgs e)
+        {
+            DownloadYoutubeDL();
+        }
+
+        #endregion
+        #region Notification icon + ContextMenu
+        private void niTray_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
         }
 
-        private void mDlAud_Click(object sender, EventArgs e)
+        private void cmTrayShow_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+        private void cmTrayDownloadAudio_Click(object sender, EventArgs e)
         {
             StartDownload(Clipboard.GetText(), txtArgs.Text, true, true);
         }
-        private void mDlVid_Click(object sender, EventArgs e)
+        private void cmTrayDownloadVideo_Click(object sender, EventArgs e)
         {
             StartDownload(Clipboard.GetText(), txtArgs.Text, true, false);
         }
-
-        private void mExit_Click(object sender, EventArgs e)
+        private void cmTrayExit_Click(object sender, EventArgs e)
         {
             niTray.Visible = false;
             Environment.Exit(0);
         }
-
         #endregion
 
-        #region About
-        private void btnOptions_Click(object sender, EventArgs e)
-        {
-            settingsForm.Show();
-        }
-        #endregion
-
-
-        
     }
 }
