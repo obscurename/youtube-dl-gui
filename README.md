@@ -8,7 +8,12 @@ For the record: This program is just a visual interface to make general public u
 
 This is simply a GUI for said application for windows users, without the inconsistent GUI bloat, weight, and possible viruses. youtube-dl is not included because it's not my program, instead this application automatically downloads it.
 
-(rg3: if you want me to remove this, lemme know. if i don't remove it after you try to contact me, I'm sorry i have no idea how contacting people works on github)
+# Compiling yourself & generic information
+This program uses [Octokit](https://octokit.github.io/) (licensed under MIT, (C) Github), which can be applied to your program using nuget.
+
+It requries octokit.dll AND .NET 4.5 Framework, and therefore releases will be bundled as a .zip from now on & it will be Windows 7 + only respectively.
+
+If you do not want to use Octokit nor Framework 4.5, you can still use release [v1.3](https://github.com/obscurename/youtube-dl-gui/releases/tag/v1.3) which is still running on .NET Framework 4.0 and is compatible with Windows 2003 + Windows XP. I try to make programs as compatible with previous versions of windows as possible (As low as Windows 2003, but not anything lower than that because they are not supported anywhere anymore, while 2003 + XP are still realistically used operating systems), but for this it requires 4.5 for Octokit (I have tried previous versions, most have failed).
 
 # Usage
 
