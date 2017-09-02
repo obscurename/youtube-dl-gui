@@ -38,17 +38,25 @@ namespace youtube_dl_gui
             // Way easier than using a first-time setup.
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.DownloadDir))
             {
-                MessageBox.Show("Please select a directory to save downloaded files", "Youtube-DL GUI", MessageBoxButtons.OK);
-                FolderBrowserDialog fbd = new FolderBrowserDialog { Description = "Select a folder for videos to download to", RootFolder = Environment.SpecialFolder.UserProfile };
-                switch (fbd.ShowDialog())
+            retry:
+                switch (MessageBox.Show("Would you like to use " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads" + " as your download path?", "Youtube-DL GUI", MessageBoxButtons.YesNoCancel))
                 {
-                    case System.Windows.Forms.DialogResult.OK:
-                        Properties.Settings.Default.DownloadDir = fbd.SelectedPath;
+                    case System.Windows.Forms.DialogResult.Yes:
+                        Properties.Settings.Default.DownloadDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
                         Properties.Settings.Default.Save();
                         break;
-                    case System.Windows.Forms.DialogResult.Cancel:
-                        // User pressed cancel, so just exit.
-                        Environment.Exit(0);
+                    case System.Windows.Forms.DialogResult.No:
+                        FolderBrowserDialog fbd = new FolderBrowserDialog { Description = "Select a folder for videos to download to" };
+                        switch (fbd.ShowDialog())
+                        {
+                            case System.Windows.Forms.DialogResult.OK:
+                                Properties.Settings.Default.DownloadDir = fbd.SelectedPath;
+                                Properties.Settings.Default.Save();
+                                break;
+                            case System.Windows.Forms.DialogResult.Cancel:
+                                Environment.Exit(0);
+                                break;
+                        }
                         break;
                 }
             }
@@ -279,7 +287,7 @@ namespace youtube_dl_gui
 
         private void StartDownload(string URL, string Args, bool fromTray, bool dlTrayAudio)
         {
-            string OutputFolder = "-o " + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s ";
+            string OutputFolder = "-o \"" + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s\" ";
             Process Downloader = new Process();
             Downloader.StartInfo.FileName = System.Windows.Forms.Application.StartupPath + "/youtube-dl.exe";
             if (fromTray)
@@ -291,11 +299,11 @@ namespace youtube_dl_gui
                 }
                 if (dlTrayAudio)
                 {
-                    Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + "mp3" + " --audio-quality " + "256K" + " " + "\"" + URL + "\"";
+                    Downloader.StartInfo.Arguments = "" + OutputFolder + "-x --audio-format " + "mp3" + " --audio-quality " + "256K" + " " + "\"" + URL + "\"";
                 }
                 else
                 {
-                    Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
+                    Downloader.StartInfo.Arguments = "" + OutputFolder + "\"" + URL + "\"";
                 }
             }
             else
@@ -307,11 +315,12 @@ namespace youtube_dl_gui
                 }
                 if (rbVideo.Checked)
                 {
-                    Downloader.StartInfo.Arguments = OutputFolder + "\"" + URL + "\"";
+                    MessageBox.Show("" + OutputFolder+ "\"" + URL + "\"");
+                    Downloader.StartInfo.Arguments = "" + OutputFolder + "\"" + URL + "\"";
                 }
                 else if (rbAudio.Checked)
                 {
-                    Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
+                    Downloader.StartInfo.Arguments = "" + OutputFolder + "-x --audio-format " + cbFormat.SelectedItem + " --audio-quality " + cbQuality.SelectedItem + " " + "\"" + URL + "\"";
                 }
                 else if (rbCustom.Checked)
                 {
@@ -437,7 +446,7 @@ namespace youtube_dl_gui
 
         private void btnBrws_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog { Description = "Select a folder to save downloads to", RootFolder = Environment.SpecialFolder.UserProfile };
+            FolderBrowserDialog fbd = new FolderBrowserDialog { Description = "Select a folder to save downloads to" };
             switch (fbd.ShowDialog())
             {
                 case System.Windows.Forms.DialogResult.OK:
@@ -478,6 +487,12 @@ namespace youtube_dl_gui
             Environment.Exit(0);
         }
         #endregion
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            youtube_dl_gui.Forms.frmSupported sup = new youtube_dl_gui.Forms.frmSupported();
+            sup.Show();
+        }
 
     }
 }

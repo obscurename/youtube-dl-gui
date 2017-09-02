@@ -79,6 +79,7 @@
             this.cmTrayDownloadVideo = new System.Windows.Forms.MenuItem();
             this.cmTraySep = new System.Windows.Forms.MenuItem();
             this.cmTrayExit = new System.Windows.Forms.MenuItem();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.MainTabs.SuspendLayout();
             this.tabDownload.SuspendLayout();
             this.gbDownloadAs.SuspendLayout();
@@ -101,6 +102,7 @@
             // 
             // tabDownload
             // 
+            this.tabDownload.Controls.Add(this.linkLabel1);
             this.tabDownload.Controls.Add(this.lblVideoURL);
             this.tabDownload.Controls.Add(this.lblAudioFormat);
             this.tabDownload.Controls.Add(this.gbDownloadAs);
@@ -122,16 +124,16 @@
             // lblVideoURL
             // 
             this.lblVideoURL.AutoSize = true;
-            this.lblVideoURL.Location = new System.Drawing.Point(8, 6);
+            this.lblVideoURL.Location = new System.Drawing.Point(8, 7);
             this.lblVideoURL.Name = "lblVideoURL";
-            this.lblVideoURL.Size = new System.Drawing.Size(155, 13);
+            this.lblVideoURL.Size = new System.Drawing.Size(32, 13);
             this.lblVideoURL.TabIndex = 0;
-            this.lblVideoURL.Text = "Video / Playlist / Channel URL:";
+            this.lblVideoURL.Text = "URL:";
             // 
             // lblAudioFormat
             // 
             this.lblAudioFormat.AutoSize = true;
-            this.lblAudioFormat.Location = new System.Drawing.Point(53, 133);
+            this.lblAudioFormat.Location = new System.Drawing.Point(53, 140);
             this.lblAudioFormat.Name = "lblAudioFormat";
             this.lblAudioFormat.Size = new System.Drawing.Size(69, 13);
             this.lblAudioFormat.TabIndex = 13;
@@ -144,7 +146,7 @@
             this.gbDownloadAs.Controls.Add(this.rbAudio);
             this.gbDownloadAs.Controls.Add(this.rbVideo);
             this.gbDownloadAs.Enabled = false;
-            this.gbDownloadAs.Location = new System.Drawing.Point(3, 47);
+            this.gbDownloadAs.Location = new System.Drawing.Point(3, 54);
             this.gbDownloadAs.Name = "gbDownloadAs";
             this.gbDownloadAs.Size = new System.Drawing.Size(226, 47);
             this.gbDownloadAs.TabIndex = 2;
@@ -210,7 +212,7 @@
             "opus",
             "vorbis",
             "wav"});
-            this.cbFormat.Location = new System.Drawing.Point(128, 130);
+            this.cbFormat.Location = new System.Drawing.Point(128, 137);
             this.cbFormat.Name = "cbFormat";
             this.cbFormat.Size = new System.Drawing.Size(59, 21);
             this.cbFormat.TabIndex = 12;
@@ -238,7 +240,7 @@
             "224K",
             "256K",
             "320K"});
-            this.cbQuality.Location = new System.Drawing.Point(128, 103);
+            this.cbQuality.Location = new System.Drawing.Point(128, 110);
             this.cbQuality.Name = "cbQuality";
             this.cbQuality.Size = new System.Drawing.Size(59, 21);
             this.cbQuality.TabIndex = 3;
@@ -246,7 +248,7 @@
             // lblAudioQuality
             // 
             this.lblAudioQuality.AutoSize = true;
-            this.lblAudioQuality.Location = new System.Drawing.Point(53, 106);
+            this.lblAudioQuality.Location = new System.Drawing.Point(53, 113);
             this.lblAudioQuality.Name = "lblAudioQuality";
             this.lblAudioQuality.Size = new System.Drawing.Size(69, 13);
             this.lblAudioQuality.TabIndex = 4;
@@ -272,7 +274,7 @@
             // 
             // txtURL
             // 
-            this.txtURL.Location = new System.Drawing.Point(3, 22);
+            this.txtURL.Location = new System.Drawing.Point(3, 26);
             this.txtURL.Name = "txtURL";
             this.txtURL.Size = new System.Drawing.Size(226, 20);
             this.txtURL.TabIndex = 8;
@@ -660,6 +662,17 @@
             this.cmTrayExit.Text = "Exit";
             this.cmTrayExit.Click += new System.EventHandler(this.cmTrayExit_Click);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(75, 7);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(82, 13);
+            this.linkLabel1.TabIndex = 14;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Supported Sites";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -742,6 +755,7 @@
         internal System.Windows.Forms.TextBox txtDownloadLocation;
         internal System.Windows.Forms.Label Label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 
