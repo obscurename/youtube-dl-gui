@@ -464,8 +464,13 @@ namespace youtube_dl_gui
         #region Notification icon + ContextMenu
         private void niTray_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            this.Show();
-            this.WindowState = FormWindowState.Normal;
+            if (this.Visible)
+                this.Hide();
+            else
+            {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+            }
         }
 
         private void cmTrayShow_Click(object sender, EventArgs e)
