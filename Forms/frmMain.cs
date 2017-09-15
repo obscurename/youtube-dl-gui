@@ -19,6 +19,10 @@ namespace youtube_dl_gui
     public partial class frmMain : Form
     {
 
+        #region Variables
+        bool hasUpdated = false;
+        #endregion
+
         #region Form
         public frmMain()
         {
@@ -30,8 +34,7 @@ namespace youtube_dl_gui
             // Check for updater batch file & delete it.
             if (File.Exists(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat"))
             {
-                MessageBox.Show("Application successfully updated to " + Properties.Settings.Default.appVersion);
-                File.Delete(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat");
+                hasUpdated = true;
             }
 
             // Checks the download directory setting, if it's null just ask the user to specify a location to download.
@@ -81,6 +84,14 @@ namespace youtube_dl_gui
             chkUpdate.Checked = Properties.Settings.Default.UpdateDL;
             numUpdateDays.Value = Convert.ToDecimal(Properties.Settings.Default.DaysBetweenUpdate);
             txtDownloadLocation.Text = Properties.Settings.Default.DownloadDir;
+
+            if (hasUpdated)
+            {
+                niTray.BalloonTipIcon = ToolTipIcon.Info;
+                niTray.BalloonTipTitle = "youtube-dl-gui updated";
+                niTray.BalloonTipText = "youtube-dl-gui has been updated to " + Properties.Settings.Default.appVersion + ".";
+                File.Delete(System.Windows.Forms.Application.StartupPath + "\\ydgu.bat");
+            }
         }
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
