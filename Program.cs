@@ -17,7 +17,7 @@ namespace youtube_dl_gui
         {
             if (PriorProcess() != null)
             {
-                MessageBox.Show("Another instance of the app is already running.");
+                MessageBox.Show("Another instance of youtube-dl-gui is already running.");
                 return;
             }
             Application.EnableVisualStyles();
