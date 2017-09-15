@@ -1,5 +1,4 @@
 # youtube-dl-gui
-Screenshot [here](https://i.imgur.com/0Jiux1y.png)  
 GUI for youtube-dl (youtube-dl not included, but is downloaded.)  
 This program simplifies the youtube-dl application by rg3, and gives it a user friendly interface for downloading from websites. Please use these tools responsibly, and not for piracy, they were not meant for that. Or at least mine wasn't.  
 youtube-dl is made by rg3, not I. Download it manually (if you chose, this program automates it) from here: https://rg3.github.io/youtube-dl
@@ -7,6 +6,9 @@ youtube-dl is made by rg3, not I. Download it manually (if you chose, this progr
 For the record: This program is just a visual interface to make general public use easier. It runs youtube-mp3 & ffmpeg with arguments just as you would in Command Prompt. If you don't like it; what are you doing here, silly?
 
 This is simply a GUI for said application for windows users, without the inconsistent GUI bloat, weight, and possible viruses. youtube-dl is not included because it's not my program, instead this application automatically downloads it.
+
+# Prerequisites
+Requires .NET 4.5 + Oktokit.dll (Bundled with .zip releases).
 
 # Compiling yourself & generic information
 This program uses [Octokit](https://octokit.github.io/) (licensed under MIT, (C) Github), which can be applied to your program using nuget.
@@ -41,4 +43,4 @@ https://rg3.github.io/youtube-dl/supportedsites.html
 
 # Future plans
 
-idk.
+Quality of life updates.
