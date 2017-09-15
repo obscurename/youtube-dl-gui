@@ -231,6 +231,12 @@ namespace youtube_dl_gui
         #endregion
 
         #region Downloader
+        private void llSupported_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            youtube_dl_gui.Forms.frmSupported supportedFrm = new youtube_dl_gui.Forms.frmSupported();
+            supportedFrm.Show();
+        }
+
         private void txtURL_MouseEnter(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.HoverURL == true)
@@ -244,13 +250,13 @@ namespace youtube_dl_gui
         }
         private void txtURL_TextChanged(object sender, EventArgs e)
         {
-            if (!txtURL.Text.Contains("youtube.com/watch?v="))
-            {
-                gbDownloadAs.Enabled = false;
-                rbVideo.Checked = true;
-            }else{
-                gbDownloadAs.Enabled = true;
-            }
+            //if (!txtURL.Text.Contains("youtube.com/watch?v="))
+            //{
+            //    gbDownloadAs.Enabled = false;
+            //    rbVideo.Checked = true;
+            //}else{
+            //    gbDownloadAs.Enabled = true;
+            //}
         }
 
         private void rbVideo_CheckedChanged(object sender, EventArgs e)
@@ -497,18 +503,16 @@ namespace youtube_dl_gui
         {
             StartDownload(Clipboard.GetText(), txtArgs.Text, true, false);
         }
+        private void cmTrayCheckForUpdate_Click(object sender, EventArgs e)
+        {
+            CheckForUpdate();
+        }
         private void cmTrayExit_Click(object sender, EventArgs e)
         {
             niTray.Visible = false;
             Environment.Exit(0);
         }
         #endregion
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            youtube_dl_gui.Forms.frmSupported sup = new youtube_dl_gui.Forms.frmSupported();
-            sup.Show();
-        }
 
     }
 }

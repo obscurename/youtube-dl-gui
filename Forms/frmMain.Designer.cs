@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.MainTabs = new System.Windows.Forms.TabControl();
             this.tabDownload = new System.Windows.Forms.TabPage();
+            this.llSupported = new System.Windows.Forms.LinkLabel();
             this.lblVideoURL = new System.Windows.Forms.Label();
             this.lblAudioFormat = new System.Windows.Forms.Label();
             this.gbDownloadAs = new System.Windows.Forms.GroupBox();
@@ -79,7 +80,8 @@
             this.cmTrayDownloadVideo = new System.Windows.Forms.MenuItem();
             this.cmTraySep = new System.Windows.Forms.MenuItem();
             this.cmTrayExit = new System.Windows.Forms.MenuItem();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.cmTrayCheckForUpdate = new System.Windows.Forms.MenuItem();
+            this.cmTraySep2 = new System.Windows.Forms.MenuItem();
             this.MainTabs.SuspendLayout();
             this.tabDownload.SuspendLayout();
             this.gbDownloadAs.SuspendLayout();
@@ -102,7 +104,7 @@
             // 
             // tabDownload
             // 
-            this.tabDownload.Controls.Add(this.linkLabel1);
+            this.tabDownload.Controls.Add(this.llSupported);
             this.tabDownload.Controls.Add(this.lblVideoURL);
             this.tabDownload.Controls.Add(this.lblAudioFormat);
             this.tabDownload.Controls.Add(this.gbDownloadAs);
@@ -120,6 +122,17 @@
             this.tabDownload.TabIndex = 0;
             this.tabDownload.Text = "Download";
             this.tabDownload.UseVisualStyleBackColor = true;
+            // 
+            // llSupported
+            // 
+            this.llSupported.AutoSize = true;
+            this.llSupported.Location = new System.Drawing.Point(75, 7);
+            this.llSupported.Name = "llSupported";
+            this.llSupported.Size = new System.Drawing.Size(82, 13);
+            this.llSupported.TabIndex = 14;
+            this.llSupported.TabStop = true;
+            this.llSupported.Text = "Supported Sites";
+            this.llSupported.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llSupported_LinkClicked);
             // 
             // lblVideoURL
             // 
@@ -623,6 +636,8 @@
             this.cmTrayShow,
             this.cmTrayClipboard,
             this.cmTraySep,
+            this.cmTrayCheckForUpdate,
+            this.cmTraySep2,
             this.cmTrayExit});
             // 
             // cmTrayShow
@@ -658,20 +673,20 @@
             // 
             // cmTrayExit
             // 
-            this.cmTrayExit.Index = 3;
+            this.cmTrayExit.Index = 5;
             this.cmTrayExit.Text = "Exit";
             this.cmTrayExit.Click += new System.EventHandler(this.cmTrayExit_Click);
             // 
-            // linkLabel1
+            // cmTrayCheckForUpdate
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(75, 7);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(82, 13);
-            this.linkLabel1.TabIndex = 14;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Supported Sites";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.cmTrayCheckForUpdate.Index = 3;
+            this.cmTrayCheckForUpdate.Text = "Check for update";
+            this.cmTrayCheckForUpdate.Click += new System.EventHandler(this.cmTrayCheckForUpdate_Click);
+            // 
+            // cmTraySep2
+            // 
+            this.cmTraySep2.Index = 4;
+            this.cmTraySep2.Text = "-";
             // 
             // frmMain
             // 
@@ -755,7 +770,9 @@
         internal System.Windows.Forms.TextBox txtDownloadLocation;
         internal System.Windows.Forms.Label Label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel llSupported;
+        private System.Windows.Forms.MenuItem cmTrayCheckForUpdate;
+        private System.Windows.Forms.MenuItem cmTraySep2;
     }
 }
 
