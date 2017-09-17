@@ -416,7 +416,7 @@ namespace youtube_dl_gui
             {
                 case System.Windows.Forms.DialogResult.OK:
                     txtConvFile.Text = ofd.FileName;
-                    if (chkSaveToMaster.Checked)
+                    if (Properties.Settings.Default.SaveToMaster)
                     {
                         btnConvert.Enabled = true;
                     }else{
@@ -436,20 +436,6 @@ namespace youtube_dl_gui
                     break;
             }
         }
-        private void chkSaveToMaster_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkSaveToMaster.Checked)
-            {
-                btnBrowseConvSaveFile.Enabled = false;
-                txtConvSave.Text = null;
-                btnBrowseConvSaveFile.Enabled = false;
-                Properties.Settings.Default.SaveToMaster = true;
-            }else{
-                btnBrowseConvSaveFile.Enabled = true;
-                Properties.Settings.Default.SaveToMaster = false;
-            }
-            Properties.Settings.Default.Save();
-        }
         private void btnConvert_Click(object sender, EventArgs e)
         {
             ConvertFile(txtConvFile.Text);
@@ -460,7 +446,7 @@ namespace youtube_dl_gui
             Converter.StartInfo.FileName = "ffmpeg.exe";
             string setArgs = "";
             string convTo = "";
-            if (chkSaveToMaster.Checked)
+            if (Properties.Settings.Default.SaveToMaster)
             {
                 convTo = Path.GetDirectoryName(txtConvFile.Text);
             }

@@ -56,6 +56,11 @@ namespace youtube_dl_gui
             if (Properties.Settings.Default.saveArgs != chkSaveArgs.Checked)
                 Properties.Settings.Default.saveArgs = chkSaveArgs.Checked;
         }
+        private void chkSaveToMaster_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.SaveToMaster != chkSaveToMaster.Checked)
+                Properties.Settings.Default.SaveToMaster = chkSaveToMaster.Checked;
+        }
 
         private void btnBrws_Click(object sender, EventArgs e)
         {

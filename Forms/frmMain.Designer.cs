@@ -52,7 +52,6 @@
             this.txtArgs = new System.Windows.Forms.TextBox();
             this.btnDownload = new System.Windows.Forms.Button();
             this.tabConvert = new System.Windows.Forms.TabPage();
-            this.chkSaveToMaster = new System.Windows.Forms.CheckBox();
             this.btnConvert = new System.Windows.Forms.Button();
             this.lblConvertAudioFormat = new System.Windows.Forms.Label();
             this.cbConvFormat = new System.Windows.Forms.ComboBox();
@@ -135,10 +134,10 @@
             this.MainTabs.Controls.Add(this.tabDownloader);
             this.MainTabs.Controls.Add(this.tabConvert);
             this.MainTabs.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MainTabs.Location = new System.Drawing.Point(0, 65);
+            this.MainTabs.Location = new System.Drawing.Point(0, 44);
             this.MainTabs.Name = "MainTabs";
             this.MainTabs.SelectedIndex = 0;
-            this.MainTabs.Size = new System.Drawing.Size(240, 265);
+            this.MainTabs.Size = new System.Drawing.Size(240, 233);
             this.MainTabs.TabIndex = 16;
             // 
             // tabDownloader
@@ -154,7 +153,7 @@
             this.tabDownloader.Location = new System.Drawing.Point(4, 22);
             this.tabDownloader.Name = "tabDownloader";
             this.tabDownloader.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDownloader.Size = new System.Drawing.Size(232, 239);
+            this.tabDownloader.Size = new System.Drawing.Size(232, 207);
             this.tabDownloader.TabIndex = 0;
             this.tabDownloader.Text = "Downloader";
             this.tabDownloader.UseVisualStyleBackColor = true;
@@ -307,7 +306,7 @@
             // 
             // btnDownload
             // 
-            this.btnDownload.Location = new System.Drawing.Point(149, 209);
+            this.btnDownload.Location = new System.Drawing.Point(149, 176);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(76, 24);
             this.btnDownload.TabIndex = 7;
@@ -317,7 +316,6 @@
             // 
             // tabConvert
             // 
-            this.tabConvert.Controls.Add(this.chkSaveToMaster);
             this.tabConvert.Controls.Add(this.btnConvert);
             this.tabConvert.Controls.Add(this.lblConvertAudioFormat);
             this.tabConvert.Controls.Add(this.cbConvFormat);
@@ -332,28 +330,15 @@
             this.tabConvert.Location = new System.Drawing.Point(4, 22);
             this.tabConvert.Name = "tabConvert";
             this.tabConvert.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConvert.Size = new System.Drawing.Size(232, 239);
+            this.tabConvert.Size = new System.Drawing.Size(232, 207);
             this.tabConvert.TabIndex = 1;
             this.tabConvert.Text = "Converter";
             this.tabConvert.UseVisualStyleBackColor = true;
             // 
-            // chkSaveToMaster
-            // 
-            this.chkSaveToMaster.AutoSize = true;
-            this.chkSaveToMaster.Checked = true;
-            this.chkSaveToMaster.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveToMaster.Location = new System.Drawing.Point(39, 53);
-            this.chkSaveToMaster.Name = "chkSaveToMaster";
-            this.chkSaveToMaster.Size = new System.Drawing.Size(155, 17);
-            this.chkSaveToMaster.TabIndex = 0;
-            this.chkSaveToMaster.Text = "Save to same path as input";
-            this.chkSaveToMaster.UseVisualStyleBackColor = true;
-            this.chkSaveToMaster.CheckedChanged += new System.EventHandler(this.chkSaveToMaster_CheckedChanged);
-            // 
             // btnConvert
             // 
             this.btnConvert.Enabled = false;
-            this.btnConvert.Location = new System.Drawing.Point(149, 209);
+            this.btnConvert.Location = new System.Drawing.Point(149, 176);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(76, 24);
             this.btnConvert.TabIndex = 18;
@@ -364,7 +349,7 @@
             // lblConvertAudioFormat
             // 
             this.lblConvertAudioFormat.AutoSize = true;
-            this.lblConvertAudioFormat.Location = new System.Drawing.Point(60, 165);
+            this.lblConvertAudioFormat.Location = new System.Drawing.Point(60, 135);
             this.lblConvertAudioFormat.Name = "lblConvertAudioFormat";
             this.lblConvertAudioFormat.Size = new System.Drawing.Size(39, 13);
             this.lblConvertAudioFormat.TabIndex = 17;
@@ -390,7 +375,7 @@
             "opus",
             "vorbis",
             "wav"});
-            this.cbConvFormat.Location = new System.Drawing.Point(105, 162);
+            this.cbConvFormat.Location = new System.Drawing.Point(105, 132);
             this.cbConvFormat.Name = "cbConvFormat";
             this.cbConvFormat.Size = new System.Drawing.Size(66, 21);
             this.cbConvFormat.TabIndex = 16;
@@ -426,7 +411,7 @@
             "224K",
             "256K",
             "320K"});
-            this.cbConvQuality.Location = new System.Drawing.Point(105, 135);
+            this.cbConvQuality.Location = new System.Drawing.Point(105, 105);
             this.cbConvQuality.Name = "cbConvQuality";
             this.cbConvQuality.Size = new System.Drawing.Size(66, 21);
             this.cbConvQuality.TabIndex = 14;
@@ -434,7 +419,7 @@
             // lblConvertAudioQuality
             // 
             this.lblConvertAudioQuality.AutoSize = true;
-            this.lblConvertAudioQuality.Location = new System.Drawing.Point(60, 138);
+            this.lblConvertAudioQuality.Location = new System.Drawing.Point(60, 108);
             this.lblConvertAudioQuality.Name = "lblConvertAudioQuality";
             this.lblConvertAudioQuality.Size = new System.Drawing.Size(39, 13);
             this.lblConvertAudioQuality.TabIndex = 15;
@@ -443,7 +428,7 @@
             // btnBrowseConvSaveFile
             // 
             this.btnBrowseConvSaveFile.Enabled = false;
-            this.btnBrowseConvSaveFile.Location = new System.Drawing.Point(195, 100);
+            this.btnBrowseConvSaveFile.Location = new System.Drawing.Point(195, 72);
             this.btnBrowseConvSaveFile.Name = "btnBrowseConvSaveFile";
             this.btnBrowseConvSaveFile.Size = new System.Drawing.Size(28, 23);
             this.btnBrowseConvSaveFile.TabIndex = 6;
@@ -480,7 +465,7 @@
             // 
             // txtConvSave
             // 
-            this.txtConvSave.Location = new System.Drawing.Point(8, 102);
+            this.txtConvSave.Location = new System.Drawing.Point(8, 74);
             this.txtConvSave.Name = "txtConvSave";
             this.txtConvSave.ReadOnly = true;
             this.txtConvSave.Size = new System.Drawing.Size(181, 20);
@@ -489,7 +474,7 @@
             // lblSaveAs
             // 
             this.lblSaveAs.AutoSize = true;
-            this.lblSaveAs.Location = new System.Drawing.Point(7, 83);
+            this.lblSaveAs.Location = new System.Drawing.Point(7, 55);
             this.lblSaveAs.Name = "lblSaveAs";
             this.lblSaveAs.Size = new System.Drawing.Size(46, 13);
             this.lblSaveAs.TabIndex = 1;
@@ -557,15 +542,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 330);
+            this.ClientSize = new System.Drawing.Size(240, 277);
             this.Controls.Add(this.lblVideoURL);
             this.Controls.Add(this.MainTabs);
             this.Controls.Add(this.txtURL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(256, 368);
+            this.MaximumSize = new System.Drawing.Size(256, 336);
             this.Menu = this.mFrmMain;
-            this.MinimumSize = new System.Drawing.Size(256, 368);
+            this.MinimumSize = new System.Drawing.Size(256, 336);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "youtube-dl GUI";
@@ -611,7 +596,6 @@
         internal System.Windows.Forms.TextBox txtURL;
         internal System.Windows.Forms.Button btnDownload;
         internal System.Windows.Forms.TabPage tabConvert;
-        internal System.Windows.Forms.CheckBox chkSaveToMaster;
         internal System.Windows.Forms.Button btnConvert;
         internal System.Windows.Forms.Label lblConvertAudioFormat;
         internal System.Windows.Forms.ComboBox cbConvFormat;

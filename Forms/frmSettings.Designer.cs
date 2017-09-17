@@ -43,12 +43,13 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
+            this.chkSaveToMaster = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numUpdateDays)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRedownload
             // 
-            this.btnRedownload.Location = new System.Drawing.Point(64, 174);
+            this.btnRedownload.Location = new System.Drawing.Point(64, 194);
             this.btnRedownload.Name = "btnRedownload";
             this.btnRedownload.Size = new System.Drawing.Size(186, 24);
             this.btnRedownload.TabIndex = 32;
@@ -184,7 +185,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(147, 211);
+            this.btnSave.Location = new System.Drawing.Point(147, 231);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 34;
@@ -194,7 +195,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(228, 211);
+            this.btnCancel.Location = new System.Drawing.Point(228, 231);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 35;
@@ -208,12 +209,28 @@
             this.ttHelp.InitialDelay = 150;
             this.ttHelp.ReshowDelay = 100;
             // 
+            // chkSaveToMaster
+            // 
+            this.chkSaveToMaster.AutoSize = true;
+            this.chkSaveToMaster.Checked = true;
+            this.chkSaveToMaster.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSaveToMaster.Location = new System.Drawing.Point(18, 171);
+            this.chkSaveToMaster.Name = "chkSaveToMaster";
+            this.chkSaveToMaster.Size = new System.Drawing.Size(248, 17);
+            this.chkSaveToMaster.TabIndex = 36;
+            this.chkSaveToMaster.Text = "Save converted file to same location as original";
+            this.ttHelp.SetToolTip(this.chkSaveToMaster, "Saves the output of the file you wanted to convert to the same file location as t" +
+        "he file you inputted.");
+            this.chkSaveToMaster.UseVisualStyleBackColor = true;
+            this.chkSaveToMaster.CheckedChanged += new System.EventHandler(this.chkSaveToMaster_CheckedChanged);
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(314, 242);
+            this.ClientSize = new System.Drawing.Size(314, 262);
+            this.Controls.Add(this.chkSaveToMaster);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chkSaveArgs);
@@ -228,8 +245,8 @@
             this.Controls.Add(this.chkHoverURL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(330, 280);
-            this.MinimumSize = new System.Drawing.Size(330, 280);
+            this.MaximumSize = new System.Drawing.Size(330, 300);
+            this.MinimumSize = new System.Drawing.Size(330, 300);
             this.Name = "frmSettings";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -256,5 +273,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ToolTip ttHelp;
+        internal System.Windows.Forms.CheckBox chkSaveToMaster;
     }
 }
