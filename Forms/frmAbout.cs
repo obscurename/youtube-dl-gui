@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace youtube_dl_gui
 {
-    public partial class frmSupported : Form
+    public partial class frmAbout : Form
     {
-        public frmSupported()
+        public frmAbout()
         {
             InitializeComponent();
         }
 
-        private void llbSupported_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void frmAbout_Load(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://rg3.github.io/youtube-dl/supportedsites.html");
+            lbVersion.Text = Properties.Settings.Default.appVersion;
         }
-
     }
 }
