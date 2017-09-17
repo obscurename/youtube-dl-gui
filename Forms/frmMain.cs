@@ -154,7 +154,7 @@ namespace youtube_dl_gui
         }
         private void CreateUpdater()
         {
-            string updaterCode = "@echo off\necho ===========================================\necho // YOUTUBE-DL-GUI UPDATER  (BAT VERSION) \\\\\necho //      CURRENT BATCH VERSION: 1.1       \\\\\necho //  IF THIS WINDOW DOES NOT CLOSE AFTER  \\\\\necho //    YOUTUBE-DL-GUI IS FULLY UPDATED    \\\\\necho //       THEN IT IS SAFE TO CLOSE.       \\\\\necho ===========================================\nset arg1=%1\nset arg2=%2\ntimeout /t 5\ndel %arg2%\npowershell -Command \"(New-Object Net.WebClient).DownloadFile('https://github.com/obscurename/youtube-dl-gui/releases/download/%arg1%/youtube-dl-gui.exe', '%arg2%')\"\n%arg2%";
+            string updaterCode = "@echo off\necho ===========================================\necho // YOUTUBE-DL-GUI UPDATER  (BAT VERSION) \\\\\necho //      CURRENT BATCH VERSION: 1.2       \\\\\necho //  IF THIS WINDOW DOES NOT CLOSE AFTER  \\\\\necho //    YOUTUBE-DL-GUI IS FULLY UPDATED    \\\\\necho //       THEN IT IS SAFE TO CLOSE.       \\\\\necho ===========================================\nset arg1=%1\nset arg2=%2\ntimeout /t 5\ndel %arg2%\npowershell -Command \"(New-Object Net.WebClient).DownloadFile('https://github.com/obscurename/youtube-dl-gui/releases/download/%arg1%/youtube-dl-gui.exe', '%arg2%')\"\n%arg2%\nexit";
 
             /*
              * This is the entire code for the updater, it is designed to be light-weight and so is batch-based.
@@ -162,7 +162,7 @@ namespace youtube_dl_gui
              @echo off
              echo ===========================================
              echo // YOUTUBE-DL-GUI UPDATER  (BAT VERSION) \\
-             echo //      CURRENT BATCH VERSION: 1.1       \\
+             echo //      CURRENT BATCH VERSION: 1.2       \\
              echo //  IF THIS WINDOW DOES NOT CLOSE AFTER  \\
              echo //    YOUTUBE-DL-GUI IS FULLY UPDATED    \\
              echo //       THEN IT IS SAFE TO CLOSE.       \\
@@ -173,6 +173,7 @@ namespace youtube_dl_gui
              del %arg2%
              powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/obscurename/youtube-dl-gui/releases/download/%arg1%/youtube-dl-gui.exe', '%arg2%')"
              %arg2%
+             exit
 
              */
 
