@@ -64,6 +64,7 @@
             this.ClientSize = new System.Drawing.Size(364, 342);
             this.Controls.Add(this.llbSupported);
             this.Controls.Add(this.textBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(380, 380);
             this.MinimumSize = new System.Drawing.Size(380, 380);

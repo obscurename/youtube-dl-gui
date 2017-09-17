@@ -33,12 +33,14 @@
             this.llbCheckForUpdates = new System.Windows.Forms.LinkLabel();
             this.lbHeader = new System.Windows.Forms.Label();
             this.lbBody = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lbVersion
             // 
             this.lbVersion.AutoSize = true;
-            this.lbVersion.Location = new System.Drawing.Point(190, 14);
+            this.lbVersion.Location = new System.Drawing.Point(191, 14);
             this.lbVersion.Name = "lbVersion";
             this.lbVersion.Size = new System.Drawing.Size(28, 13);
             this.lbVersion.TabIndex = 0;
@@ -74,12 +76,23 @@
     "sualStudio 2013\r\n\r\nLucario = Uber, Asriel for Smash Bros";
             this.lbBody.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(38, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
             // frmAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(264, 142);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbBody);
             this.Controls.Add(this.lbHeader);
             this.Controls.Add(this.llbCheckForUpdates);
@@ -93,6 +106,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About youtube-dl-gui";
             this.Load += new System.EventHandler(this.frmAbout_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -104,5 +118,6 @@
         private System.Windows.Forms.LinkLabel llbCheckForUpdates;
         private System.Windows.Forms.Label lbHeader;
         private System.Windows.Forms.Label lbBody;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

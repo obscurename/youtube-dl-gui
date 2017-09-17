@@ -85,6 +85,12 @@ namespace youtube_dl_gui
                 niTray.BalloonTipText = "youtube-dl-gui has been updated to " + Properties.Settings.Default.appVersion + ".";
                 File.Delete(System.Windows.Forms.Application.StartupPath + @"\ydgu.bat");
             }
+
+            if (Properties.Settings.Default.saveArgs)
+                txtArgs.Text = File.ReadAllText(System.Windows.Forms.Application.StartupPath + @"\args.txt");
+
+            cbFormat.SelectedIndex = 0;
+            cbQuality.SelectedIndex = 0;
         }
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
@@ -95,10 +101,20 @@ namespace youtube_dl_gui
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Properties.Settings.Default.DeleteAfterClose == true)
+            if (Properties.Settings.Default.DeleteAfterClose)
             {
                 File.Delete(System.Windows.Forms.Application.StartupPath + @"\youtube-dl.exe");
             }
+            if (Properties.Settings.Default.saveArgs)
+            {
+                if (File.Exists(System.Windows.Forms.Application.StartupPath + @"\args.txt"))
+                    File.Delete(System.Windows.Forms.Application.StartupPath + @"\args.txt");
+
+                File.Create(System.Windows.Forms.Application.StartupPath + @"\args.txt").Dispose();
+                File.WriteAllText(System.Windows.Forms.Application.StartupPath + @"\args.txt", txtArgs.Text);
+
+            }
+
             niTray.Visible = false;
             Environment.Exit(0);
         }
@@ -250,7 +266,7 @@ namespace youtube_dl_gui
         {
             if (rbVideo.Checked)
             {
-                cbQuality.Enabled = false;
+                cbQuality.Enabled = true;
                 cbFormat.Enabled = true;
                 txtArgs.ReadOnly = true;
             }
@@ -276,7 +292,7 @@ namespace youtube_dl_gui
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            StartDownload(txtURL.Text, txtArgs.Text, false, false);
+            StartDownload("\"" + txtURL.Text + "\"", txtArgs.Text, false, false);
         }
 
         private void StartDownload(string URL, string Args, bool fromTray, bool dlTrayAudio)
@@ -296,11 +312,11 @@ namespace youtube_dl_gui
                 }
                 if (dlTrayAudio)
                 {
-                    Downloader.StartInfo.Arguments = OutputFolder + "-x --audio-format " + "mp3" + " --audio-quality " + "best" + " " + "\"" + URL + "\"";
+                    setArgs = OutputFolder + URL + " -x --audio-format mp3  --audio-quality 256K";
                 }
                 else
                 {
-                    Downloader.StartInfo.Arguments =  OutputFolder + "\"" + URL + "\" -f bestvideo+bestaudio";
+                   setArgs =  OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
                 }
             }
             else
@@ -312,8 +328,11 @@ namespace youtube_dl_gui
                 }
                 if (rbVideo.Checked)
                 {
-
-                    if (cbQuality.SelectedIndex > 8)
+                    if (cbQuality.SelectedIndex == 0 || cbQuality.SelectedIndex == 1)
+                    {
+                        dlQuality = "best";
+                    }
+                    else if (cbQuality.SelectedIndex > 8)
                     {
                         MessageBox.Show("Please select a video quality in the quality drop box.");
                         return;
@@ -331,17 +350,22 @@ namespace youtube_dl_gui
                     else if (cbFormat.SelectedIndex < 7 && cbFormat.SelectedIndex > 1)
                     {
                         dlFormat = cbFormat.SelectedItem.ToString();
-                        setArgs = OutputFolder + URL + " -f \"bestvideo[height<=" + dlFormat + "][ext=mp4]+bestaudio[ext=m4a]/best[height<=" + dlFormat + "][ext=mp4]/best";
                     }
 
                     if (dlFormat == "best" && dlQuality == "best")
                     {
                         setArgs = OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
+                    } else {
+                        setArgs = OutputFolder + URL + " -f \"bestvideo[height<=" + dlQuality + "][ext=" + dlFormat + "]+bestaudio[ext=m4a]/best[height<=" + dlQuality + "][ext=" + dlFormat + "]/best ";
                     }
                 }
                 else if (rbAudio.Checked)
                 {
-                    if (cbQuality.SelectedIndex < 9)
+                    if (cbQuality.SelectedIndex == 0)
+                    {
+                        dlQuality = "256K";
+                    }
+                    else if (cbQuality.SelectedIndex < 9 && cbQuality.SelectedIndex != 0)
                     {
                         MessageBox.Show("Please select a audio format in the format drop box");
                         return;
@@ -351,7 +375,7 @@ namespace youtube_dl_gui
                         dlQuality = cbQuality.SelectedItem.ToString();
                     }
 
-                    if (cbFormat.SelectedIndex < 8)
+                    if (cbFormat.SelectedIndex < 8 && cbFormat.SelectedIndex != 0)
                     {
                         MessageBox.Show("Please select a audio format in the format drop box.");
                         return;
@@ -361,7 +385,7 @@ namespace youtube_dl_gui
                         dlFormat = cbFormat.SelectedItem.ToString();
                     }
 
-                    setArgs = OutputFolder + "-x --audio-format " + dlFormat + " --audio-quality " + dlQuality + " " + "\"" + URL + "\"";
+                    setArgs = OutputFolder + URL + " -x --audio-format " + dlFormat + " --audio-quality " + dlQuality;
                 }
                 else if (rbCustom.Checked)
                 {
@@ -369,6 +393,7 @@ namespace youtube_dl_gui
                 }
             }
 
+            MessageBox.Show(setArgs);
             Downloader.StartInfo.Arguments = setArgs;
             Downloader.StartInfo.UseShellExecute = false;
             Downloader.StartInfo.CreateNoWindow = false;
@@ -444,6 +469,7 @@ namespace youtube_dl_gui
             Converter.Start();
         }
         #endregion
+
         #region About / Settings
         
 
@@ -467,7 +493,7 @@ namespace youtube_dl_gui
         }
         private void cmTrayDownloadAudio_Click(object sender, EventArgs e)
         {
-            StartDownload(Clipboard.GetText(), txtArgs.Text, true, true);
+            StartDownload("\"" + Clipboard.GetText() + "\"", txtArgs.Text, true, true);
         }
         private void cmTrayDownloadVideo_Click(object sender, EventArgs e)
         {

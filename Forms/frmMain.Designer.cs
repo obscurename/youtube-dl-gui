@@ -43,11 +43,11 @@
             this.lblAudioQuality = new System.Windows.Forms.Label();
             this.lblAudioFormat = new System.Windows.Forms.Label();
             this.cbQuality = new System.Windows.Forms.ComboBox();
-            this.cbFormat = new System.Windows.Forms.ComboBox();
             this.gbDownloadAs = new System.Windows.Forms.GroupBox();
             this.rbCustom = new System.Windows.Forms.RadioButton();
             this.rbAudio = new System.Windows.Forms.RadioButton();
             this.rbVideo = new System.Windows.Forms.RadioButton();
+            this.cbFormat = new System.Windows.Forms.ComboBox();
             this.lblCustomArgs = new System.Windows.Forms.Label();
             this.txtArgs = new System.Windows.Forms.TextBox();
             this.btnDownload = new System.Windows.Forms.Button();
@@ -81,7 +81,7 @@
             // niTray
             // 
             this.niTray.Icon = ((System.Drawing.Icon)(resources.GetObject("niTray.Icon")));
-            this.niTray.Text = "youtube-dl GUI";
+            this.niTray.Text = "youtube-dl-gui";
             this.niTray.Visible = true;
             this.niTray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.niTray_MouseDoubleClick);
             // 
@@ -105,18 +105,18 @@
             this.cmTrayClipboard.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.cmTrayDownloadAudio,
             this.cmTrayDownloadVideo});
-            this.cmTrayClipboard.Text = "Clipboard";
+            this.cmTrayClipboard.Text = "Download from Clipboard...";
             // 
             // cmTrayDownloadAudio
             // 
             this.cmTrayDownloadAudio.Index = 0;
-            this.cmTrayDownloadAudio.Text = "Download Audio";
+            this.cmTrayDownloadAudio.Text = "Audio (Best)";
             this.cmTrayDownloadAudio.Click += new System.EventHandler(this.cmTrayDownloadAudio_Click);
             // 
             // cmTrayDownloadVideo
             // 
             this.cmTrayDownloadVideo.Index = 1;
-            this.cmTrayDownloadVideo.Text = "Download Video";
+            this.cmTrayDownloadVideo.Text = "Video (Best)";
             this.cmTrayDownloadVideo.Click += new System.EventHandler(this.cmTrayDownloadVideo_Click);
             // 
             // cmTraySep
@@ -135,7 +135,7 @@
             this.MainTabs.Controls.Add(this.tabDownloader);
             this.MainTabs.Controls.Add(this.tabConvert);
             this.MainTabs.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MainTabs.Location = new System.Drawing.Point(0, 44);
+            this.MainTabs.Location = new System.Drawing.Point(0, 65);
             this.MainTabs.Name = "MainTabs";
             this.MainTabs.SelectedIndex = 0;
             this.MainTabs.Size = new System.Drawing.Size(240, 265);
@@ -180,11 +180,10 @@
             // cbQuality
             // 
             this.cbQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbQuality.Enabled = false;
             this.cbQuality.FormattingEnabled = true;
             this.cbQuality.Items.AddRange(new object[] {
-            "-- VIDEO --",
             "best",
+            "-- VIDEO --",
             "1080",
             "720",
             "640",
@@ -192,7 +191,6 @@
             "360",
             "240",
             "-- AUDIO --",
-            "best",
             "8K",
             "16K",
             "24K",
@@ -215,32 +213,6 @@
             this.cbQuality.Name = "cbQuality";
             this.cbQuality.Size = new System.Drawing.Size(66, 21);
             this.cbQuality.TabIndex = 3;
-            // 
-            // cbFormat
-            // 
-            this.cbFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFormat.FormattingEnabled = true;
-            this.cbFormat.Items.AddRange(new object[] {
-            "-- VIDEO --",
-            "best",
-            "avi",
-            "flv",
-            "mp4",
-            "mvk",
-            "webm",
-            "-- AUDIO --",
-            "best",
-            "aac",
-            "flac",
-            "m4a",
-            "mp3",
-            "opus",
-            "vorbis",
-            "wav"});
-            this.cbFormat.Location = new System.Drawing.Point(104, 92);
-            this.cbFormat.Name = "cbFormat";
-            this.cbFormat.Size = new System.Drawing.Size(66, 21);
-            this.cbFormat.TabIndex = 12;
             // 
             // gbDownloadAs
             // 
@@ -289,6 +261,31 @@
             this.rbVideo.Text = "Video";
             this.rbVideo.UseVisualStyleBackColor = true;
             this.rbVideo.CheckedChanged += new System.EventHandler(this.rbVideo_CheckedChanged);
+            // 
+            // cbFormat
+            // 
+            this.cbFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFormat.FormattingEnabled = true;
+            this.cbFormat.Items.AddRange(new object[] {
+            "best",
+            "-- VIDEO --",
+            "avi",
+            "flv",
+            "mp4",
+            "mvk",
+            "webm",
+            "-- AUDIO --",
+            "aac",
+            "flac",
+            "m4a",
+            "mp3",
+            "opus",
+            "vorbis",
+            "wav"});
+            this.cbFormat.Location = new System.Drawing.Point(104, 92);
+            this.cbFormat.Name = "cbFormat";
+            this.cbFormat.Size = new System.Drawing.Size(66, 21);
+            this.cbFormat.TabIndex = 12;
             // 
             // lblCustomArgs
             // 
@@ -562,7 +559,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 309);
+            this.ClientSize = new System.Drawing.Size(240, 330);
             this.Controls.Add(this.lblVideoURL);
             this.Controls.Add(this.MainTabs);
             this.Controls.Add(this.txtURL);
