@@ -48,7 +48,7 @@
             // 
             // btnRedownload
             // 
-            this.btnRedownload.Location = new System.Drawing.Point(44, 199);
+            this.btnRedownload.Location = new System.Drawing.Point(64, 174);
             this.btnRedownload.Name = "btnRedownload";
             this.btnRedownload.Size = new System.Drawing.Size(186, 24);
             this.btnRedownload.TabIndex = 32;
@@ -59,7 +59,7 @@
             // 
             // btnBrws
             // 
-            this.btnBrws.Location = new System.Drawing.Point(271, 27);
+            this.btnBrws.Location = new System.Drawing.Point(274, 25);
             this.btnBrws.Name = "btnBrws";
             this.btnBrws.Size = new System.Drawing.Size(25, 20);
             this.btnBrws.TabIndex = 31;
@@ -70,7 +70,7 @@
             // 
             // txtDownloadLocation
             // 
-            this.txtDownloadLocation.Location = new System.Drawing.Point(24, 27);
+            this.txtDownloadLocation.Location = new System.Drawing.Point(27, 25);
             this.txtDownloadLocation.Name = "txtDownloadLocation";
             this.txtDownloadLocation.ReadOnly = true;
             this.txtDownloadLocation.Size = new System.Drawing.Size(241, 20);
@@ -80,7 +80,7 @@
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(12, 9);
+            this.Label1.Location = new System.Drawing.Point(15, 7);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(79, 13);
             this.Label1.TabIndex = 29;
@@ -89,7 +89,7 @@
             // numUpdateDays
             // 
             this.numUpdateDays.Enabled = false;
-            this.numUpdateDays.Location = new System.Drawing.Point(174, 126);
+            this.numUpdateDays.Location = new System.Drawing.Point(177, 124);
             this.numUpdateDays.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -115,7 +115,7 @@
             // 
             this.chkUpdate.AutoSize = true;
             this.chkUpdate.Enabled = false;
-            this.chkUpdate.Location = new System.Drawing.Point(15, 127);
+            this.chkUpdate.Location = new System.Drawing.Point(18, 125);
             this.chkUpdate.Name = "chkUpdate";
             this.chkUpdate.Size = new System.Drawing.Size(249, 17);
             this.chkUpdate.TabIndex = 27;
@@ -127,7 +127,7 @@
             // chkDeleteExecutable
             // 
             this.chkDeleteExecutable.AutoSize = true;
-            this.chkDeleteExecutable.Location = new System.Drawing.Point(15, 104);
+            this.chkDeleteExecutable.Location = new System.Drawing.Point(18, 102);
             this.chkDeleteExecutable.Name = "chkDeleteExecutable";
             this.chkDeleteExecutable.Size = new System.Drawing.Size(257, 17);
             this.chkDeleteExecutable.TabIndex = 26;
@@ -141,7 +141,7 @@
             this.chkAutoClearURL.AutoSize = true;
             this.chkAutoClearURL.Checked = true;
             this.chkAutoClearURL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoClearURL.Location = new System.Drawing.Point(15, 81);
+            this.chkAutoClearURL.Location = new System.Drawing.Point(18, 79);
             this.chkAutoClearURL.Name = "chkAutoClearURL";
             this.chkAutoClearURL.Size = new System.Drawing.Size(215, 17);
             this.chkAutoClearURL.TabIndex = 25;
@@ -156,7 +156,7 @@
             this.chkHoverURL.AutoSize = true;
             this.chkHoverURL.Checked = true;
             this.chkHoverURL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHoverURL.Location = new System.Drawing.Point(15, 58);
+            this.chkHoverURL.Location = new System.Drawing.Point(18, 56);
             this.chkHoverURL.Name = "chkHoverURL";
             this.chkHoverURL.Size = new System.Drawing.Size(248, 17);
             this.chkHoverURL.TabIndex = 24;
@@ -172,7 +172,7 @@
             this.chkSaveArgs.AutoSize = true;
             this.chkSaveArgs.Checked = true;
             this.chkSaveArgs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveArgs.Location = new System.Drawing.Point(15, 150);
+            this.chkSaveArgs.Location = new System.Drawing.Point(18, 148);
             this.chkSaveArgs.Name = "chkSaveArgs";
             this.chkSaveArgs.Size = new System.Drawing.Size(270, 17);
             this.chkSaveArgs.TabIndex = 33;
@@ -184,7 +184,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(175, 244);
+            this.btnSave.Location = new System.Drawing.Point(147, 211);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 34;
@@ -194,7 +194,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(256, 244);
+            this.btnCancel.Location = new System.Drawing.Point(228, 211);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 35;
@@ -212,7 +212,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(403, 322);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(314, 242);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chkSaveArgs);
@@ -226,6 +227,9 @@
             this.Controls.Add(this.chkAutoClearURL);
             this.Controls.Add(this.chkHoverURL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(330, 280);
+            this.MinimumSize = new System.Drawing.Size(330, 280);
             this.Name = "frmSettings";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

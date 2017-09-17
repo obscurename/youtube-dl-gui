@@ -375,15 +375,14 @@
             this.cbConvFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbConvFormat.FormattingEnabled = true;
             this.cbConvFormat.Items.AddRange(new object[] {
-            "-- VIDEO --",
             "best",
+            "-- VIDEO --",
             "avi",
             "flv",
             "mp4",
             "mvk",
             "webm",
             "-- AUDIO --",
-            "best",
             "aac",
             "flac",
             "m4a",
@@ -469,7 +468,6 @@
             this.txtConvFile.ReadOnly = true;
             this.txtConvFile.Size = new System.Drawing.Size(181, 20);
             this.txtConvFile.TabIndex = 4;
-            this.txtConvFile.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblFileToConvert
             // 

@@ -87,10 +87,12 @@ namespace youtube_dl_gui
             }
 
             if (Properties.Settings.Default.saveArgs)
-                txtArgs.Text = File.ReadAllText(System.Windows.Forms.Application.StartupPath + @"\args.txt");
+                if (File.Exists(System.Windows.Forms.Application.StartupPath + @"\args.txt"))
+                    txtArgs.Text = File.ReadAllText(System.Windows.Forms.Application.StartupPath + @"\args.txt");
 
             cbFormat.SelectedIndex = 0;
             cbQuality.SelectedIndex = 0;
+            cbConvFormat.SelectedIndex = 0;
         }
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
@@ -252,7 +254,7 @@ namespace youtube_dl_gui
         {
             if (Properties.Settings.Default.HoverURL == true)
             {
-                if (Clipboard.ContainsText())
+                if (Clipboard.ContainsText() && txtURL.Text != Clipboard.GetText())
                 {
                     txtURL.Clear();
                     txtURL.Text = Clipboard.GetText();
@@ -456,14 +458,31 @@ namespace youtube_dl_gui
         {
             Process Converter = new Process();
             Converter.StartInfo.FileName = "ffmpeg.exe";
+            string setArgs = "";
+            string convTo = "";
             if (chkSaveToMaster.Checked)
             {
-                Converter.StartInfo.Arguments = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + Path.GetDirectoryName(txtConvFile.Text) + "\\" + Path.GetFileNameWithoutExtension(txtConvFile.Text) + "." + cbConvFormat.Text + "\"";
+                convTo = Path.GetDirectoryName(txtConvFile.Text);
             }
             else
             {
-                Converter.StartInfo.Arguments = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + txtConvSave.Text + "\\" + Path.GetFileNameWithoutExtension(txtConvFile.Text) + "." + cbConvFormat.Text + "\"";
+                convTo = txtConvSave.Text;
             }
+
+            if (cbConvQuality.SelectedIndex == 0 || cbConvQuality.SelectedIndex == 7)
+            {
+                MessageBox.Show("Please select a valid quality.");
+                return;
+            }
+            if (cbConvFormat.SelectedIndex == 1 || cbConvFormat.SelectedIndex == 7)
+            {
+                MessageBox.Show("Please select a valid format.");
+                return;
+            }
+
+            setArgs = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(convTo + "." + cbConvFormat.Text + "\"");
+
+            Converter.StartInfo.Arguments = setArgs;
             Converter.StartInfo.UseShellExecute = false;
             Converter.StartInfo.CreateNoWindow = false;
             Converter.Start();
