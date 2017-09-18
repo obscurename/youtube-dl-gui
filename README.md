@@ -25,5 +25,5 @@ https://rg3.github.io/youtube-dl/supportedsites.html
 
 # Future plans
 
-QoL updates.
+QoL updates.  
 Ability to have static youtube-dl path.
