@@ -51,6 +51,8 @@ namespace youtube_dl_gui
                         return;
                 }
             }
+            else
+                MessageBox.Show("No update available.");
 
         }
         private void CreateUpdater()
@@ -90,7 +92,7 @@ namespace youtube_dl_gui
 
         private void llbCheckForUpdates_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-
+            CheckForUpdate();
         }
         private void pbIcon_Click(object sender, EventArgs e)
         {
