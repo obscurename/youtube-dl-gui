@@ -33,8 +33,8 @@
             this.llbCheckForUpdates = new System.Windows.Forms.LinkLabel();
             this.lbHeader = new System.Windows.Forms.Label();
             this.lbBody = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pbIcon = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // lbVersion
@@ -55,6 +55,7 @@
             this.llbCheckForUpdates.TabIndex = 1;
             this.llbCheckForUpdates.TabStop = true;
             this.llbCheckForUpdates.Text = "Check for updates";
+            this.llbCheckForUpdates.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbCheckForUpdates_LinkClicked);
             // 
             // lbHeader
             // 
@@ -76,15 +77,17 @@
     "sualStudio 2013\r\n\r\nLucario = Uber, Asriel for Smash Bros";
             this.lbBody.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // pictureBox1
+            // pbIcon
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(38, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.pbIcon.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbIcon.Image = ((System.Drawing.Image)(resources.GetObject("pbIcon.Image")));
+            this.pbIcon.InitialImage = ((System.Drawing.Image)(resources.GetObject("pbIcon.InitialImage")));
+            this.pbIcon.Location = new System.Drawing.Point(38, 3);
+            this.pbIcon.Name = "pbIcon";
+            this.pbIcon.Size = new System.Drawing.Size(32, 32);
+            this.pbIcon.TabIndex = 4;
+            this.pbIcon.TabStop = false;
+            this.pbIcon.Click += new System.EventHandler(this.pbIcon_Click);
             // 
             // frmAbout
             // 
@@ -92,7 +95,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(264, 142);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbIcon);
             this.Controls.Add(this.lbBody);
             this.Controls.Add(this.lbHeader);
             this.Controls.Add(this.llbCheckForUpdates);
@@ -105,8 +108,8 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About youtube-dl-gui";
-            this.Load += new System.EventHandler(this.frmAbout_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Shown += new System.EventHandler(this.frmAbout_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.pbIcon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,6 +121,6 @@
         private System.Windows.Forms.LinkLabel llbCheckForUpdates;
         private System.Windows.Forms.Label lbHeader;
         private System.Windows.Forms.Label lbBody;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbIcon;
     }
 }
