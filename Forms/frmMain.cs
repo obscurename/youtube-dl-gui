@@ -395,7 +395,6 @@ namespace youtube_dl_gui
                 }
             }
 
-            MessageBox.Show(setArgs);
             Downloader.StartInfo.Arguments = setArgs;
             Downloader.StartInfo.UseShellExecute = false;
             Downloader.StartInfo.CreateNoWindow = false;
