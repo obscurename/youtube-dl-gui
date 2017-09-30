@@ -118,7 +118,6 @@ namespace youtube_dl_gui
             }
 
             niTray.Visible = false;
-            Environment.Exit(0);
         }
         #endregion
 
@@ -162,6 +161,7 @@ namespace youtube_dl_gui
                 }
             }
 
+            GC.Collect();
         }
         private void CreateUpdater()
         {
@@ -195,6 +195,8 @@ namespace youtube_dl_gui
             System.IO.StreamWriter writeApp = new System.IO.StreamWriter(System.Windows.Forms.Application.StartupPath + @"\ydgu.bat");
             writeApp.WriteLine(updaterCode);
             writeApp.Close();
+
+            GC.Collect();
         }
 
         public static async void DownloadYoutubeDL()
@@ -405,6 +407,8 @@ namespace youtube_dl_gui
                 txtURL.Clear();
                 Clipboard.Clear();
             }
+
+            GC.Collect();
         }
         #endregion
         #region Converter
@@ -471,6 +475,8 @@ namespace youtube_dl_gui
             Converter.StartInfo.UseShellExecute = false;
             Converter.StartInfo.CreateNoWindow = false;
             Converter.Start();
+
+            GC.Collect();
         }
         #endregion
 
@@ -515,16 +521,22 @@ namespace youtube_dl_gui
         {
             frmSettings settingsForm = new frmSettings();
             settingsForm.Show();
+            settingsForm.Dispose();
+            GC.Collect();
         }
         private void mFrmMainSupported_Click(object sender, EventArgs e)
         {
             frmSupported supportedForm = new frmSupported();
             supportedForm.Show();
+            supportedForm.Dispose();
+            GC.Collect();
         }
         private void mFrmMainAbout_Click(object sender, EventArgs e)
         {
             frmAbout aboutForm = new frmAbout();
             aboutForm.Show();
+            aboutForm.Dispose();
+            GC.Collect();
         }
         #endregion
 
