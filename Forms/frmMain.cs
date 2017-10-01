@@ -520,21 +520,21 @@ namespace youtube_dl_gui
         private void mFrmMainSettings_Click(object sender, EventArgs e)
         {
             frmSettings settingsForm = new frmSettings();
-            settingsForm.Show();
+            settingsForm.ShowDialog();
             settingsForm.Dispose();
             GC.Collect();
         }
         private void mFrmMainSupported_Click(object sender, EventArgs e)
         {
             frmSupported supportedForm = new frmSupported();
-            supportedForm.Show();
+            supportedForm.ShowDialog();
             supportedForm.Dispose();
             GC.Collect();
         }
         private void mFrmMainAbout_Click(object sender, EventArgs e)
         {
             frmAbout aboutForm = new frmAbout();
-            aboutForm.Show();
+            aboutForm.ShowDialog();
             aboutForm.Dispose();
             GC.Collect();
         }
