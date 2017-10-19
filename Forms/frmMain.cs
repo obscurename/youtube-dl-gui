@@ -69,12 +69,7 @@ namespace youtube_dl_gui
             {
                 DownloadYoutubeDL();
             }
-            else
-            {
-                CheckForUpdate();
-            }
-
-            
+            CheckForUpdate();
         }
         private void frmMain_Shown(object sender, EventArgs e)
         {
@@ -124,6 +119,9 @@ namespace youtube_dl_gui
         #region Custom
         private async void CheckForUpdate()
         {
+            if (Properties.Settings.Default.updateCheck == false)
+                return;
+
             // Check for youtube-dl update, if enabled.
             if (Properties.Settings.Default.UpdateDL == true)
             {
@@ -248,8 +246,7 @@ namespace youtube_dl_gui
         #region Downloader
         private void llSupported_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmSupported supportedFrm = new frmSupported();
-            supportedFrm.Show();
+            Process.Start("https://rg3.github.io/youtube-dl/supportedsites.html");
         }
 
         private void txtURL_MouseEnter(object sender, EventArgs e)
@@ -445,19 +442,6 @@ namespace youtube_dl_gui
         }
         private void ConvertFile(string FileInput)
         {
-            Process Converter = new Process();
-            Converter.StartInfo.FileName = "ffmpeg.exe";
-            string setArgs = "";
-            string convTo = "";
-            if (Properties.Settings.Default.SaveToMaster)
-            {
-                convTo = Path.GetDirectoryName(txtConvFile.Text);
-            }
-            else
-            {
-                convTo = txtConvSave.Text;
-            }
-
             if (cbConvQuality.SelectedIndex == 0 || cbConvQuality.SelectedIndex == 7)
             {
                 MessageBox.Show("Please select a valid quality.");
@@ -469,7 +453,19 @@ namespace youtube_dl_gui
                 return;
             }
 
-            setArgs = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(convTo + "." + cbConvFormat.Text + "\"");
+            Process Converter = new Process();
+            Converter.StartInfo.FileName = "ffmpeg.exe";
+            string setArgs = "";
+            string convTo = "";
+
+            if (Properties.Settings.Default.SaveToMaster)
+            {
+                convTo = Path.GetDirectoryName(txtConvFile.Text);
+                setArgs = "-i \"" + FileInput +"\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(FileInput) + "." + cbConvFormat.Text + "\"";
+            } else {
+                convTo = txtConvSave.Text;
+                setArgs = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(convTo) + "." + cbConvFormat.Text + "\"";
+            }
 
             Converter.StartInfo.Arguments = setArgs;
             Converter.StartInfo.UseShellExecute = false;
@@ -526,10 +522,7 @@ namespace youtube_dl_gui
         }
         private void mFrmMainSupported_Click(object sender, EventArgs e)
         {
-            frmSupported supportedForm = new frmSupported();
-            supportedForm.ShowDialog();
-            supportedForm.Dispose();
-            GC.Collect();
+            Process.Start("https://rg3.github.io/youtube-dl/supportedsites.html");
         }
         private void mFrmMainAbout_Click(object sender, EventArgs e)
         {
@@ -537,6 +530,13 @@ namespace youtube_dl_gui
             aboutForm.ShowDialog();
             aboutForm.Dispose();
             GC.Collect();
+        }
+        private void MainTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (MainTabs.SelectedIndex == 1)
+                txtURL.Enabled = false;
+            else
+                txtURL.Enabled = true;
         }
         #endregion
 

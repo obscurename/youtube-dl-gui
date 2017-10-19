@@ -44,6 +44,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.chkSaveToMaster = new System.Windows.Forms.CheckBox();
+            this.chkUpdateCheck = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numUpdateDays)).BeginInit();
             this.SuspendLayout();
             // 
@@ -224,12 +225,26 @@
             this.chkSaveToMaster.UseVisualStyleBackColor = true;
             this.chkSaveToMaster.CheckedChanged += new System.EventHandler(this.chkSaveToMaster_CheckedChanged);
             // 
+            // chkUpdateCheck
+            // 
+            this.chkUpdateCheck.AutoSize = true;
+            this.chkUpdateCheck.Checked = true;
+            this.chkUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkUpdateCheck.Location = new System.Drawing.Point(18, 235);
+            this.chkUpdateCheck.Name = "chkUpdateCheck";
+            this.chkUpdateCheck.Size = new System.Drawing.Size(113, 17);
+            this.chkUpdateCheck.TabIndex = 37;
+            this.chkUpdateCheck.Text = "Check for updates";
+            this.chkUpdateCheck.UseVisualStyleBackColor = true;
+            this.chkUpdateCheck.CheckedChanged += new System.EventHandler(this.chkUpdateCheck_CheckedChanged);
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(314, 262);
+            this.Controls.Add(this.chkUpdateCheck);
             this.Controls.Add(this.chkSaveToMaster);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -274,5 +289,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ToolTip ttHelp;
         internal System.Windows.Forms.CheckBox chkSaveToMaster;
+        private System.Windows.Forms.CheckBox chkUpdateCheck;
     }
 }

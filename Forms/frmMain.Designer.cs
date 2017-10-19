@@ -134,11 +134,12 @@
             this.MainTabs.Controls.Add(this.tabDownloader);
             this.MainTabs.Controls.Add(this.tabConvert);
             this.MainTabs.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.MainTabs.Location = new System.Drawing.Point(0, 44);
+            this.MainTabs.Location = new System.Drawing.Point(0, 65);
             this.MainTabs.Name = "MainTabs";
             this.MainTabs.SelectedIndex = 0;
             this.MainTabs.Size = new System.Drawing.Size(240, 233);
             this.MainTabs.TabIndex = 16;
+            this.MainTabs.SelectedIndexChanged += new System.EventHandler(this.MainTabs_SelectedIndexChanged);
             // 
             // tabDownloader
             // 
@@ -542,7 +543,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(240, 277);
+            this.ClientSize = new System.Drawing.Size(240, 298);
             this.Controls.Add(this.lblVideoURL);
             this.Controls.Add(this.MainTabs);
             this.Controls.Add(this.txtURL);
