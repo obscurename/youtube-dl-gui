@@ -11,6 +11,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Net;
 using Octokit;
+using System.Net.NetworkInformation;
 
 // Please read the github readme. \\
 
@@ -21,6 +22,7 @@ namespace youtube_dl_gui
 
         #region Variables
         bool hasUpdated = false;
+        bool networkAvailable = true;
         #endregion
 
         #region Form
@@ -37,6 +39,11 @@ namespace youtube_dl_gui
             {
                 hasUpdated = true;
             }
+
+            // Ping google for network availability.
+            //networkAvailable = pingGoogle();
+            //if (!networkAvailable)
+            //    MessageBox.Show("Warning: Network connection not detected.\n\nDownloading the required files or videos may not work.");
 
             // Checks the download directory setting, if it's null just ask the user to specify a location to download.
             // Way easier than using a first-time setup.
@@ -67,6 +74,9 @@ namespace youtube_dl_gui
             // Downloads the youtube-dl application if it does not exist, otherwise it checks for updates.
             if (!File.Exists(System.Windows.Forms.Application.StartupPath + @"\youtube-dl.exe"))
             {
+                // If the network is unavailable, skip downloading.
+                if (!networkAvailable)
+                    return;
                 DownloadYoutubeDL();
             }
             CheckForUpdate();
@@ -133,6 +143,7 @@ namespace youtube_dl_gui
                 }
             }
 
+
             // Check for application update then copy the resourced batch file, run it, and exit immediately.
             var client = new GitHubClient(new ProductHeaderValue("youtube-dl-gui"));
             var releases = await client.Repository.Release.GetAll("obscurename", "youtube-dl-gui");
@@ -195,6 +206,23 @@ namespace youtube_dl_gui
             writeApp.Close();
 
             GC.Collect();
+        }
+
+        public static bool pingGoogle()
+        {
+            Ping pingGoogle = new Ping();
+            String host = "google.com";
+            byte[] buffer = new byte[32];
+            int pingTimeout = 5000;
+            PingOptions pingOpt = new PingOptions();
+            PingReply getPing = pingGoogle.Send(host, pingTimeout, buffer, pingOpt);
+            if (getPing.Status == IPStatus.TimedOut)
+            {
+                return false;
+            } else if (getPing.Status == IPStatus.Success){
+                return true;
+            }
+            return true;
         }
 
         public static async void DownloadYoutubeDL()
@@ -270,6 +298,12 @@ namespace youtube_dl_gui
                 cbQuality.Enabled = true;
                 cbFormat.Enabled = true;
                 txtArgs.ReadOnly = true;
+
+                if (Properties.Settings.Default.saveDlParams)
+                {
+                    cbFormat.SelectedIndex = Properties.Settings.Default.vidFormat;
+                    cbQuality.SelectedIndex = Properties.Settings.Default.vidQuality;
+                }
             }
         }
         private void rbAudio_CheckedChanged(object sender, EventArgs e)
@@ -279,6 +313,12 @@ namespace youtube_dl_gui
                 cbQuality.Enabled = true;
                 cbFormat.Enabled = true;
                 txtArgs.ReadOnly = true;
+
+                if (Properties.Settings.Default.saveDlParams)
+                {
+                    cbFormat.SelectedIndex = Properties.Settings.Default.audFormat;
+                    cbQuality.SelectedIndex = Properties.Settings.Default.audQuality;
+                }
             }
         }
         private void rbCustom_CheckedChanged(object sender, EventArgs e)
@@ -291,9 +331,50 @@ namespace youtube_dl_gui
             }
         }
 
+        private void cbQuality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbQuality.SelectedIndex == 1)
+                cbQuality.SelectedIndex = 0;
+
+            if (cbQuality.SelectedIndex == 8)
+                cbQuality.SelectedIndex = 0;
+
+            if (rbAudio.Checked && cbQuality.SelectedIndex < 8)
+                cbQuality.SelectedIndex = 0;
+
+            if (rbVideo.Checked && cbQuality.SelectedIndex > 8)
+                cbQuality.SelectedIndex = 0;
+        }
+        private void cbFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbFormat.SelectedIndex == 1)
+                cbFormat.SelectedIndex = 0;
+
+            if (cbFormat.SelectedIndex == 7)
+                cbFormat.SelectedIndex = 0;
+
+            if (rbAudio.Checked && cbFormat.SelectedIndex < 6)
+                cbFormat.SelectedIndex = 0;
+
+            if (rbVideo.Checked && cbFormat.SelectedIndex > 6)
+                cbFormat.SelectedIndex = 0;
+        }
+
         private void btnDownload_Click(object sender, EventArgs e)
         {
             StartDownload("\"" + txtURL.Text + "\"", txtArgs.Text, false, false);
+
+            if (Properties.Settings.Default.saveDlParams)
+            {
+                if (rbVideo.Checked)
+                {
+                    Properties.Settings.Default.vidFormat = cbFormat.SelectedIndex;
+                    Properties.Settings.Default.vidQuality = cbQuality.SelectedIndex;
+                } else if (rbAudio.Checked) {
+                    Properties.Settings.Default.audFormat = cbFormat.SelectedIndex;
+                    Properties.Settings.Default.audQuality = cbQuality.SelectedIndex;
+                }
+            }
         }
 
         private void StartDownload(string URL, string Args, bool fromTray, bool dlTrayAudio)
@@ -397,7 +478,30 @@ namespace youtube_dl_gui
             Downloader.StartInfo.Arguments = setArgs;
             Downloader.StartInfo.UseShellExecute = false;
             Downloader.StartInfo.CreateNoWindow = false;
-            Downloader.Start();
+            bool errOccured = false;
+
+            try
+            {
+                Downloader.Start();
+            }
+            catch (Exception ex)
+            {
+                if(ex.ToString().Contains("The system cannot find the file specified"))
+                {
+                    MessageBox.Show("Error: youtube-dl.exe not found.\n\nPlease redownload it from the settings, or restart the application.", "youtube-dl-gui");
+                    errOccured = true;
+                }else{
+                    MessageBox.Show("Unknown error. Please start a new issue on Github with this exception:\n\n" + ex.ToString(), "youtube-dl-gui");
+                    errOccured = true;
+                }
+            }
+
+pingError:
+            if (errOccured)
+            {
+                GC.Collect();
+                return;
+            }
 
             if (Properties.Settings.Default.ClearURL == true)
             {
@@ -424,6 +528,12 @@ namespace youtube_dl_gui
                     }
                     break;
             }
+
+            if (Properties.Settings.Default.saveConvParams)
+            {
+                cbConvFormat.SelectedIndex = Properties.Settings.Default.convFormat;
+                cbConvQuality.SelectedIndex = Properties.Settings.Default.convQuality;
+            }
         }
         private void btnBrowseConvSaveFile_Click(object sender, EventArgs e)
         {
@@ -436,10 +546,35 @@ namespace youtube_dl_gui
                     break;
             }
         }
+
+        private void cbConvQuality_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbConvQuality.SelectedIndex == 0)
+                cbConvQuality.SelectedIndex = 2;
+
+            if (cbConvQuality.SelectedIndex == 7)
+                cbConvQuality.SelectedIndex = 22;
+        }
+        private void cbConvFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbConvFormat.SelectedIndex == 1)
+                cbConvFormat.SelectedIndex = 0;
+
+            if (cbConvFormat.SelectedIndex == 7)
+                cbConvFormat.SelectedIndex = 0;
+        }
+
         private void btnConvert_Click(object sender, EventArgs e)
         {
             ConvertFile(txtConvFile.Text);
+
+            if (Properties.Settings.Default.saveConvParams)
+            {
+                Properties.Settings.Default.convFormat = cbConvFormat.SelectedIndex;
+                Properties.Settings.Default.convQuality = cbConvQuality.SelectedIndex;
+            }
         }
+
         private void ConvertFile(string FileInput)
         {
             if (cbConvQuality.SelectedIndex == 0 || cbConvQuality.SelectedIndex == 7)
@@ -539,6 +674,9 @@ namespace youtube_dl_gui
                 txtURL.Enabled = true;
         }
         #endregion
+
+
+
 
     }
 }

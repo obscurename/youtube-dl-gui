@@ -213,6 +213,7 @@
             this.cbQuality.Name = "cbQuality";
             this.cbQuality.Size = new System.Drawing.Size(66, 21);
             this.cbQuality.TabIndex = 3;
+            this.cbQuality.SelectedIndexChanged += new System.EventHandler(this.cbQuality_SelectedIndexChanged);
             // 
             // gbDownloadAs
             // 
@@ -286,6 +287,7 @@
             this.cbFormat.Name = "cbFormat";
             this.cbFormat.Size = new System.Drawing.Size(66, 21);
             this.cbFormat.TabIndex = 12;
+            this.cbFormat.SelectedIndexChanged += new System.EventHandler(this.cbFormat_SelectedIndexChanged);
             // 
             // lblCustomArgs
             // 
@@ -380,6 +382,7 @@
             this.cbConvFormat.Name = "cbConvFormat";
             this.cbConvFormat.Size = new System.Drawing.Size(66, 21);
             this.cbConvFormat.TabIndex = 16;
+            this.cbConvFormat.SelectedIndexChanged += new System.EventHandler(this.cbConvFormat_SelectedIndexChanged);
             // 
             // cbConvQuality
             // 
@@ -416,6 +419,7 @@
             this.cbConvQuality.Name = "cbConvQuality";
             this.cbConvQuality.Size = new System.Drawing.Size(66, 21);
             this.cbConvQuality.TabIndex = 14;
+            this.cbConvQuality.SelectedIndexChanged += new System.EventHandler(this.cbConvQuality_SelectedIndexChanged);
             // 
             // lblConvertAudioQuality
             // 

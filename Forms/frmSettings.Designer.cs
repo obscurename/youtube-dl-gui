@@ -45,12 +45,14 @@
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.chkSaveToMaster = new System.Windows.Forms.CheckBox();
             this.chkUpdateCheck = new System.Windows.Forms.CheckBox();
+            this.chkSaveDLParams = new System.Windows.Forms.CheckBox();
+            this.chkSaveConvParams = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numUpdateDays)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRedownload
             // 
-            this.btnRedownload.Location = new System.Drawing.Point(64, 194);
+            this.btnRedownload.Location = new System.Drawing.Point(64, 240);
             this.btnRedownload.Name = "btnRedownload";
             this.btnRedownload.Size = new System.Drawing.Size(186, 24);
             this.btnRedownload.TabIndex = 32;
@@ -186,7 +188,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(147, 231);
+            this.btnSave.Location = new System.Drawing.Point(147, 277);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 34;
@@ -196,7 +198,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(228, 231);
+            this.btnCancel.Location = new System.Drawing.Point(228, 277);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 35;
@@ -230,7 +232,7 @@
             this.chkUpdateCheck.AutoSize = true;
             this.chkUpdateCheck.Checked = true;
             this.chkUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateCheck.Location = new System.Drawing.Point(18, 235);
+            this.chkUpdateCheck.Location = new System.Drawing.Point(18, 281);
             this.chkUpdateCheck.Name = "chkUpdateCheck";
             this.chkUpdateCheck.Size = new System.Drawing.Size(113, 17);
             this.chkUpdateCheck.TabIndex = 37;
@@ -238,12 +240,40 @@
             this.chkUpdateCheck.UseVisualStyleBackColor = true;
             this.chkUpdateCheck.CheckedChanged += new System.EventHandler(this.chkUpdateCheck_CheckedChanged);
             // 
+            // chkSaveDLParams
+            // 
+            this.chkSaveDLParams.AutoSize = true;
+            this.chkSaveDLParams.Checked = true;
+            this.chkSaveDLParams.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSaveDLParams.Location = new System.Drawing.Point(18, 194);
+            this.chkSaveDLParams.Name = "chkSaveDLParams";
+            this.chkSaveDLParams.Size = new System.Drawing.Size(174, 17);
+            this.chkSaveDLParams.TabIndex = 38;
+            this.chkSaveDLParams.Text = "Save download format && quality";
+            this.chkSaveDLParams.UseVisualStyleBackColor = true;
+            this.chkSaveDLParams.CheckedChanged += new System.EventHandler(this.chkSaveDLParams_CheckedChanged);
+            // 
+            // chkSaveConvParams
+            // 
+            this.chkSaveConvParams.AutoSize = true;
+            this.chkSaveConvParams.Checked = true;
+            this.chkSaveConvParams.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSaveConvParams.Location = new System.Drawing.Point(18, 217);
+            this.chkSaveConvParams.Name = "chkSaveConvParams";
+            this.chkSaveConvParams.Size = new System.Drawing.Size(180, 17);
+            this.chkSaveConvParams.TabIndex = 39;
+            this.chkSaveConvParams.Text = "Save conversion format && quality";
+            this.chkSaveConvParams.UseVisualStyleBackColor = true;
+            this.chkSaveConvParams.CheckedChanged += new System.EventHandler(this.chkSaveConvParams_CheckedChanged);
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(314, 262);
+            this.ClientSize = new System.Drawing.Size(314, 312);
+            this.Controls.Add(this.chkSaveConvParams);
+            this.Controls.Add(this.chkSaveDLParams);
             this.Controls.Add(this.chkUpdateCheck);
             this.Controls.Add(this.chkSaveToMaster);
             this.Controls.Add(this.btnCancel);
@@ -260,8 +290,8 @@
             this.Controls.Add(this.chkHoverURL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(330, 300);
-            this.MinimumSize = new System.Drawing.Size(330, 300);
+            this.MaximumSize = new System.Drawing.Size(330, 350);
+            this.MinimumSize = new System.Drawing.Size(330, 350);
             this.Name = "frmSettings";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -290,5 +320,7 @@
         private System.Windows.Forms.ToolTip ttHelp;
         internal System.Windows.Forms.CheckBox chkSaveToMaster;
         private System.Windows.Forms.CheckBox chkUpdateCheck;
+        private System.Windows.Forms.CheckBox chkSaveDLParams;
+        private System.Windows.Forms.CheckBox chkSaveConvParams;
     }
 }

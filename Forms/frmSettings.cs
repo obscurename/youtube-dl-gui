@@ -24,8 +24,11 @@ namespace youtube_dl_gui
             chkUpdate.Checked = Properties.Settings.Default.UpdateDL;
             numUpdateDays.Value = Convert.ToDecimal(Properties.Settings.Default.DaysBetweenUpdate);
             txtDownloadLocation.Text = Properties.Settings.Default.DownloadDir;
+            chkSaveDLParams.Checked = Properties.Settings.Default.saveDlParams;
+            chkSaveConvParams.Checked = Properties.Settings.Default.saveConvParams;
         }
 
+        #region CheckBoxes
         private void chkHoverURL_CheckedChanged(object sender, EventArgs e)
         {
             if (chkHoverURL.Checked != Properties.Settings.Default.HoverURL)
@@ -66,6 +69,17 @@ namespace youtube_dl_gui
             if (Properties.Settings.Default.updateCheck != chkUpdateCheck.Checked)
                 Properties.Settings.Default.updateCheck = chkUpdateCheck.Checked;
         }
+        private void chkSaveDLParams_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.saveDlParams != chkSaveDLParams.Checked)
+                Properties.Settings.Default.saveDlParams = chkSaveDLParams.Checked;
+        }
+        private void chkSaveConvParams_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.saveConvParams != chkSaveConvParams.Checked)
+                Properties.Settings.Default.saveConvParams = chkSaveConvParams.Checked;
+        }
+        #endregion
 
         private void btnBrws_Click(object sender, EventArgs e)
         {
@@ -92,6 +106,7 @@ namespace youtube_dl_gui
         {
             this.Close();
         }
+
 
 
     }
