@@ -47,12 +47,22 @@
             this.chkUpdateCheck = new System.Windows.Forms.CheckBox();
             this.chkSaveDLParams = new System.Windows.Forms.CheckBox();
             this.chkSaveConvParams = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.tabDownloads = new System.Windows.Forms.TabPage();
+            this.chkSeperateDownloads = new System.Windows.Forms.CheckBox();
+            this.lbDlSeperator = new System.Windows.Forms.Label();
+            this.tabConverter = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.numUpdateDays)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabGeneral.SuspendLayout();
+            this.tabDownloads.SuspendLayout();
+            this.tabConverter.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnRedownload
             // 
-            this.btnRedownload.Location = new System.Drawing.Point(64, 240);
+            this.btnRedownload.Location = new System.Drawing.Point(60, 175);
             this.btnRedownload.Name = "btnRedownload";
             this.btnRedownload.Size = new System.Drawing.Size(186, 24);
             this.btnRedownload.TabIndex = 32;
@@ -63,7 +73,7 @@
             // 
             // btnBrws
             // 
-            this.btnBrws.Location = new System.Drawing.Point(274, 25);
+            this.btnBrws.Location = new System.Drawing.Point(270, 30);
             this.btnBrws.Name = "btnBrws";
             this.btnBrws.Size = new System.Drawing.Size(25, 20);
             this.btnBrws.TabIndex = 31;
@@ -74,7 +84,7 @@
             // 
             // txtDownloadLocation
             // 
-            this.txtDownloadLocation.Location = new System.Drawing.Point(27, 25);
+            this.txtDownloadLocation.Location = new System.Drawing.Point(23, 30);
             this.txtDownloadLocation.Name = "txtDownloadLocation";
             this.txtDownloadLocation.ReadOnly = true;
             this.txtDownloadLocation.Size = new System.Drawing.Size(241, 20);
@@ -84,7 +94,7 @@
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(15, 7);
+            this.Label1.Location = new System.Drawing.Point(11, 12);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(79, 13);
             this.Label1.TabIndex = 29;
@@ -93,7 +103,7 @@
             // numUpdateDays
             // 
             this.numUpdateDays.Enabled = false;
-            this.numUpdateDays.Location = new System.Drawing.Point(177, 124);
+            this.numUpdateDays.Location = new System.Drawing.Point(184, 142);
             this.numUpdateDays.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -119,7 +129,7 @@
             // 
             this.chkUpdate.AutoSize = true;
             this.chkUpdate.Enabled = false;
-            this.chkUpdate.Location = new System.Drawing.Point(18, 125);
+            this.chkUpdate.Location = new System.Drawing.Point(25, 143);
             this.chkUpdate.Name = "chkUpdate";
             this.chkUpdate.Size = new System.Drawing.Size(249, 17);
             this.chkUpdate.TabIndex = 27;
@@ -131,7 +141,7 @@
             // chkDeleteExecutable
             // 
             this.chkDeleteExecutable.AutoSize = true;
-            this.chkDeleteExecutable.Location = new System.Drawing.Point(18, 102);
+            this.chkDeleteExecutable.Location = new System.Drawing.Point(25, 120);
             this.chkDeleteExecutable.Name = "chkDeleteExecutable";
             this.chkDeleteExecutable.Size = new System.Drawing.Size(257, 17);
             this.chkDeleteExecutable.TabIndex = 26;
@@ -145,7 +155,7 @@
             this.chkAutoClearURL.AutoSize = true;
             this.chkAutoClearURL.Checked = true;
             this.chkAutoClearURL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoClearURL.Location = new System.Drawing.Point(18, 79);
+            this.chkAutoClearURL.Location = new System.Drawing.Point(18, 67);
             this.chkAutoClearURL.Name = "chkAutoClearURL";
             this.chkAutoClearURL.Size = new System.Drawing.Size(215, 17);
             this.chkAutoClearURL.TabIndex = 25;
@@ -160,7 +170,7 @@
             this.chkHoverURL.AutoSize = true;
             this.chkHoverURL.Checked = true;
             this.chkHoverURL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHoverURL.Location = new System.Drawing.Point(18, 56);
+            this.chkHoverURL.Location = new System.Drawing.Point(18, 44);
             this.chkHoverURL.Name = "chkHoverURL";
             this.chkHoverURL.Size = new System.Drawing.Size(248, 17);
             this.chkHoverURL.TabIndex = 24;
@@ -176,7 +186,7 @@
             this.chkSaveArgs.AutoSize = true;
             this.chkSaveArgs.Checked = true;
             this.chkSaveArgs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveArgs.Location = new System.Drawing.Point(18, 148);
+            this.chkSaveArgs.Location = new System.Drawing.Point(18, 90);
             this.chkSaveArgs.Name = "chkSaveArgs";
             this.chkSaveArgs.Size = new System.Drawing.Size(270, 17);
             this.chkSaveArgs.TabIndex = 33;
@@ -188,7 +198,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(147, 277);
+            this.btnSave.Location = new System.Drawing.Point(146, 248);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 34;
@@ -198,7 +208,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(228, 277);
+            this.btnCancel.Location = new System.Drawing.Point(227, 248);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 35;
@@ -217,7 +227,7 @@
             this.chkSaveToMaster.AutoSize = true;
             this.chkSaveToMaster.Checked = true;
             this.chkSaveToMaster.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveToMaster.Location = new System.Drawing.Point(18, 171);
+            this.chkSaveToMaster.Location = new System.Drawing.Point(29, 50);
             this.chkSaveToMaster.Name = "chkSaveToMaster";
             this.chkSaveToMaster.Size = new System.Drawing.Size(248, 17);
             this.chkSaveToMaster.TabIndex = 36;
@@ -232,11 +242,11 @@
             this.chkUpdateCheck.AutoSize = true;
             this.chkUpdateCheck.Checked = true;
             this.chkUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateCheck.Location = new System.Drawing.Point(18, 281);
+            this.chkUpdateCheck.Location = new System.Drawing.Point(18, 21);
             this.chkUpdateCheck.Name = "chkUpdateCheck";
-            this.chkUpdateCheck.Size = new System.Drawing.Size(113, 17);
+            this.chkUpdateCheck.Size = new System.Drawing.Size(163, 17);
             this.chkUpdateCheck.TabIndex = 37;
-            this.chkUpdateCheck.Text = "Check for updates";
+            this.chkUpdateCheck.Text = "Check for updates on launch";
             this.chkUpdateCheck.UseVisualStyleBackColor = true;
             this.chkUpdateCheck.CheckedChanged += new System.EventHandler(this.chkUpdateCheck_CheckedChanged);
             // 
@@ -245,7 +255,7 @@
             this.chkSaveDLParams.AutoSize = true;
             this.chkSaveDLParams.Checked = true;
             this.chkSaveDLParams.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveDLParams.Location = new System.Drawing.Point(18, 194);
+            this.chkSaveDLParams.Location = new System.Drawing.Point(25, 74);
             this.chkSaveDLParams.Name = "chkSaveDLParams";
             this.chkSaveDLParams.Size = new System.Drawing.Size(174, 17);
             this.chkSaveDLParams.TabIndex = 38;
@@ -258,7 +268,7 @@
             this.chkSaveConvParams.AutoSize = true;
             this.chkSaveConvParams.Checked = true;
             this.chkSaveConvParams.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveConvParams.Location = new System.Drawing.Point(18, 217);
+            this.chkSaveConvParams.Location = new System.Drawing.Point(29, 27);
             this.chkSaveConvParams.Name = "chkSaveConvParams";
             this.chkSaveConvParams.Size = new System.Drawing.Size(180, 17);
             this.chkSaveConvParams.TabIndex = 39;
@@ -266,40 +276,110 @@
             this.chkSaveConvParams.UseVisualStyleBackColor = true;
             this.chkSaveConvParams.CheckedChanged += new System.EventHandler(this.chkSaveConvParams_CheckedChanged);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabGeneral);
+            this.tabControl1.Controls.Add(this.tabDownloads);
+            this.tabControl1.Controls.Add(this.tabConverter);
+            this.tabControl1.Location = new System.Drawing.Point(1, 1);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(314, 243);
+            this.tabControl1.TabIndex = 40;
+            // 
+            // tabGeneral
+            // 
+            this.tabGeneral.Controls.Add(this.chkHoverURL);
+            this.tabGeneral.Controls.Add(this.chkAutoClearURL);
+            this.tabGeneral.Controls.Add(this.chkUpdateCheck);
+            this.tabGeneral.Controls.Add(this.chkSaveArgs);
+            this.tabGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabGeneral.Name = "tabGeneral";
+            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGeneral.Size = new System.Drawing.Size(306, 217);
+            this.tabGeneral.TabIndex = 0;
+            this.tabGeneral.Text = "General";
+            this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // tabDownloads
+            // 
+            this.tabDownloads.Controls.Add(this.lbDlSeperator);
+            this.tabDownloads.Controls.Add(this.chkSeperateDownloads);
+            this.tabDownloads.Controls.Add(this.btnBrws);
+            this.tabDownloads.Controls.Add(this.chkSaveDLParams);
+            this.tabDownloads.Controls.Add(this.Label1);
+            this.tabDownloads.Controls.Add(this.txtDownloadLocation);
+            this.tabDownloads.Controls.Add(this.btnRedownload);
+            this.tabDownloads.Controls.Add(this.numUpdateDays);
+            this.tabDownloads.Controls.Add(this.chkDeleteExecutable);
+            this.tabDownloads.Controls.Add(this.chkUpdate);
+            this.tabDownloads.Location = new System.Drawing.Point(4, 22);
+            this.tabDownloads.Name = "tabDownloads";
+            this.tabDownloads.Size = new System.Drawing.Size(306, 217);
+            this.tabDownloads.TabIndex = 2;
+            this.tabDownloads.Text = "Downloads";
+            this.tabDownloads.UseVisualStyleBackColor = true;
+            // 
+            // chkSeperateDownloads
+            // 
+            this.chkSeperateDownloads.AutoSize = true;
+            this.chkSeperateDownloads.Location = new System.Drawing.Point(25, 97);
+            this.chkSeperateDownloads.Name = "chkSeperateDownloads";
+            this.chkSeperateDownloads.Size = new System.Drawing.Size(210, 17);
+            this.chkSeperateDownloads.TabIndex = 33;
+            this.chkSeperateDownloads.Text = "Seperate downloads to different folders";
+            this.ttHelp.SetToolTip(this.chkSeperateDownloads, "Downloads will be downloaded to the download path.\r\n\r\nVideo downloads will be sto" +
+        "red in the \"Video\" folder\r\nAudio downloads will be stored in the \"Audio\" folder." +
+        "");
+            this.chkSeperateDownloads.UseVisualStyleBackColor = true;
+            // 
+            // lbDlSeperator
+            // 
+            this.lbDlSeperator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbDlSeperator.Location = new System.Drawing.Point(25, 61);
+            this.lbDlSeperator.Name = "lbDlSeperator";
+            this.lbDlSeperator.Size = new System.Drawing.Size(256, 2);
+            this.lbDlSeperator.TabIndex = 34;
+            this.lbDlSeperator.Text = "Stop looking for easter eggs";
+            // 
+            // tabConverter
+            // 
+            this.tabConverter.Controls.Add(this.chkSaveConvParams);
+            this.tabConverter.Controls.Add(this.chkSaveToMaster);
+            this.tabConverter.Location = new System.Drawing.Point(4, 22);
+            this.tabConverter.Name = "tabConverter";
+            this.tabConverter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConverter.Size = new System.Drawing.Size(306, 217);
+            this.tabConverter.TabIndex = 3;
+            this.tabConverter.Text = "Converter";
+            this.tabConverter.UseVisualStyleBackColor = true;
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(314, 312);
-            this.Controls.Add(this.chkSaveConvParams);
-            this.Controls.Add(this.chkSaveDLParams);
-            this.Controls.Add(this.chkUpdateCheck);
-            this.Controls.Add(this.chkSaveToMaster);
+            this.ClientSize = new System.Drawing.Size(314, 275);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.chkSaveArgs);
-            this.Controls.Add(this.btnRedownload);
-            this.Controls.Add(this.btnBrws);
-            this.Controls.Add(this.txtDownloadLocation);
-            this.Controls.Add(this.Label1);
-            this.Controls.Add(this.numUpdateDays);
-            this.Controls.Add(this.chkUpdate);
-            this.Controls.Add(this.chkDeleteExecutable);
-            this.Controls.Add(this.chkAutoClearURL);
-            this.Controls.Add(this.chkHoverURL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(330, 350);
-            this.MinimumSize = new System.Drawing.Size(330, 350);
+            this.MinimumSize = new System.Drawing.Size(330, 290);
             this.Name = "frmSettings";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.Shown += new System.EventHandler(this.frmSettings_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.numUpdateDays)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabGeneral.ResumeLayout(false);
+            this.tabGeneral.PerformLayout();
+            this.tabDownloads.ResumeLayout(false);
+            this.tabDownloads.PerformLayout();
+            this.tabConverter.ResumeLayout(false);
+            this.tabConverter.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -322,5 +402,11 @@
         private System.Windows.Forms.CheckBox chkUpdateCheck;
         private System.Windows.Forms.CheckBox chkSaveDLParams;
         private System.Windows.Forms.CheckBox chkSaveConvParams;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabGeneral;
+        private System.Windows.Forms.TabPage tabDownloads;
+        private System.Windows.Forms.CheckBox chkSeperateDownloads;
+        private System.Windows.Forms.Label lbDlSeperator;
+        private System.Windows.Forms.TabPage tabConverter;
     }
 }

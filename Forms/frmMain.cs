@@ -22,7 +22,7 @@ namespace youtube_dl_gui
 
         #region Variables
         bool hasUpdated = false;
-        bool networkAvailable = true;
+        //bool networkAvailable = true;
         #endregion
 
         #region Form
@@ -75,8 +75,8 @@ namespace youtube_dl_gui
             if (!File.Exists(System.Windows.Forms.Application.StartupPath + @"\youtube-dl.exe"))
             {
                 // If the network is unavailable, skip downloading.
-                if (!networkAvailable)
-                    return;
+                //if (!networkAvailable)
+                //    return;
                 DownloadYoutubeDL();
             }
             CheckForUpdate();
@@ -91,36 +91,29 @@ namespace youtube_dl_gui
                 File.Delete(System.Windows.Forms.Application.StartupPath + @"\ydgu.bat");
             }
 
-            if (Properties.Settings.Default.saveArgs)
-                if (File.Exists(System.Windows.Forms.Application.StartupPath + @"\args.txt"))
-                    txtArgs.Text = File.ReadAllText(System.Windows.Forms.Application.StartupPath + @"\args.txt");
+            if (Properties.Settings.Default.saveDlParams)
+            {
+                cbFormat.SelectedIndex = Properties.Settings.Default.vidFormat;
+                cbQuality.SelectedIndex = Properties.Settings.Default.vidQuality;
+            } else {
+                cbFormat.SelectedIndex = 0;
+                cbQuality.SelectedIndex = 0;
+            }
 
-            cbFormat.SelectedIndex = 0;
-            cbQuality.SelectedIndex = 0;
-            cbConvFormat.SelectedIndex = 0;
+            if (Properties.Settings.Default.saveConvParams)
+                cbConvFormat.SelectedIndex = Properties.Settings.Default.convFormat;
+            else
+                cbConvFormat.SelectedIndex = 0;
         }
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
-            {
                 this.Hide();
-            }
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Properties.Settings.Default.DeleteAfterClose)
-            {
                 File.Delete(System.Windows.Forms.Application.StartupPath + @"\youtube-dl.exe");
-            }
-            if (Properties.Settings.Default.saveArgs)
-            {
-                if (File.Exists(System.Windows.Forms.Application.StartupPath + @"\args.txt"))
-                    File.Delete(System.Windows.Forms.Application.StartupPath + @"\args.txt");
-
-                File.Create(System.Windows.Forms.Application.StartupPath + @"\args.txt").Dispose();
-                File.WriteAllText(System.Windows.Forms.Application.StartupPath + @"\args.txt", txtArgs.Text);
-
-            }
 
             niTray.Visible = false;
         }
@@ -137,10 +130,9 @@ namespace youtube_dl_gui
             {
                 DateTime PreviousUpdated = Properties.Settings.Default.DateLastUpdated;
                 DateTime TodayDate = DateTime.Now;
+
                 if ((PreviousUpdated - TodayDate).TotalDays > Properties.Settings.Default.DaysBetweenUpdate)
-                {
                     DownloadYoutubeDL();
-                }
             }
 
 
@@ -149,7 +141,6 @@ namespace youtube_dl_gui
             var releases = await client.Repository.Release.GetAll("obscurename", "youtube-dl-gui");
             var latest = releases[0];
             if (latest.TagName != Properties.Settings.Default.appVersion)
-            {
                 switch (MessageBox.Show("An update for youtube-dl-gui is available. Update now?", "youtube-dl-gui", MessageBoxButtons.YesNo))
                 {
                     case System.Windows.Forms.DialogResult.Yes:
@@ -168,7 +159,6 @@ namespace youtube_dl_gui
                     case System.Windows.Forms.DialogResult.No:
                         return;
                 }
-            }
 
             GC.Collect();
         }
@@ -216,12 +206,12 @@ namespace youtube_dl_gui
             int pingTimeout = 5000;
             PingOptions pingOpt = new PingOptions();
             PingReply getPing = pingGoogle.Send(host, pingTimeout, buffer, pingOpt);
+
             if (getPing.Status == IPStatus.TimedOut)
-            {
                 return false;
-            } else if (getPing.Status == IPStatus.Success){
+             else if (getPing.Status == IPStatus.Success)
                 return true;
-            }
+            
             return true;
         }
 
@@ -247,10 +237,8 @@ namespace youtube_dl_gui
                     WebClient DownloadFile = new WebClient();
 
                     if (File.Exists(System.Windows.Forms.Application.StartupPath + @"\youtube-dl.exe"))
-                    {
                         File.Delete(System.Windows.Forms.Application.StartupPath + @"\youtube-dl.exe");
-                    }
-
+                   
                     DownloadFile.DownloadFile(YtDl, System.Windows.Forms.Application.StartupPath + @"\youtube-dl.exe");
 
                     Properties.Settings.Default.DateLastUpdated = DateTime.Now;
@@ -272,21 +260,14 @@ namespace youtube_dl_gui
         #endregion
 
         #region Downloader
-        private void llSupported_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://rg3.github.io/youtube-dl/supportedsites.html");
-        }
-
         private void txtURL_MouseEnter(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.HoverURL == true)
-            {
                 if (Clipboard.ContainsText() && txtURL.Text != Clipboard.GetText())
                 {
                     txtURL.Clear();
                     txtURL.Text = Clipboard.GetText();
                 }
-            }
         }
         private void txtURL_TextChanged(object sender, EventArgs e)
         {}
@@ -298,6 +279,7 @@ namespace youtube_dl_gui
                 cbQuality.Enabled = true;
                 cbFormat.Enabled = true;
                 txtArgs.ReadOnly = true;
+                txtArgs.Clear();
 
                 if (Properties.Settings.Default.saveDlParams)
                 {
@@ -313,6 +295,7 @@ namespace youtube_dl_gui
                 cbQuality.Enabled = true;
                 cbFormat.Enabled = true;
                 txtArgs.ReadOnly = true;
+                txtArgs.Clear();
 
                 if (Properties.Settings.Default.saveDlParams)
                 {
@@ -328,6 +311,9 @@ namespace youtube_dl_gui
                 cbQuality.Enabled = false;
                 cbFormat.Enabled = false;
                 txtArgs.ReadOnly = false;
+
+                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.savedArgs))
+                    txtArgs.Text = Properties.Settings.Default.savedArgs;
             }
         }
 
@@ -353,10 +339,10 @@ namespace youtube_dl_gui
             if (cbFormat.SelectedIndex == 7)
                 cbFormat.SelectedIndex = 0;
 
-            if (rbAudio.Checked && cbFormat.SelectedIndex < 6)
+            if (rbAudio.Checked && cbFormat.SelectedIndex < 7)
                 cbFormat.SelectedIndex = 0;
 
-            if (rbVideo.Checked && cbFormat.SelectedIndex > 6)
+            if (rbVideo.Checked && cbFormat.SelectedIndex > 7)
                 cbFormat.SelectedIndex = 0;
         }
 
@@ -365,7 +351,6 @@ namespace youtube_dl_gui
             StartDownload("\"" + txtURL.Text + "\"", txtArgs.Text, false, false);
 
             if (Properties.Settings.Default.saveDlParams)
-            {
                 if (rbVideo.Checked)
                 {
                     Properties.Settings.Default.vidFormat = cbFormat.SelectedIndex;
@@ -374,7 +359,11 @@ namespace youtube_dl_gui
                     Properties.Settings.Default.audFormat = cbFormat.SelectedIndex;
                     Properties.Settings.Default.audQuality = cbQuality.SelectedIndex;
                 }
-            }
+
+            if (Properties.Settings.Default.saveArgs)
+                Properties.Settings.Default.savedArgs = txtArgs.Text;
+
+            Properties.Settings.Default.Save();
         }
 
         private void StartDownload(string URL, string Args, bool fromTray, bool dlTrayAudio)
@@ -383,8 +372,10 @@ namespace youtube_dl_gui
             string dlFormat = "best";
             string dlQuality = "best";
             string setArgs = "";
+
             Process Downloader = new Process();
             Downloader.StartInfo.FileName = System.Windows.Forms.Application.StartupPath + "/youtube-dl.exe";
+
             if (fromTray)
             {
                 if (string.IsNullOrWhiteSpace(Clipboard.GetText()))
@@ -392,14 +383,11 @@ namespace youtube_dl_gui
                     MessageBox.Show("Please copy a URL before attemping to download.");
                     return;
                 }
+
                 if (dlTrayAudio)
-                {
                     setArgs = OutputFolder + URL + " -x --audio-format mp3  --audio-quality 256K";
-                }
                 else
-                {
                    setArgs =  OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
-                }
             }
             else
             {
@@ -410,7 +398,7 @@ namespace youtube_dl_gui
                 }
                 if (rbVideo.Checked)
                 {
-                    if (cbQuality.SelectedIndex == 0 || cbQuality.SelectedIndex == 1)
+                    if (cbQuality.SelectedIndex == -1 || cbQuality.SelectedIndex == 0 || cbQuality.SelectedIndex == 1)
                     {
                         dlQuality = "best";
                     }
@@ -471,7 +459,9 @@ namespace youtube_dl_gui
                 }
                 else if (rbCustom.Checked)
                 {
-                    setArgs = OutputFolder + Args + " \"" + URL + "\"";
+                    setArgs = OutputFolder + txtArgs.Text + " \"" + URL + "\"";
+                    if (Properties.Settings.Default.saveArgs)
+                        Properties.Settings.Default.savedArgs = txtArgs.Text;
                 }
             }
 
@@ -566,12 +556,25 @@ pingError:
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            if (cbConvQuality.SelectedIndex == -1 || cbConvQuality.SelectedIndex == 0 || cbConvQuality.SelectedIndex == 7)
+            {
+                MessageBox.Show("Please select a quality before converting.");
+                return;
+            }
+
+            if (cbConvFormat.SelectedIndex == -1 || cbConvFormat.SelectedIndex == 1 || cbConvFormat.SelectedIndex == 7)
+            {
+                MessageBox.Show("Please select a format before converting.");
+                return;
+            }
+
             ConvertFile(txtConvFile.Text);
 
             if (Properties.Settings.Default.saveConvParams)
             {
                 Properties.Settings.Default.convFormat = cbConvFormat.SelectedIndex;
                 Properties.Settings.Default.convQuality = cbConvQuality.SelectedIndex;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -674,9 +677,5 @@ pingError:
                 txtURL.Enabled = true;
         }
         #endregion
-
-
-
-
     }
 }
