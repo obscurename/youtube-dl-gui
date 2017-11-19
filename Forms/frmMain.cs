@@ -662,19 +662,19 @@ pingError:
 
         private void cbConvQuality_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbConvQuality.SelectedIndex == 0)
-                cbConvQuality.SelectedIndex = -1;
+            //if (cbConvQuality.SelectedIndex == 0)
+            //    cbConvQuality.SelectedIndex = -1;
 
-            if (cbConvQuality.SelectedIndex == 7)
-                cbConvQuality.SelectedIndex = -1;
+            //if (cbConvQuality.SelectedIndex == 7)
+            //    cbConvQuality.SelectedIndex = -1;
         }
         private void cbConvFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbConvFormat.SelectedIndex == 0)
-                cbConvFormat.SelectedIndex = -1;
+            //if (cbConvFormat.SelectedIndex == 0)
+            //    cbConvFormat.SelectedIndex = -1;
 
-            if (cbConvFormat.SelectedIndex == 6)
-                cbConvFormat.SelectedIndex = -1;
+            //if (cbConvFormat.SelectedIndex == 6)
+            //    cbConvFormat.SelectedIndex = -1;
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
