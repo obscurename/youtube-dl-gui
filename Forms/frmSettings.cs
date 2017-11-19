@@ -79,6 +79,11 @@ namespace youtube_dl_gui
             if (Properties.Settings.Default.saveConvParams != chkSaveConvParams.Checked)
                 Properties.Settings.Default.saveConvParams = chkSaveConvParams.Checked;
         }
+        private void chkSeperateDownloads_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.sortDownloads != chkSeperateDownloads.Checked)
+                Properties.Settings.Default.sortDownloads = chkSeperateDownloads.Checked;
+        }
         #endregion
 
         private void btnBrws_Click(object sender, EventArgs e)
@@ -106,8 +111,6 @@ namespace youtube_dl_gui
         {
             this.Close();
         }
-
-
 
     }
 }

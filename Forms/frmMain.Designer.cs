@@ -71,6 +71,8 @@
             this.mFrmMainSupported = new System.Windows.Forms.MenuItem();
             this.mFrmMainSep = new System.Windows.Forms.MenuItem();
             this.mFrmMainAbout = new System.Windows.Forms.MenuItem();
+            this.rbConvAudio = new System.Windows.Forms.RadioButton();
+            this.rbConvVideo = new System.Windows.Forms.RadioButton();
             this.MainTabs.SuspendLayout();
             this.tabDownloader.SuspendLayout();
             this.gbDownloadAs.SuspendLayout();
@@ -180,35 +182,8 @@
             // cbQuality
             // 
             this.cbQuality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbQuality.Enabled = false;
             this.cbQuality.FormattingEnabled = true;
-            this.cbQuality.Items.AddRange(new object[] {
-            "best",
-            "-- VIDEO --",
-            "1080",
-            "720",
-            "640",
-            "480",
-            "360",
-            "240",
-            "-- AUDIO --",
-            "8K",
-            "16K",
-            "24K",
-            "32K",
-            "40K",
-            "48K",
-            "56K",
-            "64K",
-            "80K",
-            "96K",
-            "112K",
-            "128K",
-            "144K",
-            "160K",
-            "192K",
-            "224K",
-            "256K",
-            "320K"});
             this.cbQuality.Location = new System.Drawing.Point(104, 65);
             this.cbQuality.Name = "cbQuality";
             this.cbQuality.Size = new System.Drawing.Size(66, 21);
@@ -266,23 +241,8 @@
             // cbFormat
             // 
             this.cbFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFormat.Enabled = false;
             this.cbFormat.FormattingEnabled = true;
-            this.cbFormat.Items.AddRange(new object[] {
-            "best",
-            "-- VIDEO --",
-            "avi",
-            "flv",
-            "mp4",
-            "mvk",
-            "webm",
-            "-- AUDIO --",
-            "aac",
-            "flac",
-            "m4a",
-            "mp3",
-            "opus",
-            "vorbis",
-            "wav"});
             this.cbFormat.Location = new System.Drawing.Point(104, 92);
             this.cbFormat.Name = "cbFormat";
             this.cbFormat.Size = new System.Drawing.Size(66, 21);
@@ -319,6 +279,8 @@
             // 
             // tabConvert
             // 
+            this.tabConvert.Controls.Add(this.rbConvVideo);
+            this.tabConvert.Controls.Add(this.rbConvAudio);
             this.tabConvert.Controls.Add(this.btnConvert);
             this.tabConvert.Controls.Add(this.lblConvertAudioFormat);
             this.tabConvert.Controls.Add(this.cbConvFormat);
@@ -352,7 +314,7 @@
             // lblConvertAudioFormat
             // 
             this.lblConvertAudioFormat.AutoSize = true;
-            this.lblConvertAudioFormat.Location = new System.Drawing.Point(60, 135);
+            this.lblConvertAudioFormat.Location = new System.Drawing.Point(60, 151);
             this.lblConvertAudioFormat.Name = "lblConvertAudioFormat";
             this.lblConvertAudioFormat.Size = new System.Drawing.Size(39, 13);
             this.lblConvertAudioFormat.TabIndex = 17;
@@ -363,7 +325,6 @@
             this.cbConvFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbConvFormat.FormattingEnabled = true;
             this.cbConvFormat.Items.AddRange(new object[] {
-            "best",
             "-- VIDEO --",
             "avi",
             "flv",
@@ -378,7 +339,7 @@
             "opus",
             "vorbis",
             "wav"});
-            this.cbConvFormat.Location = new System.Drawing.Point(105, 132);
+            this.cbConvFormat.Location = new System.Drawing.Point(105, 148);
             this.cbConvFormat.Name = "cbConvFormat";
             this.cbConvFormat.Size = new System.Drawing.Size(66, 21);
             this.cbConvFormat.TabIndex = 16;
@@ -393,7 +354,7 @@
             "1080p",
             "720p",
             "480p",
-            "320p",
+            "360p",
             "240p",
             "144p",
             "-- AUDIO --",
@@ -415,7 +376,7 @@
             "224K",
             "256K",
             "320K"});
-            this.cbConvQuality.Location = new System.Drawing.Point(105, 105);
+            this.cbConvQuality.Location = new System.Drawing.Point(105, 121);
             this.cbConvQuality.Name = "cbConvQuality";
             this.cbConvQuality.Size = new System.Drawing.Size(66, 21);
             this.cbConvQuality.TabIndex = 14;
@@ -424,7 +385,7 @@
             // lblConvertAudioQuality
             // 
             this.lblConvertAudioQuality.AutoSize = true;
-            this.lblConvertAudioQuality.Location = new System.Drawing.Point(60, 108);
+            this.lblConvertAudioQuality.Location = new System.Drawing.Point(60, 124);
             this.lblConvertAudioQuality.Name = "lblConvertAudioQuality";
             this.lblConvertAudioQuality.Size = new System.Drawing.Size(39, 13);
             this.lblConvertAudioQuality.TabIndex = 15;
@@ -433,7 +394,7 @@
             // btnBrowseConvSaveFile
             // 
             this.btnBrowseConvSaveFile.Enabled = false;
-            this.btnBrowseConvSaveFile.Location = new System.Drawing.Point(195, 72);
+            this.btnBrowseConvSaveFile.Location = new System.Drawing.Point(195, 69);
             this.btnBrowseConvSaveFile.Name = "btnBrowseConvSaveFile";
             this.btnBrowseConvSaveFile.Size = new System.Drawing.Size(28, 23);
             this.btnBrowseConvSaveFile.TabIndex = 6;
@@ -470,7 +431,7 @@
             // 
             // txtConvSave
             // 
-            this.txtConvSave.Location = new System.Drawing.Point(8, 74);
+            this.txtConvSave.Location = new System.Drawing.Point(8, 71);
             this.txtConvSave.Name = "txtConvSave";
             this.txtConvSave.ReadOnly = true;
             this.txtConvSave.Size = new System.Drawing.Size(181, 20);
@@ -479,7 +440,7 @@
             // lblSaveAs
             // 
             this.lblSaveAs.AutoSize = true;
-            this.lblSaveAs.Location = new System.Drawing.Point(7, 55);
+            this.lblSaveAs.Location = new System.Drawing.Point(7, 52);
             this.lblSaveAs.Name = "lblSaveAs";
             this.lblSaveAs.Size = new System.Drawing.Size(46, 13);
             this.lblSaveAs.TabIndex = 1;
@@ -542,6 +503,30 @@
             this.mFrmMainAbout.Index = 2;
             this.mFrmMainAbout.Text = "About";
             this.mFrmMainAbout.Click += new System.EventHandler(this.mFrmMainAbout_Click);
+            // 
+            // rbConvAudio
+            // 
+            this.rbConvAudio.AutoSize = true;
+            this.rbConvAudio.Checked = true;
+            this.rbConvAudio.Location = new System.Drawing.Point(61, 97);
+            this.rbConvAudio.Name = "rbConvAudio";
+            this.rbConvAudio.Size = new System.Drawing.Size(52, 17);
+            this.rbConvAudio.TabIndex = 19;
+            this.rbConvAudio.TabStop = true;
+            this.rbConvAudio.Text = "Audio";
+            this.rbConvAudio.UseVisualStyleBackColor = true;
+            this.rbConvAudio.CheckedChanged += new System.EventHandler(this.rbConvAudio_CheckedChanged);
+            // 
+            // rbConvVideo
+            // 
+            this.rbConvVideo.AutoSize = true;
+            this.rbConvVideo.Location = new System.Drawing.Point(119, 97);
+            this.rbConvVideo.Name = "rbConvVideo";
+            this.rbConvVideo.Size = new System.Drawing.Size(52, 17);
+            this.rbConvVideo.TabIndex = 20;
+            this.rbConvVideo.Text = "Video";
+            this.rbConvVideo.UseVisualStyleBackColor = true;
+            this.rbConvVideo.CheckedChanged += new System.EventHandler(this.rbConvVideo_CheckedChanged);
             // 
             // frmMain
             // 
@@ -618,6 +603,8 @@
         private System.Windows.Forms.MenuItem mFrmMainSupported;
         private System.Windows.Forms.MenuItem mFrmMainSep;
         private System.Windows.Forms.MenuItem mFrmMainAbout;
+        private System.Windows.Forms.RadioButton rbConvVideo;
+        private System.Windows.Forms.RadioButton rbConvAudio;
     }
 }
 

@@ -91,6 +91,11 @@ namespace youtube_dl_gui
                 File.Delete(System.Windows.Forms.Application.StartupPath + @"\ydgu.bat");
             }
 
+            if (rbVideo.Checked)
+                reloadVideoParams();
+            else if (rbVideo.Checked)
+                reloadAudioParams();
+
             if (Properties.Settings.Default.saveDlParams)
             {
                 cbFormat.SelectedIndex = Properties.Settings.Default.vidFormat;
@@ -101,9 +106,13 @@ namespace youtube_dl_gui
             }
 
             if (Properties.Settings.Default.saveConvParams)
+            {
                 cbConvFormat.SelectedIndex = Properties.Settings.Default.convFormat;
-            else
-                cbConvFormat.SelectedIndex = 0;
+                cbConvQuality.SelectedIndex = Properties.Settings.Default.convQuality;
+            } else {
+                cbConvFormat.SelectedIndex = -1;
+                cbConvQuality.SelectedIndex = -1;
+            }
         }
         private void frmMain_SizeChanged(object sender, EventArgs e)
         {
@@ -198,6 +207,115 @@ namespace youtube_dl_gui
             GC.Collect();
         }
 
+        private void reloadAudioParams()
+        {
+            cbQuality.Items.Clear();
+            cbQuality.Items.Add("best");
+            cbQuality.Items.Add("8K");
+            cbQuality.Items.Add("16K");
+            cbQuality.Items.Add("24K");
+            cbQuality.Items.Add("32K");
+            cbQuality.Items.Add("40K");
+            cbQuality.Items.Add("48K");
+            cbQuality.Items.Add("56K");
+            cbQuality.Items.Add("64K");
+            cbQuality.Items.Add("80K");
+            cbQuality.Items.Add("96K");
+            cbQuality.Items.Add("112K");
+            cbQuality.Items.Add("128K");
+            cbQuality.Items.Add("144K");
+            cbQuality.Items.Add("160K");
+            cbQuality.Items.Add("192K");
+            cbQuality.Items.Add("224K");
+            cbQuality.Items.Add("256K");
+            cbQuality.Items.Add("320K");
+
+            cbFormat.Items.Clear();
+            cbFormat.Items.Add("best");
+            cbFormat.Items.Add("aac");
+            cbFormat.Items.Add("flac");
+            cbFormat.Items.Add("m4a");
+            cbFormat.Items.Add("mp3");
+            cbFormat.Items.Add("opus");
+            cbFormat.Items.Add("vorbis");
+            cbFormat.Items.Add("wav");
+        }
+        private void reloadVideoParams()
+        {
+            cbQuality.Items.Clear();
+            cbQuality.Items.Add("best");
+            cbQuality.Items.Add("1080p");
+            cbQuality.Items.Add("720p");
+            cbQuality.Items.Add("640p");
+            cbQuality.Items.Add("480p");
+            cbQuality.Items.Add("360p");
+            cbQuality.Items.Add("240p");
+            cbQuality.Items.Add("144p");
+
+            cbFormat.Items.Clear();
+            cbFormat.Items.Add("best");
+            cbFormat.Items.Add("avi");
+            cbFormat.Items.Add("flv");
+            cbFormat.Items.Add("mp4");
+            cbFormat.Items.Add("mkv");
+            cbFormat.Items.Add("webm");
+        }
+
+        private void reloadConvAudio()
+        {
+            cbConvQuality.Enabled = true;
+            cbConvQuality.Items.Clear();
+            cbConvQuality.Items.Add("best");
+            cbConvQuality.Items.Add("8K");
+            cbConvQuality.Items.Add("16K");
+            cbConvQuality.Items.Add("24K");
+            cbConvQuality.Items.Add("32K");
+            cbConvQuality.Items.Add("40K");
+            cbConvQuality.Items.Add("48K");
+            cbConvQuality.Items.Add("56K");
+            cbConvQuality.Items.Add("64K");
+            cbConvQuality.Items.Add("80K");
+            cbConvQuality.Items.Add("96K");
+            cbConvQuality.Items.Add("112K");
+            cbConvQuality.Items.Add("128K");
+            cbConvQuality.Items.Add("144K");
+            cbConvQuality.Items.Add("160K");
+            cbConvQuality.Items.Add("192K");
+            cbConvQuality.Items.Add("224K");
+            cbConvQuality.Items.Add("256K");
+            cbConvQuality.Items.Add("320K");
+
+            cbConvFormat.Items.Clear();
+            cbConvFormat.Items.Add("aac");
+            cbConvFormat.Items.Add("flac");
+            cbConvFormat.Items.Add("m4a");
+            cbConvFormat.Items.Add("mp3");
+            cbConvFormat.Items.Add("opus");
+            cbConvFormat.Items.Add("vorbis");
+            cbConvFormat.Items.Add("wav");
+        }
+        private void reloadConvVideo()
+        {
+            cbConvQuality.Enabled = false;
+            cbConvQuality.Items.Clear();
+            cbConvQuality.Items.Add("best");
+            cbConvQuality.Items.Add("1080p");
+            cbConvQuality.Items.Add("720p");
+            cbConvQuality.Items.Add("640p");
+            cbConvQuality.Items.Add("480p");
+            cbConvQuality.Items.Add("360p");
+            cbConvQuality.Items.Add("240p");
+            cbConvQuality.Items.Add("144p");
+            cbConvQuality.SelectedIndex = 0;
+
+            cbConvFormat.Items.Clear();
+            cbConvFormat.Items.Add("avi");
+            cbConvFormat.Items.Add("flv");
+            cbConvFormat.Items.Add("mp4");
+            cbConvFormat.Items.Add("mkv");
+            cbConvFormat.Items.Add("webm");
+        }
+
         public static bool pingGoogle()
         {
             Ping pingGoogle = new Ping();
@@ -276,16 +394,20 @@ namespace youtube_dl_gui
         {
             if (rbVideo.Checked)
             {
-                cbQuality.Enabled = true;
-                cbFormat.Enabled = true;
+                cbQuality.Enabled = false;
+                cbFormat.Enabled = false;
                 txtArgs.ReadOnly = true;
+                reloadVideoParams();
                 txtArgs.Clear();
 
                 if (Properties.Settings.Default.saveDlParams)
                 {
-                    cbFormat.SelectedIndex = Properties.Settings.Default.vidFormat;
-                    cbQuality.SelectedIndex = Properties.Settings.Default.vidQuality;
+                    //cbFormat.SelectedIndex = Properties.Settings.Default.vidFormat;
+                    //cbQuality.SelectedIndex = Properties.Settings.Default.vidQuality;
                 }
+
+                cbFormat.SelectedIndex = 0;
+                cbQuality.SelectedIndex = 0;
             }
         }
         private void rbAudio_CheckedChanged(object sender, EventArgs e)
@@ -295,6 +417,7 @@ namespace youtube_dl_gui
                 cbQuality.Enabled = true;
                 cbFormat.Enabled = true;
                 txtArgs.ReadOnly = true;
+                reloadAudioParams();
                 txtArgs.Clear();
 
                 if (Properties.Settings.Default.saveDlParams)
@@ -314,41 +437,51 @@ namespace youtube_dl_gui
 
                 if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.savedArgs))
                     txtArgs.Text = Properties.Settings.Default.savedArgs;
+
+                cbQuality.SelectedIndex = -1;
+                cbFormat.SelectedIndex = -1;
             }
         }
 
         private void cbQuality_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbQuality.SelectedIndex == 1)
-                cbQuality.SelectedIndex = 0;
+            //if (cbQuality.SelectedIndex == 1)
+            //    cbQuality.SelectedIndex = 0;
 
-            if (cbQuality.SelectedIndex == 8)
-                cbQuality.SelectedIndex = 0;
+            //if (cbQuality.SelectedIndex == 8)
+            //    cbQuality.SelectedIndex = 0;
 
-            if (rbAudio.Checked && cbQuality.SelectedIndex < 8)
-                cbQuality.SelectedIndex = 0;
+            //if (rbAudio.Checked && cbQuality.SelectedIndex < 8)
+            //    cbQuality.SelectedIndex = 0;
 
-            if (rbVideo.Checked && cbQuality.SelectedIndex > 8)
-                cbQuality.SelectedIndex = 0;
+            //if (rbVideo.Checked && cbQuality.SelectedIndex > 8)
+            //    cbQuality.SelectedIndex = 0;
         }
         private void cbFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbFormat.SelectedIndex == 1)
-                cbFormat.SelectedIndex = 0;
+            //if (cbFormat.SelectedIndex == 1)
+            //    cbFormat.SelectedIndex = 0;
 
-            if (cbFormat.SelectedIndex == 7)
-                cbFormat.SelectedIndex = 0;
+            //if (cbFormat.SelectedIndex == 7)
+            //    cbFormat.SelectedIndex = 0;
 
-            if (rbAudio.Checked && cbFormat.SelectedIndex < 7)
-                cbFormat.SelectedIndex = 0;
+            //if (rbAudio.Checked && cbFormat.SelectedIndex < 7)
+            //    cbFormat.SelectedIndex = 0;
 
-            if (rbVideo.Checked && cbFormat.SelectedIndex > 7)
-                cbFormat.SelectedIndex = 0;
+            //if (rbVideo.Checked && cbFormat.SelectedIndex > 7)
+            //    cbFormat.SelectedIndex = 0;
         }
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            StartDownload("\"" + txtURL.Text + "\"", txtArgs.Text, false, false);
+            int dlType = -1;
+
+            if (rbVideo.Checked)
+                dlType = 0;
+            else if (rbAudio.Checked)
+                dlType = 1;
+
+            StartDownload("\"" + txtURL.Text + "\"", txtArgs.Text, dlType, false, false);
 
             if (Properties.Settings.Default.saveDlParams)
                 if (rbVideo.Checked)
@@ -366,9 +499,26 @@ namespace youtube_dl_gui
             Properties.Settings.Default.Save();
         }
 
-        private void StartDownload(string URL, string Args, bool fromTray, bool dlTrayAudio)
+        private void StartDownload(string URL, string Args, int downloadType, bool fromTray, bool dlTrayAudio)
         {
-            string OutputFolder = "-o \"" + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s\" ";
+            string OutputFolder; 
+            if (rbAudio.Checked)
+                downloadType = 0; // Sort to Audio
+            else if (rbVideo.Checked)
+                downloadType = 1; // Sort to Video
+            else
+                downloadType = 2; // Do not sort, remain in the root download directory.
+
+            if (Properties.Settings.Default.sortDownloads)
+                if (downloadType == 0)
+                    OutputFolder = "-o \"" + Properties.Settings.Default.DownloadDir + "/Audio/%(title)s-%(id)s.%(ext)s\" ";
+                else if (downloadType == 1)
+                    OutputFolder = "-o \"" + Properties.Settings.Default.DownloadDir + "/Video/%(title)s-%(id)s.%(ext)s\" ";
+                else
+                    OutputFolder = "-o \"" + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s\" ";
+            else
+                OutputFolder = "-o \"" + Properties.Settings.Default.DownloadDir + "/%(title)s-%(id)s.%(ext)s\" ";
+
             string dlFormat = "best";
             string dlQuality = "best";
             string setArgs = "";
@@ -378,6 +528,7 @@ namespace youtube_dl_gui
 
             if (fromTray)
             {
+
                 if (string.IsNullOrWhiteSpace(Clipboard.GetText()))
                 {
                     MessageBox.Show("Please copy a URL before attemping to download.");
@@ -388,9 +539,9 @@ namespace youtube_dl_gui
                     setArgs = OutputFolder + URL + " -x --audio-format mp3  --audio-quality 256K";
                 else
                    setArgs =  OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
-            }
-            else
-            {
+
+            } else {
+
                 if (string.IsNullOrWhiteSpace(txtURL.Text))
                 {
                     MessageBox.Show("Please enter a URL before attempting to download.", "youtube-dl-gui", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -398,71 +549,43 @@ namespace youtube_dl_gui
                 }
                 if (rbVideo.Checked)
                 {
-                    if (cbQuality.SelectedIndex == -1 || cbQuality.SelectedIndex == 0 || cbQuality.SelectedIndex == 1)
-                    {
-                        dlQuality = "best";
-                    }
-                    else if (cbQuality.SelectedIndex > 8)
-                    {
-                        MessageBox.Show("Please select a video quality in the quality drop box.");
-                        return;
-                    } 
-                        else if (cbQuality.SelectedIndex < 8 && cbQuality.SelectedIndex > 1)
-                    {
-                        dlQuality = cbQuality.SelectedItem.ToString();
-                    } 
 
-                    if (cbFormat.SelectedIndex > 7)
-                    {
-                        MessageBox.Show("Please select a video format in the format drop box.");
-                        return;
-                    }
-                    else if (cbFormat.SelectedIndex < 7 && cbFormat.SelectedIndex > 1)
-                    {
-                        dlFormat = cbFormat.SelectedItem.ToString();
-                    }
-
-                    if (dlFormat == "best" && dlQuality == "best")
-                    {
-                        setArgs = OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
-                    } else {
-                        setArgs = OutputFolder + URL + " -f \"bestvideo[height<=" + dlQuality + "][ext=" + dlFormat + "]+bestaudio[ext=m4a]/best[height<=" + dlQuality + "][ext=" + dlFormat + "]/best ";
-                    }
-                }
-                else if (rbAudio.Checked)
-                {
                     if (cbQuality.SelectedIndex == 0)
-                    {
-                        dlQuality = "256K";
-                    }
-                    else if (cbQuality.SelectedIndex < 9 && cbQuality.SelectedIndex != 0)
-                    {
-                        MessageBox.Show("Please select a audio format in the format drop box");
-                        return;
-                    }
-                    else 
-                    {
-                        dlQuality = cbQuality.SelectedItem.ToString();
-                    }
-
-                    if (cbFormat.SelectedIndex < 8 && cbFormat.SelectedIndex != 0)
-                    {
-                        MessageBox.Show("Please select a audio format in the format drop box.");
-                        return;
-                    }
+                        dlQuality = "best";
                     else
-                    {
+                        dlQuality = cbQuality.SelectedItem.ToString();
+
+                    if (cbFormat.SelectedIndex == 0)
+                        dlFormat = "best";
+                    else
                         dlFormat = cbFormat.SelectedItem.ToString();
-                    }
+
+                    if (cbQuality.SelectedIndex == 0 && cbFormat.SelectedIndex == 0)
+                        setArgs = OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
+                    else
+                        setArgs = OutputFolder + URL + " -f \"bestvideo[height<=" + dlQuality + "][ext=" + dlFormat + "]+bestaudio[ext=m4a]/best[height<=" + dlQuality + "][ext=" + dlFormat + "]/best ";
+
+                } else if (rbAudio.Checked) {
+
+                    if (cbQuality.SelectedIndex == 0)
+                        dlQuality = "256K";
+                    else 
+                        dlQuality = cbQuality.SelectedItem.ToString();
+
+                    dlFormat = cbFormat.SelectedItem.ToString();
 
                     setArgs = OutputFolder + URL + " -x --audio-format " + dlFormat + " --audio-quality " + dlQuality;
-                }
-                else if (rbCustom.Checked)
-                {
+
+                } else if (rbCustom.Checked) {
+
                     setArgs = OutputFolder + txtArgs.Text + " \"" + URL + "\"";
+
                     if (Properties.Settings.Default.saveArgs)
                         Properties.Settings.Default.savedArgs = txtArgs.Text;
+
+                    Properties.Settings.Default.Save();
                 }
+
             }
 
             Downloader.StartInfo.Arguments = setArgs;
@@ -540,18 +663,18 @@ pingError:
         private void cbConvQuality_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbConvQuality.SelectedIndex == 0)
-                cbConvQuality.SelectedIndex = 2;
+                cbConvQuality.SelectedIndex = -1;
 
             if (cbConvQuality.SelectedIndex == 7)
-                cbConvQuality.SelectedIndex = 22;
+                cbConvQuality.SelectedIndex = -1;
         }
         private void cbConvFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbConvFormat.SelectedIndex == 1)
-                cbConvFormat.SelectedIndex = 0;
+            if (cbConvFormat.SelectedIndex == 0)
+                cbConvFormat.SelectedIndex = -1;
 
-            if (cbConvFormat.SelectedIndex == 7)
-                cbConvFormat.SelectedIndex = 0;
+            if (cbConvFormat.SelectedIndex == 6)
+                cbConvFormat.SelectedIndex = -1;
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -595,12 +718,40 @@ pingError:
             Converter.StartInfo.FileName = "ffmpeg.exe";
             string setArgs = "";
             string convTo = "";
+            string vidFormat = "";
+
+            if (cbConvQuality.SelectedIndex > 0 && cbConvQuality.SelectedIndex < 7)
+            {
+                // Video
+                string vidTrueRes = "";
+                bool selectedQuality = true;
+
+                if (cbConvQuality.SelectedIndex == 1) // 1080p
+                    vidTrueRes = "1920x1080";
+                else if (cbConvQuality.SelectedIndex == 2) //720p
+                    vidTrueRes = "1280x720";
+                else if (cbConvQuality.SelectedIndex == 3) //480p
+                    vidTrueRes = "640x480";
+                else if (cbConvQuality.SelectedIndex == 4) //360p
+                    vidTrueRes = "480x360";
+                else if (cbConvQuality.SelectedIndex == 5) //240p
+                    vidTrueRes = "360x240";
+                else if (cbConvQuality.SelectedIndex == 6) // 144p
+                    vidTrueRes = "192x144";
+                else
+                    selectedQuality = false;
+
+                if (selectedQuality)
+                    vidFormat = " -s " + vidTrueRes;
+            }
 
             if (Properties.Settings.Default.SaveToMaster)
             {
                 convTo = Path.GetDirectoryName(txtConvFile.Text);
-                setArgs = "-i \"" + FileInput +"\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(FileInput) + "." + cbConvFormat.Text + "\"";
-            } else {
+                setArgs = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(FileInput) + "." + cbConvFormat.Text + "\"";
+            }
+            else
+            {
                 convTo = txtConvSave.Text;
                 setArgs = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(convTo) + "." + cbConvFormat.Text + "\"";
             }
@@ -637,11 +788,11 @@ pingError:
         }
         private void cmTrayDownloadAudio_Click(object sender, EventArgs e)
         {
-            StartDownload("\"" + Clipboard.GetText() + "\"", txtArgs.Text, true, true);
+            StartDownload("\"" + Clipboard.GetText() + "\"", txtArgs.Text, 0, true, true);
         }
         private void cmTrayDownloadVideo_Click(object sender, EventArgs e)
         {
-            StartDownload(Clipboard.GetText(), txtArgs.Text, true, false);
+            StartDownload(Clipboard.GetText(), txtArgs.Text, 1, true, false);
         }
         private void cmTrayExit_Click(object sender, EventArgs e)
         {
@@ -677,5 +828,30 @@ pingError:
                 txtURL.Enabled = true;
         }
         #endregion
+
+        private void rbConvAudio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbConvAudio.Checked)
+            {
+                reloadConvAudio();
+                if (Properties.Settings.Default.saveConvParams)
+                {
+                    // cbConvQuality.SelectedIndex = Properties.Settings.Default.convQuality;
+                    cbConvFormat.SelectedIndex = Properties.Settings.Default.convFormat;
+                }
+            }
+        }
+        private void rbConvVideo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbConvVideo.Checked)
+            {
+                reloadConvVideo();
+                if (Properties.Settings.Default.saveConvParams)
+                {
+                    cbConvQuality.SelectedIndex = Properties.Settings.Default.convQuality;
+                    cbConvFormat.SelectedIndex = Properties.Settings.Default.convFormat;
+                }
+            }
+        }
     }
 }

@@ -44,13 +44,13 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.chkSaveToMaster = new System.Windows.Forms.CheckBox();
+            this.chkSeperateDownloads = new System.Windows.Forms.CheckBox();
             this.chkUpdateCheck = new System.Windows.Forms.CheckBox();
             this.chkSaveDLParams = new System.Windows.Forms.CheckBox();
             this.chkSaveConvParams = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.tabDownloads = new System.Windows.Forms.TabPage();
-            this.chkSeperateDownloads = new System.Windows.Forms.CheckBox();
             this.lbDlSeperator = new System.Windows.Forms.Label();
             this.tabConverter = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.numUpdateDays)).BeginInit();
@@ -237,6 +237,20 @@
             this.chkSaveToMaster.UseVisualStyleBackColor = true;
             this.chkSaveToMaster.CheckedChanged += new System.EventHandler(this.chkSaveToMaster_CheckedChanged);
             // 
+            // chkSeperateDownloads
+            // 
+            this.chkSeperateDownloads.AutoSize = true;
+            this.chkSeperateDownloads.Location = new System.Drawing.Point(25, 97);
+            this.chkSeperateDownloads.Name = "chkSeperateDownloads";
+            this.chkSeperateDownloads.Size = new System.Drawing.Size(210, 17);
+            this.chkSeperateDownloads.TabIndex = 33;
+            this.chkSeperateDownloads.Text = "Seperate downloads to different folders";
+            this.ttHelp.SetToolTip(this.chkSeperateDownloads, "Downloads will be downloaded to the download path.\r\n\r\nVideo downloads will be sto" +
+        "red in the \"Video\" folder\r\nAudio downloads will be stored in the \"Audio\" folder." +
+        "");
+            this.chkSeperateDownloads.UseVisualStyleBackColor = true;
+            this.chkSeperateDownloads.CheckedChanged += new System.EventHandler(this.chkSeperateDownloads_CheckedChanged);
+            // 
             // chkUpdateCheck
             // 
             this.chkUpdateCheck.AutoSize = true;
@@ -319,19 +333,6 @@
             this.tabDownloads.TabIndex = 2;
             this.tabDownloads.Text = "Downloads";
             this.tabDownloads.UseVisualStyleBackColor = true;
-            // 
-            // chkSeperateDownloads
-            // 
-            this.chkSeperateDownloads.AutoSize = true;
-            this.chkSeperateDownloads.Location = new System.Drawing.Point(25, 97);
-            this.chkSeperateDownloads.Name = "chkSeperateDownloads";
-            this.chkSeperateDownloads.Size = new System.Drawing.Size(210, 17);
-            this.chkSeperateDownloads.TabIndex = 33;
-            this.chkSeperateDownloads.Text = "Seperate downloads to different folders";
-            this.ttHelp.SetToolTip(this.chkSeperateDownloads, "Downloads will be downloaded to the download path.\r\n\r\nVideo downloads will be sto" +
-        "red in the \"Video\" folder\r\nAudio downloads will be stored in the \"Audio\" folder." +
-        "");
-            this.chkSeperateDownloads.UseVisualStyleBackColor = true;
             // 
             // lbDlSeperator
             // 
