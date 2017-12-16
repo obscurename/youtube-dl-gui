@@ -445,31 +445,9 @@ namespace youtube_dl_gui
 
         private void cbQuality_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (cbQuality.SelectedIndex == 1)
-            //    cbQuality.SelectedIndex = 0;
-
-            //if (cbQuality.SelectedIndex == 8)
-            //    cbQuality.SelectedIndex = 0;
-
-            //if (rbAudio.Checked && cbQuality.SelectedIndex < 8)
-            //    cbQuality.SelectedIndex = 0;
-
-            //if (rbVideo.Checked && cbQuality.SelectedIndex > 8)
-            //    cbQuality.SelectedIndex = 0;
         }
         private void cbFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (cbFormat.SelectedIndex == 1)
-            //    cbFormat.SelectedIndex = 0;
-
-            //if (cbFormat.SelectedIndex == 7)
-            //    cbFormat.SelectedIndex = 0;
-
-            //if (rbAudio.Checked && cbFormat.SelectedIndex < 7)
-            //    cbFormat.SelectedIndex = 0;
-
-            //if (rbVideo.Checked && cbFormat.SelectedIndex > 7)
-            //    cbFormat.SelectedIndex = 0;
         }
 
         private void btnDownload_Click(object sender, EventArgs e)
@@ -506,8 +484,10 @@ namespace youtube_dl_gui
                 downloadType = 0; // Sort to Audio
             else if (rbVideo.Checked)
                 downloadType = 1; // Sort to Video
-            else
+            else if (fromTray || rbCustom.Checked)
                 downloadType = 2; // Do not sort, remain in the root download directory.
+
+            txtLog.AppendText("Preparing download, type " + downloadType.ToString());
 
             if (Properties.Settings.Default.sortDownloads)
                 if (downloadType == 0)
@@ -525,9 +505,13 @@ namespace youtube_dl_gui
 
             Process Downloader = new Process();
             Downloader.StartInfo.FileName = System.Windows.Forms.Application.StartupPath + "/youtube-dl.exe";
+            Downloader.StartInfo.UseShellExecute = false;
+            Downloader.StartInfo.RedirectStandardOutput = true;
+            Downloader.StartInfo.CreateNoWindow = true;
 
             if (fromTray)
             {
+                txtLog.AppendText("Downloading from tray");
 
                 if (string.IsNullOrWhiteSpace(Clipboard.GetText()))
                 {
@@ -541,6 +525,7 @@ namespace youtube_dl_gui
                    setArgs =  OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
 
             } else {
+                txtLog.AppendText("Downloading from form");
 
                 if (string.IsNullOrWhiteSpace(txtURL.Text))
                 {
@@ -550,15 +535,15 @@ namespace youtube_dl_gui
                 if (rbVideo.Checked)
                 {
 
-                    if (cbQuality.SelectedIndex == 0)
-                        dlQuality = "best";
-                    else
-                        dlQuality = cbQuality.SelectedItem.ToString();
+                    //if (cbQuality.SelectedIndex == 0)
+                    dlQuality = "best";
+                    //else
+                    //    dlQuality = cbQuality.SelectedItem.ToString();
 
-                    if (cbFormat.SelectedIndex == 0)
-                        dlFormat = "best";
-                    else
-                        dlFormat = cbFormat.SelectedItem.ToString();
+                    //if (cbFormat.SelectedIndex == 0)
+                    dlFormat = "best";
+                    //else
+                    //    dlFormat = cbFormat.SelectedItem.ToString();
 
                     if (cbQuality.SelectedIndex == 0 && cbFormat.SelectedIndex == 0)
                         setArgs = OutputFolder + URL + " -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"";
@@ -567,11 +552,7 @@ namespace youtube_dl_gui
 
                 } else if (rbAudio.Checked) {
 
-                    if (cbQuality.SelectedIndex == 0)
-                        dlQuality = "256K";
-                    else 
-                        dlQuality = cbQuality.SelectedItem.ToString();
-
+                    dlQuality = cbQuality.SelectedItem.ToString();
                     dlFormat = cbFormat.SelectedItem.ToString();
 
                     setArgs = OutputFolder + URL + " -x --audio-format " + dlFormat + " --audio-quality " + dlQuality;
@@ -589,27 +570,33 @@ namespace youtube_dl_gui
             }
 
             Downloader.StartInfo.Arguments = setArgs;
-            Downloader.StartInfo.UseShellExecute = false;
-            Downloader.StartInfo.CreateNoWindow = false;
             bool errOccured = false;
 
             try
             {
+                txtLog.AppendText("Downloading starting, arguments: " + setArgs);
                 Downloader.Start();
+
+                string outp = Downloader.StandardOutput.ReadToEnd();
+
+                txtLog.AppendText(outp);
             }
             catch (Exception ex)
             {
+                txtLog.AppendText("An exception has occured");
+
                 if(ex.ToString().Contains("The system cannot find the file specified"))
                 {
+                    txtLog.AppendText("youtube-dl unavailable, aborting download");
                     MessageBox.Show("Error: youtube-dl.exe not found.\n\nPlease redownload it from the settings, or restart the application.", "youtube-dl-gui");
                     errOccured = true;
                 }else{
+                    txtLog.AppendText(ex.ToString());
                     MessageBox.Show("Unknown error. Please start a new issue on Github with this exception:\n\n" + ex.ToString(), "youtube-dl-gui");
                     errOccured = true;
                 }
             }
 
-pingError:
             if (errOccured)
             {
                 GC.Collect();
@@ -623,6 +610,8 @@ pingError:
             }
 
             GC.Collect();
+
+            txtLog.AppendText("Finished downloading video.");
         }
         #endregion
         #region Converter
@@ -662,19 +651,9 @@ pingError:
 
         private void cbConvQuality_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (cbConvQuality.SelectedIndex == 0)
-            //    cbConvQuality.SelectedIndex = -1;
-
-            //if (cbConvQuality.SelectedIndex == 7)
-            //    cbConvQuality.SelectedIndex = -1;
         }
         private void cbConvFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (cbConvFormat.SelectedIndex == 0)
-            //    cbConvFormat.SelectedIndex = -1;
-
-            //if (cbConvFormat.SelectedIndex == 6)
-            //    cbConvFormat.SelectedIndex = -1;
         }
 
         private void btnConvert_Click(object sender, EventArgs e)
@@ -703,16 +682,17 @@ pingError:
 
         private void ConvertFile(string FileInput)
         {
-            if (cbConvQuality.SelectedIndex == 0 || cbConvQuality.SelectedIndex == 7)
-            {
-                MessageBox.Show("Please select a valid quality.");
-                return;
-            }
-            if (cbConvFormat.SelectedIndex == 1 || cbConvFormat.SelectedIndex == 7)
-            {
-                MessageBox.Show("Please select a valid format.");
-                return;
-            }
+            txtLog.AppendText("Beginning file conversion.");
+            //if (cbConvQuality.SelectedIndex == 0 || cbConvQuality.SelectedIndex == 7)
+            //{
+            //    MessageBox.Show("Please select a valid quality.");
+            //    return;
+            //}
+            //if (cbConvFormat.SelectedIndex == 1 || cbConvFormat.SelectedIndex == 7)
+            //{
+            //    MessageBox.Show("Please select a valid format.");
+            //    return;
+            //}
 
             Process Converter = new Process();
             Converter.StartInfo.FileName = "ffmpeg.exe";
@@ -720,8 +700,8 @@ pingError:
             string convTo = "";
             string vidFormat = "";
 
-            if (cbConvQuality.SelectedIndex > 0 && cbConvQuality.SelectedIndex < 7)
-            {
+            if (rbConvVideo.Checked) {
+                txtLog.AppendText("Converting video");
                 // Video
                 string vidTrueRes = "";
                 bool selectedQuality = true;
@@ -744,23 +724,49 @@ pingError:
                 if (selectedQuality)
                     vidFormat = " -s " + vidTrueRes;
             }
+            else {
+                txtLog.AppendText("Converting audio");
+            }
 
-            if (Properties.Settings.Default.SaveToMaster)
-            {
+            if (Properties.Settings.Default.SaveToMaster) {
                 convTo = Path.GetDirectoryName(txtConvFile.Text);
                 setArgs = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(FileInput) + "." + cbConvFormat.Text + "\"";
             }
-            else
-            {
+            else {
                 convTo = txtConvSave.Text;
                 setArgs = "-i \"" + FileInput + "\" -ab " + cbConvQuality.Text + " \"" + convTo + "\\" + Path.GetFileNameWithoutExtension(convTo) + "." + cbConvFormat.Text + "\"";
             }
 
             Converter.StartInfo.Arguments = setArgs;
             Converter.StartInfo.UseShellExecute = false;
-            Converter.StartInfo.CreateNoWindow = false;
-            Converter.Start();
+            Converter.StartInfo.RedirectStandardOutput = true;
+            Converter.StartInfo.CreateNoWindow = true;
 
+            try {
+                txtLog.AppendText("Beginning conversion. Args: " + setArgs);
+                Converter.Start();
+                string outp = Converter.StandardOutput.ReadToEnd();
+
+                txtLog.AppendText(outp);
+            }
+            catch (Exception ex) {
+                txtLog.AppendText("An exception has occured");
+                if (ex.ToString().Contains("The system cannot find the file specified"))
+                {
+                    txtLog.AppendText("ffmpeg unavailable, aborting conversion");
+                    MessageBox.Show("Error: ffmpeg.exe not found.\n\nPlease redownload it from the settings, or restart the application.", "youtube-dl-gui");
+                }
+                else
+                {
+                    txtLog.AppendText(ex.ToString());
+                    MessageBox.Show("Unknown error. Please start a new issue on Github with this exception:\n\n" + ex.ToString(), "youtube-dl-gui");
+                }
+
+                GC.Collect();
+                return;
+            }
+
+            txtLog.AppendText("Conversion finished");
             GC.Collect();
         }
         #endregion
@@ -822,10 +828,10 @@ pingError:
         }
         private void MainTabs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (MainTabs.SelectedIndex == 1)
-                txtURL.Enabled = false;
-            else
+            if (MainTabs.SelectedIndex == 0)
                 txtURL.Enabled = true;
+            else
+                txtURL.Enabled = false;
         }
         #endregion
 
