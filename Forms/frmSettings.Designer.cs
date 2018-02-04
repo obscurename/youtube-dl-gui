@@ -45,11 +45,16 @@
             this.ttHelp = new System.Windows.Forms.ToolTip(this.components);
             this.chkSaveToMaster = new System.Windows.Forms.CheckBox();
             this.chkSeperateDownloads = new System.Windows.Forms.CheckBox();
+            this.btnYtDl = new System.Windows.Forms.Button();
+            this.txtYtDl = new System.Windows.Forms.TextBox();
             this.chkUpdateCheck = new System.Windows.Forms.CheckBox();
             this.chkSaveDLParams = new System.Windows.Forms.CheckBox();
             this.chkSaveConvParams = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.chkStaticYTDL = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabDownloads = new System.Windows.Forms.TabPage();
             this.lbDlSeperator = new System.Windows.Forms.Label();
             this.tabConverter = new System.Windows.Forms.TabPage();
@@ -131,70 +136,65 @@
             this.chkUpdate.Enabled = false;
             this.chkUpdate.Location = new System.Drawing.Point(25, 143);
             this.chkUpdate.Name = "chkUpdate";
-            this.chkUpdate.Size = new System.Drawing.Size(249, 17);
+            this.chkUpdate.Size = new System.Drawing.Size(248, 17);
             this.chkUpdate.TabIndex = 27;
             this.chkUpdate.Text = "Update youtube-dl.exe every   xxxxxxx     day(s)";
             this.ttHelp.SetToolTip(this.chkUpdate, "After X amount of days, download a fresh version of youtube-dl.");
             this.chkUpdate.UseVisualStyleBackColor = true;
-            this.chkUpdate.CheckedChanged += new System.EventHandler(this.chkUpdate_CheckedChanged);
             // 
             // chkDeleteExecutable
             // 
             this.chkDeleteExecutable.AutoSize = true;
             this.chkDeleteExecutable.Location = new System.Drawing.Point(25, 120);
             this.chkDeleteExecutable.Name = "chkDeleteExecutable";
-            this.chkDeleteExecutable.Size = new System.Drawing.Size(257, 17);
+            this.chkDeleteExecutable.Size = new System.Drawing.Size(256, 17);
             this.chkDeleteExecutable.TabIndex = 26;
             this.chkDeleteExecutable.Text = "Automatically delete youtube-dl.exe when closing";
             this.ttHelp.SetToolTip(this.chkDeleteExecutable, "Deletes youtube-dl.exe when exiting.");
             this.chkDeleteExecutable.UseVisualStyleBackColor = true;
-            this.chkDeleteExecutable.CheckedChanged += new System.EventHandler(this.chkDeleteExecutable_CheckedChanged);
             // 
             // chkAutoClearURL
             // 
             this.chkAutoClearURL.AutoSize = true;
             this.chkAutoClearURL.Checked = true;
             this.chkAutoClearURL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoClearURL.Location = new System.Drawing.Point(18, 67);
+            this.chkAutoClearURL.Location = new System.Drawing.Point(18, 141);
             this.chkAutoClearURL.Name = "chkAutoClearURL";
-            this.chkAutoClearURL.Size = new System.Drawing.Size(215, 17);
+            this.chkAutoClearURL.Size = new System.Drawing.Size(214, 17);
             this.chkAutoClearURL.TabIndex = 25;
             this.chkAutoClearURL.Text = "Auto-Clear URL when starting download";
             this.ttHelp.SetToolTip(this.chkAutoClearURL, "Automatically clear the Download URL text box and clipboard when starting the dow" +
         "nload.");
             this.chkAutoClearURL.UseVisualStyleBackColor = true;
-            this.chkAutoClearURL.CheckedChanged += new System.EventHandler(this.chkAutoClearURL_CheckedChanged);
             // 
             // chkHoverURL
             // 
             this.chkHoverURL.AutoSize = true;
             this.chkHoverURL.Checked = true;
             this.chkHoverURL.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHoverURL.Location = new System.Drawing.Point(18, 44);
+            this.chkHoverURL.Location = new System.Drawing.Point(18, 118);
             this.chkHoverURL.Name = "chkHoverURL";
-            this.chkHoverURL.Size = new System.Drawing.Size(248, 17);
+            this.chkHoverURL.Size = new System.Drawing.Size(247, 17);
             this.chkHoverURL.TabIndex = 24;
             this.chkHoverURL.Text = "Hover over URL textbox to paste clipboard text";
             this.chkHoverURL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ttHelp.SetToolTip(this.chkHoverURL, "When hovering over the Download URL, automatically paste the text  in the clipboa" +
         "rd.");
             this.chkHoverURL.UseVisualStyleBackColor = true;
-            this.chkHoverURL.CheckedChanged += new System.EventHandler(this.chkHoverURL_CheckedChanged);
             // 
             // chkSaveArgs
             // 
             this.chkSaveArgs.AutoSize = true;
             this.chkSaveArgs.Checked = true;
             this.chkSaveArgs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSaveArgs.Location = new System.Drawing.Point(18, 90);
+            this.chkSaveArgs.Location = new System.Drawing.Point(18, 164);
             this.chkSaveArgs.Name = "chkSaveArgs";
-            this.chkSaveArgs.Size = new System.Drawing.Size(270, 17);
+            this.chkSaveArgs.Size = new System.Drawing.Size(269, 17);
             this.chkSaveArgs.TabIndex = 33;
             this.chkSaveArgs.Text = "Remember custom arguments and save to ./args.txt";
             this.ttHelp.SetToolTip(this.chkSaveArgs, "Save the arguments the user creates when downloading with a custom preset.\r\n\r\n./a" +
         "rgs.txt = the args.txt file within youtube-dl-gui\'s directory.");
             this.chkSaveArgs.UseVisualStyleBackColor = true;
-            this.chkSaveArgs.CheckedChanged += new System.EventHandler(this.chkSaveArgs_CheckedChanged);
             // 
             // btnSave
             // 
@@ -229,40 +229,57 @@
             this.chkSaveToMaster.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSaveToMaster.Location = new System.Drawing.Point(29, 50);
             this.chkSaveToMaster.Name = "chkSaveToMaster";
-            this.chkSaveToMaster.Size = new System.Drawing.Size(248, 17);
+            this.chkSaveToMaster.Size = new System.Drawing.Size(247, 17);
             this.chkSaveToMaster.TabIndex = 36;
             this.chkSaveToMaster.Text = "Save converted file to same location as original";
             this.ttHelp.SetToolTip(this.chkSaveToMaster, "Saves the output of the file you wanted to convert to the same file location as t" +
         "he file you inputted.");
             this.chkSaveToMaster.UseVisualStyleBackColor = true;
-            this.chkSaveToMaster.CheckedChanged += new System.EventHandler(this.chkSaveToMaster_CheckedChanged);
             // 
             // chkSeperateDownloads
             // 
             this.chkSeperateDownloads.AutoSize = true;
             this.chkSeperateDownloads.Location = new System.Drawing.Point(25, 97);
             this.chkSeperateDownloads.Name = "chkSeperateDownloads";
-            this.chkSeperateDownloads.Size = new System.Drawing.Size(210, 17);
+            this.chkSeperateDownloads.Size = new System.Drawing.Size(209, 17);
             this.chkSeperateDownloads.TabIndex = 33;
             this.chkSeperateDownloads.Text = "Seperate downloads to different folders";
             this.ttHelp.SetToolTip(this.chkSeperateDownloads, "Downloads will be downloaded to the download path.\r\n\r\nVideo downloads will be sto" +
         "red in the \"Video\" folder\r\nAudio downloads will be stored in the \"Audio\" folder." +
         "");
             this.chkSeperateDownloads.UseVisualStyleBackColor = true;
-            this.chkSeperateDownloads.CheckedChanged += new System.EventHandler(this.chkSeperateDownloads_CheckedChanged);
+            // 
+            // btnYtDl
+            // 
+            this.btnYtDl.Location = new System.Drawing.Point(270, 30);
+            this.btnYtDl.Name = "btnYtDl";
+            this.btnYtDl.Size = new System.Drawing.Size(25, 20);
+            this.btnYtDl.TabIndex = 40;
+            this.btnYtDl.Text = "...";
+            this.ttHelp.SetToolTip(this.btnYtDl, "Browse for a new download path");
+            this.btnYtDl.UseVisualStyleBackColor = true;
+            this.btnYtDl.Click += new System.EventHandler(this.btnYtDl_Click);
+            // 
+            // txtYtDl
+            // 
+            this.txtYtDl.Location = new System.Drawing.Point(23, 30);
+            this.txtYtDl.Name = "txtYtDl";
+            this.txtYtDl.ReadOnly = true;
+            this.txtYtDl.Size = new System.Drawing.Size(241, 20);
+            this.txtYtDl.TabIndex = 39;
+            this.ttHelp.SetToolTip(this.txtYtDl, "The location where videos will get downloaded");
             // 
             // chkUpdateCheck
             // 
             this.chkUpdateCheck.AutoSize = true;
             this.chkUpdateCheck.Checked = true;
             this.chkUpdateCheck.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateCheck.Location = new System.Drawing.Point(18, 21);
+            this.chkUpdateCheck.Location = new System.Drawing.Point(18, 95);
             this.chkUpdateCheck.Name = "chkUpdateCheck";
-            this.chkUpdateCheck.Size = new System.Drawing.Size(163, 17);
+            this.chkUpdateCheck.Size = new System.Drawing.Size(162, 17);
             this.chkUpdateCheck.TabIndex = 37;
             this.chkUpdateCheck.Text = "Check for updates on launch";
             this.chkUpdateCheck.UseVisualStyleBackColor = true;
-            this.chkUpdateCheck.CheckedChanged += new System.EventHandler(this.chkUpdateCheck_CheckedChanged);
             // 
             // chkSaveDLParams
             // 
@@ -271,11 +288,10 @@
             this.chkSaveDLParams.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSaveDLParams.Location = new System.Drawing.Point(25, 74);
             this.chkSaveDLParams.Name = "chkSaveDLParams";
-            this.chkSaveDLParams.Size = new System.Drawing.Size(174, 17);
+            this.chkSaveDLParams.Size = new System.Drawing.Size(173, 17);
             this.chkSaveDLParams.TabIndex = 38;
             this.chkSaveDLParams.Text = "Save download format && quality";
             this.chkSaveDLParams.UseVisualStyleBackColor = true;
-            this.chkSaveDLParams.CheckedChanged += new System.EventHandler(this.chkSaveDLParams_CheckedChanged);
             // 
             // chkSaveConvParams
             // 
@@ -284,11 +300,10 @@
             this.chkSaveConvParams.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSaveConvParams.Location = new System.Drawing.Point(29, 27);
             this.chkSaveConvParams.Name = "chkSaveConvParams";
-            this.chkSaveConvParams.Size = new System.Drawing.Size(180, 17);
+            this.chkSaveConvParams.Size = new System.Drawing.Size(179, 17);
             this.chkSaveConvParams.TabIndex = 39;
             this.chkSaveConvParams.Text = "Save conversion format && quality";
             this.chkSaveConvParams.UseVisualStyleBackColor = true;
-            this.chkSaveConvParams.CheckedChanged += new System.EventHandler(this.chkSaveConvParams_CheckedChanged);
             // 
             // tabControl1
             // 
@@ -303,6 +318,11 @@
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.chkStaticYTDL);
+            this.tabGeneral.Controls.Add(this.label2);
+            this.tabGeneral.Controls.Add(this.btnYtDl);
+            this.tabGeneral.Controls.Add(this.label3);
+            this.tabGeneral.Controls.Add(this.txtYtDl);
             this.tabGeneral.Controls.Add(this.chkHoverURL);
             this.tabGeneral.Controls.Add(this.chkAutoClearURL);
             this.tabGeneral.Controls.Add(this.chkUpdateCheck);
@@ -314,6 +334,36 @@
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // chkStaticYTDL
+            // 
+            this.chkStaticYTDL.AutoSize = true;
+            this.chkStaticYTDL.Enabled = false;
+            this.chkStaticYTDL.Location = new System.Drawing.Point(23, 58);
+            this.chkStaticYTDL.Name = "chkStaticYTDL";
+            this.chkStaticYTDL.Size = new System.Drawing.Size(153, 17);
+            this.chkStaticYTDL.TabIndex = 42;
+            this.chkStaticYTDL.Text = "Use a static youtube-dl.exe";
+            this.chkStaticYTDL.UseVisualStyleBackColor = true;
+            this.chkStaticYTDL.CheckedChanged += new System.EventHandler(this.chkStaticYTDL_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point(25, 82);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(256, 2);
+            this.label2.TabIndex = 41;
+            this.label2.Text = "Stop looking for easter eggs";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "youtube-dl path";
             // 
             // tabDownloads
             // 
@@ -360,7 +410,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(314, 275);
+            this.ClientSize = new System.Drawing.Size(322, 275);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -409,5 +459,10 @@
         private System.Windows.Forms.CheckBox chkSeperateDownloads;
         private System.Windows.Forms.Label lbDlSeperator;
         private System.Windows.Forms.TabPage tabConverter;
+        private System.Windows.Forms.CheckBox chkStaticYTDL;
+        private System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Button btnYtDl;
+        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.TextBox txtYtDl;
     }
 }
